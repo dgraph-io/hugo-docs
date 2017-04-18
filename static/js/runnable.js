@@ -7,6 +7,10 @@
  * Uses JQuery
  */
 
+
+// var dgraphEndpoint = 'http://localhost:8080';
+var dgraphEndpoint = 'https://play.dgraph.io/query';
+
 /********** Syntax helpers **/
 function formatJavaCode(code) {
   return code.replace(/"/g, '\\"')
@@ -277,7 +281,7 @@ function eraseCookie(name) {
 
     var startTime;
     $.post({
-      url: 'https://play.dgraph.io/query?latency=true',
+      url: dgraphEndpoint + '/query?latency=true',
       data: query,
       dataType: 'json',
       beforeSend: function () {
@@ -392,6 +396,58 @@ function eraseCookie(name) {
       var currentRunnableEl = $runnable;
       launchRunnableModal(currentRunnableEl, { runnableClass: 'editing' });
     }
+  });
+
+  $(document).on('click', '.runnable [data-action="visualize"]', function (e) {
+    e.preventDefault();
+    var targetTab = $(this).data('target');
+    var $runnable = $(this).closest('.runnable');
+    var currentQuery = $runnable.attr('data-current');
+    var codeEl = $runnable.find('.output');
+
+    var stringifiedQuery = encodeURI(currentQuery);
+    var sessionId = window.localStorage.getItem('sessionId');
+
+    var mutation;
+    if (sessionId) {
+      mutation =
+        'mutation {' +
+        '  set {' +
+        '    <' + sessionId + '> <_internal_.query> "' + stringifiedQuery + '" .' +
+        '  }' +
+        '}';
+    } else {
+      mutation =
+        'mutation {' +
+        '  set {' +
+        '    <_:session> <_internal_.query> "' + stringifiedQuery + '" .' +
+        '  }' +
+        '}';
+    }
+
+    // First, persist the query to dgraph
+    $.ajax({
+      url: dgraphEndpoint + '/query',
+      data: mutation,
+      dataType: 'json',
+      method: 'POST',
+      contentType: 'text/plain'
+    })
+    .done(function (res) {
+      // If session was newly created, store it in browser's localStorage
+      if (res.uids.session) {
+        window.localStorage.setItem('sessionId', res.uids.session);
+      }
+
+      var sessionId = window.localStorage.getItem('sessionId');
+
+      window.open('http://localhost:3000/' + '?sessionId=' + sessionId);
+    })
+    .fail(function (xhr, status, error) {
+      $runnable.find('.output-container').addClass('error');
+
+      codeEl.text(xhr.responseText || error);
+    });;
   });
 
   $(document).on('click', '.runnable [data-action="nav-lang"]', function (e) {
