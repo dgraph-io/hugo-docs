@@ -9,7 +9,7 @@
 
 
 // var dgraphEndpoint = 'http://localhost:8080';
-var dgraphEndpoint = 'https://play.dgraph.io/query';
+var dgraphEndpoint = 'https://play.dgraph.io';
 
 /********** Syntax helpers **/
 function formatJavaCode(code) {
@@ -19,7 +19,7 @@ function formatJavaCode(code) {
 }
 
 /********** Cookie helpers **/
-function createCookie(name, val, days) {
+function createCookie(name, val, days, options) {
   var expires = '';
   if (days) {
     var date = new Date();
@@ -27,7 +27,12 @@ function createCookie(name, val, days) {
     expires = '; expires=' + date.toUTCString();
   }
 
-  document.cookie = name + '=' + val + expires + '; path=/';
+  var cookie = name + '=' + val + expires + '; path=/';
+  if (options && options.crossSubdomain) {
+    cookie = cookie + '; domain=.dgraph.io';
+  }
+
+  document.cookie = cookie;
 }
 
 function readCookie(name) {
@@ -406,48 +411,11 @@ function eraseCookie(name) {
     var codeEl = $runnable.find('.output');
 
     var stringifiedQuery = encodeURI(currentQuery);
-    var sessionId = window.localStorage.getItem('sessionId');
 
-    var mutation;
-    if (sessionId) {
-      mutation =
-        'mutation {' +
-        '  set {' +
-        '    <' + sessionId + '> <_internal_.query> "' + stringifiedQuery + '" .' +
-        '  }' +
-        '}';
-    } else {
-      mutation =
-        'mutation {' +
-        '  set {' +
-        '    <_:session> <_internal_.query> "' + stringifiedQuery + '" .' +
-        '  }' +
-        '}';
-    }
-
-    // First, persist the query to dgraph
-    $.ajax({
-      url: dgraphEndpoint + '/query',
-      data: mutation,
-      dataType: 'json',
-      method: 'POST',
-      contentType: 'text/plain'
-    })
-    .done(function (res) {
-      // If session was newly created, store it in browser's localStorage
-      if (res.uids.session) {
-        window.localStorage.setItem('sessionId', res.uids.session);
-      }
-
-      var sessionId = window.localStorage.getItem('sessionId');
-
-      window.open('http://localhost:3000/' + '?sessionId=' + sessionId);
-    })
-    .fail(function (xhr, status, error) {
-      $runnable.find('.output-container').addClass('error');
-
-      codeEl.text(xhr.responseText || error);
-    });;
+    // Store the stringified query string in a cross-subdomain cookie
+    // to be read by the dgraphEndpoint
+    createCookie('playQuery', stringifiedQuery, 1, { crossSubdomain: true });
+    window.open(dgraphEndpoint);
   });
 
   $(document).on('click', '.runnable [data-action="nav-lang"]', function (e) {
