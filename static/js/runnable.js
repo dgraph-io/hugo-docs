@@ -407,14 +407,13 @@ function eraseCookie(name) {
     e.preventDefault();
     var targetTab = $(this).data('target');
     var $runnable = $(this).closest('.runnable');
+
     var currentQuery = $runnable.attr('data-current');
-    var codeEl = $runnable.find('.output');
+    var encodedQuery = encodeURI(currentQuery);
 
-    var stringifiedQuery = encodeURI(currentQuery);
-
-    // Store the stringified query string in a cross-subdomain cookie
-    // to be read by the dgraphEndpoint
-    createCookie('playQuery', stringifiedQuery, 1, { crossSubdomain: true });
+    // URI-encoded the query and store it in a cross-subdomain cookie
+    // dashboard app will read it, decode URI, and run the query on load
+    createCookie('playQuery', encodedQuery, 1, { crossSubdomain: true });
     window.open(dgraphEndpoint);
   });
 
