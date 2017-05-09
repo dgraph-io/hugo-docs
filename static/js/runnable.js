@@ -291,10 +291,10 @@ function eraseCookie(name) {
    *
    * @params $runnable {JQueryElement}
    */
-  function isDefaultQuery(runnable) {
+  function hasQueryChanged(runnable) {
     var current = $(runnable).attr("data-current");
     var initial = $(runnable).data("initial");
-    return current === initial;
+    return current !== initial;
   }
 
   // Running code
@@ -315,7 +315,7 @@ function eraseCookie(name) {
 
     var startTime;
     $.post({
-      url: "http://localhost:8080/query?latency=true",
+      url: "https://play.dgraph.io/query?latency=true",
       data: query,
       dataType: "json",
       beforeSend: function() {
@@ -329,8 +329,8 @@ function eraseCookie(name) {
         delete res.server_latency;
 
         // In some cases, the server does not return latency information
-        // TODO: find better ways to check for errors or fix dgraph to make the
-        // response consistent
+        // TODO: Remove special handling from next version as Dgraph would
+        // return 400 status code in case of error.
         if ((!res.code || !/Error/i.test(res.code)) && serverLatencyInfo) {
           updateLatencyInformation(
             $runnables,
@@ -341,7 +341,7 @@ function eraseCookie(name) {
 
         // If its the default query and we did not get any results, that means
         // data was not loaded properly.
-        if (isDefaultQuery($currentRunnable) && $.isEmptyObject(res)) {
+        if (!hasQueryChanged($currentRunnable) && $.isEmptyObject(res)) {
           Raven.captureMessage("No result returned for default query", {
             extra: { query: query }
           });
@@ -365,7 +365,7 @@ function eraseCookie(name) {
         codeEl.text(errorText);
         // If Dgraph returned an error on a default query that means we forgot
         // to update the Docs. Lets capture it.
-        if (isDefaultQuery($currentRunnable)) {
+        if (!hasQueryChanged($currentRunnable)) {
           Raven.captureMessage("Error while running default query", {
             extra: { query: query, error: errorText }
           });
