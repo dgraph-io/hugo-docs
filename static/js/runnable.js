@@ -9,9 +9,7 @@
 
 /********** Syntax helpers **/
 function formatJavaCode(code) {
-  return code.replace(/"/g, '\\"')
-             .replace(/\s+/g, ' ')
-             .replace(/\n/g, ' ');
+  return code.replace(/"/g, '\\"').replace(/\s+/g, ' ').replace(/\n/g, ' ');
 }
 
 /********** Cookie helpers **/
@@ -19,7 +17,7 @@ function createCookie(name, val, days) {
   var expires = '';
   if (days) {
     var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = '; expires=' + date.toUTCString();
   }
 
@@ -31,8 +29,9 @@ function readCookie(name) {
   var ca = document.cookie.split(';');
   for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
-    while (c.charAt(0)==' ') c = c.substring(1,c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    while (c.charAt(0) == ' ')
+      c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
 }
@@ -45,7 +44,7 @@ function eraseCookie(name) {
   // Initialize languages
   var preferredLang = readCookie('lang');
   if (preferredLang) {
-    $('.runnable').each(function () {
+    $('.runnable').each(function() {
       var $runnable = $(this);
 
       navToRunnableTab($runnable, preferredLang);
@@ -58,35 +57,41 @@ function eraseCookie(name) {
   // @params runnableEl {HTMLElement|JQueryElement} - HTML Element for runnable
   function setupRunnableClipboard(runnableEl) {
     // Set up clipboard
-    var codeClipEl = $(runnableEl).find('.code-btn[data-action="copy-code"]')[0];
+    var codeClipEl = $(runnableEl).find('.code-btn[data-action="copy-code"]')[
+      0
+    ];
     var codeClip = new Clipboard(codeClipEl, {
       text: function(trigger) {
         var $runnable = $(trigger).closest('.runnable');
-        var text = $runnable.find('.runnable-code .runnable-tab-content.active').text().trim();
-        return text.replace(/^\$\s/gm, "");
+        var text = $runnable
+          .find('.runnable-code .runnable-tab-content.active')
+          .text()
+          .trim();
+        return text.replace(/^\$\s/gm, '');
       }
     });
 
-    codeClip.on("success", function(e) {
+    codeClip.on('success', function(e) {
       e.clearSelection();
-      $(e.trigger).text("Copied")
-        .addClass('copied');
+      $(e.trigger).text('Copied').addClass('copied');
 
       window.setTimeout(function() {
-        $(e.trigger).text("Copy").removeClass('copied');
+        $(e.trigger).text('Copy').removeClass('copied');
       }, 2000);
     });
 
-    codeClip.on("error", function(e) {
+    codeClip.on('error', function(e) {
       e.clearSelection();
-      $(e.trigger).text("Error copying");
+      $(e.trigger).text('Error copying');
 
       window.setTimeout(function() {
-        $(e.trigger).text("Copy");
+        $(e.trigger).text('Copy');
       }, 2000);
     });
 
-    var outputClipEl = $(runnableEl).find('.code-btn[data-action="copy-output"]')[0];
+    var outputClipEl = $(runnableEl).find(
+      '.code-btn[data-action="copy-output"]'
+    )[0];
     var outputClip = new Clipboard(outputClipEl, {
       text: function(trigger) {
         var $runnable = $(trigger).closest('.runnable');
@@ -97,22 +102,21 @@ function eraseCookie(name) {
       }
     });
 
-    outputClip.on("success", function(e) {
+    outputClip.on('success', function(e) {
       e.clearSelection();
-      $(e.trigger).text("Copied")
-        .addClass('copied');
+      $(e.trigger).text('Copied').addClass('copied');
 
       window.setTimeout(function() {
-        $(e.trigger).text("Copy").removeClass('copied');
+        $(e.trigger).text('Copy').removeClass('copied');
       }, 2000);
     });
 
-    outputClip.on("error", function(e) {
+    outputClip.on('error', function(e) {
       e.clearSelection();
-      $(e.trigger).text("Error copying");
+      $(e.trigger).text('Error copying');
 
       window.setTimeout(function() {
-        $(e.trigger).text("Copy");
+        $(e.trigger).text('Copy');
       }, 2000);
     });
   }
@@ -163,10 +167,14 @@ function eraseCookie(name) {
     }
 
     $runnable.find('.nav-languages .language.active').removeClass('active');
-    $runnable.find('.language[data-target="' + targetTab + '"]').addClass('active');
+    $runnable
+      .find('.language[data-target="' + targetTab + '"]')
+      .addClass('active');
 
     $runnable.find('.runnable-tab-content.active').removeClass('active');
-    $runnable.find('.runnable-tab-content[data-tab="' + targetTab + '"]').addClass('active');
+    $runnable
+      .find('.runnable-tab-content[data-tab="' + targetTab + '"]')
+      .addClass('active');
   }
 
   // changeLanguage changes the preferred programminng language for the examples
@@ -177,7 +185,7 @@ function eraseCookie(name) {
     createCookie('lang', language, 365);
 
     // Navigate all runnable tabs to the langauge
-    $('.runnable').each(function () {
+    $('.runnable').each(function() {
       var $runnable = $(this);
 
       navToRunnableTab($runnable, language);
@@ -196,7 +204,7 @@ function eraseCookie(name) {
       tabSize: 2
     });
 
-    cm.on('change', function (c) {
+    cm.on('change', function(c) {
       var val = c.doc.getValue();
       $runnable.attr('data-unsaved', val);
       c.save();
@@ -214,8 +222,18 @@ function eraseCookie(name) {
   }
 
   function getLatencyTooltipHTML(serverLatencyInfo, networkLatency) {
-    var contentHTML = '<div class="measurement-row"><div class="measurement-key">JSON:</div><div class="measurement-val">' + serverLatencyInfo.json + '</div></div><div class="measurement-row"><div class="measurement-key">Parsing:</div><div class="measurement-val">' + serverLatencyInfo.parsing + '</div></div><div class="measurement-row"><div class="measurement-key">Processing:</div><div class="measurement-val">' + serverLatencyInfo.processing + '</div></div><div class="divider"></div><div class="measurement-row"><div class="measurement-key total">Total:</div><div class="measurement-val">' + serverLatencyInfo.total + '</div></div>';
-    var outputHTML = '<div class="latency-tooltip-container">' + contentHTML + '</div>';
+    var contentHTML =
+      '<div class="measurement-row"><div class="measurement-key">JSON:</div><div class="measurement-val">' +
+      serverLatencyInfo.json +
+      '</div></div><div class="measurement-row"><div class="measurement-key">Parsing:</div><div class="measurement-val">' +
+      serverLatencyInfo.parsing +
+      '</div></div><div class="measurement-row"><div class="measurement-key">Processing:</div><div class="measurement-val">' +
+      serverLatencyInfo.processing +
+      '</div></div><div class="divider"></div><div class="measurement-row"><div class="measurement-key total">Total:</div><div class="measurement-val">' +
+      serverLatencyInfo.total +
+      '</div></div>';
+    var outputHTML =
+      '<div class="latency-tooltip-container">' + contentHTML + '</div>';
 
     return outputHTML;
   }
@@ -242,7 +260,11 @@ function eraseCookie(name) {
    * @params serverLatencyInfo {Object} - latency info returned by the server
    * @params networkLatency {Number} - network latency in milliseconds
    */
-  function updateLatencyInformation($runnable, serverLatencyInfo, networkLatency) {
+  function updateLatencyInformation(
+    $runnable,
+    serverLatencyInfo,
+    networkLatency
+  ) {
     var isModal = $runnable.parents('#runnable-modal').length > 0;
 
     var totalServerLatency = getTotalServerLatencyInMS(serverLatencyInfo);
@@ -252,15 +274,31 @@ function eraseCookie(name) {
     $runnable.find('.server-latency .number').text(serverLatencyInfo.total);
     $runnable.find('.network-latency .number').text(networkOnlyLatency + 'ms');
 
-    var tooltipHTML = getLatencyTooltipHTML(serverLatencyInfo, networkOnlyLatency);
+    var tooltipHTML = getLatencyTooltipHTML(
+      serverLatencyInfo,
+      networkOnlyLatency
+    );
 
-    $runnable.find('.server-latency-tooltip-trigger')
-     .attr('title', tooltipHTML)
-     .tooltip();
+    $runnable
+      .find('.server-latency-tooltip-trigger')
+      .attr('title', tooltipHTML)
+      .tooltip();
+  }
+
+  /**
+   * isDefaultQuery returns true if the query being executed hasn't been changed
+   * by the user.
+   *
+   * @params $runnable {JQueryElement}
+   */
+  function isDefaultQuery(runnable) {
+    var current = $(runnable).attr('data-current');
+    var initial = $(runnable).data('initial');
+    return current === initial;
   }
 
   // Running code
-  $(document).on('click', '.runnable [data-action="run"]', function (e) {
+  $(document).on('click', '.runnable [data-action="run"]', function(e) {
     e.preventDefault();
 
     // there can be at most two instances of a same runnable because users can
@@ -280,50 +318,73 @@ function eraseCookie(name) {
       url: 'https://play.dgraph.io/query?latency=true',
       data: query,
       dataType: 'json',
-      beforeSend: function () {
+      beforeSend: function() {
         startTime = new Date().getTime();
       }
     })
-    .done(function (res) {
-      var now = new Date().getTime();
-      var networkLatency = now - startTime;
-      var serverLatencyInfo = res.server_latency;
-      delete res.server_latency;
+      .done(function(res) {
+        var now = new Date().getTime();
+        var networkLatency = now - startTime;
+        var serverLatencyInfo = res.server_latency;
+        delete res.server_latency;
 
-      // In some cases, the server does not return latency information
-      // TODO: find better ways to check for errors or fix dgraph to make the
-      // response consistent
-      if ((!res.code || !/Error/i.test(res.code)) && serverLatencyInfo) {
-        updateLatencyInformation($runnables, serverLatencyInfo, networkLatency);
-      }
+        // In some cases, the server does not return latency information
+        // TODO: find better ways to check for errors or fix dgraph to make the
+        // response consistent
+        if ((!res.code || !/Error/i.test(res.code)) && serverLatencyInfo) {
+          updateLatencyInformation(
+            $runnables,
+            serverLatencyInfo,
+            networkLatency
+          );
+        }
 
-      var userOutput = JSON.stringify(res, null, 2);
-      codeEl.text(userOutput);
-      for (var i = 0; i < codeEl.length; i++) {
-        hljs.highlightBlock(codeEl[i]);
-      }
+        // If its the default query and we did not get any results, that means
+        // data was not loaded properly.
+        if (isDefaultQuery($currentRunnable) && $.isEmptyObject(res)) {
+          Raven.captureMessage('No result returned for default query', {
+            extra: { query: query }
+          });
+        }
 
-      if (!isModal) {
-        var currentRunnableEl = $currentRunnable[0];
-        launchRunnableModal(currentRunnableEl);
-      }
-    })
-    .fail(function (xhr, status, error) {
-      $runnables.find('.output-container').addClass('error');
+        var userOutput = JSON.stringify(res, null, 2);
+        codeEl.text(userOutput);
+        for (var i = 0; i < codeEl.length; i++) {
+          hljs.highlightBlock(codeEl[i]);
+        }
 
-      codeEl.text(xhr.responseText || error);
-    });
+        if (!isModal) {
+          var currentRunnableEl = $currentRunnable[0];
+          launchRunnableModal(currentRunnableEl);
+        }
+      })
+      .fail(function(xhr, status, error) {
+        $runnables.find('.output-container').addClass('error');
+
+        var errorText = xhr.responseText || error;
+        codeEl.text(errorText);
+        // If Dgraph returned an error on a default query that means we forgot
+        // to update the Docs. Lets capture it.
+        if (isDefaultQuery($currentRunnable)) {
+          Raven.captureMessage('Got error while running default query', {
+            extra: { query: query, error: errorText }
+          });
+        }
+      });
   });
 
   // Refresh code
-  $(document).on('click', '.runnable [data-action="reset"]', function (e) {
+  $(document).on('click', '.runnable [data-action="reset"]', function(e) {
     e.preventDefault();
 
     var $runnable = $(this).closest('.runnable');
     var initialQuery = $runnable.data('initial');
 
     $runnable.attr('data-unsaved', initialQuery);
-    $runnable.find('.query-content-editable').val(initialQuery).text(initialQuery);
+    $runnable
+      .find('.query-content-editable')
+      .val(initialQuery)
+      .text(initialQuery);
 
     initCodeMirror($runnable);
 
@@ -332,14 +393,15 @@ function eraseCookie(name) {
     }, 80);
   });
 
-  $(document).on('click', '.runnable [data-action="save"]', function (e) {
+  $(document).on('click', '.runnable [data-action="save"]', function(e) {
     e.preventDefault();
 
     var checksum = $(this).closest('.runnable').data('checksum');
     var $currentRunnable = $(this).closest('.runnable');
     var $runnables = $('.runnable[data-checksum="' + checksum + '"]');
-    var newQuery = $currentRunnable.attr('data-unsaved') ||
-                   $currentRunnable.attr('data-current');
+    var newQuery =
+      $currentRunnable.attr('data-unsaved') ||
+      $currentRunnable.attr('data-current');
 
     newQuery = newQuery.trim();
 
@@ -356,7 +418,7 @@ function eraseCookie(name) {
     navToRunnableTab($currentRunnable, dest);
   });
 
-  $(document).on('click', '.runnable [data-action="discard"]', function (e) {
+  $(document).on('click', '.runnable [data-action="discard"]', function(e) {
     e.preventDefault();
 
     var $runnable = $(this).closest('.runnable');
@@ -364,13 +426,16 @@ function eraseCookie(name) {
     // Restore to initial query
     var currentQuery = $runnable.attr('data-current');
     updateQueryContents($runnable, currentQuery);
-    $runnable.find('.query-content-editable').val(currentQuery).text(currentQuery);
+    $runnable
+      .find('.query-content-editable')
+      .val(currentQuery)
+      .text(currentQuery);
 
     var dest = readCookie('lang');
     navToRunnableTab($runnable, dest);
   });
 
-  $(document).on('click', '.runnable [data-action="expand"]', function (e) {
+  $(document).on('click', '.runnable [data-action="expand"]', function(e) {
     e.preventDefault();
 
     var $runnable = $(this).closest('.runnable');
@@ -378,7 +443,7 @@ function eraseCookie(name) {
     launchRunnableModal(runnableEl);
   });
 
-  $(document).on('click', '.runnable [data-action="edit"]', function (e) {
+  $(document).on('click', '.runnable [data-action="edit"]', function(e) {
     e.preventDefault();
 
     var $runnable = $(this).closest('.runnable');
@@ -394,7 +459,7 @@ function eraseCookie(name) {
     }
   });
 
-  $(document).on('click', '.runnable [data-action="nav-lang"]', function (e) {
+  $(document).on('click', '.runnable [data-action="nav-lang"]', function(e) {
     e.preventDefault();
     var targetTab = $(this).data('target');
     var $runnable = $(this).closest('.runnable');
@@ -403,12 +468,12 @@ function eraseCookie(name) {
   });
 
   // Runnable modal event hooks
-  $('#runnable-modal').on('hidden.bs.modal', function (e) {
+  $('#runnable-modal').on('hidden.bs.modal', function(e) {
     $(this).find('.server-latency-tooltip-trigger').tooltip('dispose');
     $(this).find('.modal-body').html('');
   });
 
-  $('#runnable-modal').on('shown.bs.modal', function () {
+  $('#runnable-modal').on('shown.bs.modal', function() {
     var $runnable = $(this).find('.runnable');
 
     // Focus the output so that it is scrollable by keyboard
@@ -422,7 +487,7 @@ function eraseCookie(name) {
     // cost of some added complexity
     var isEditing = $runnable.hasClass('editing');
     if (isEditing) {
-      navToRunnableTab($runnable, 'edit')
+      navToRunnableTab($runnable, 'edit');
       initCodeMirror($runnable);
     }
 
@@ -435,15 +500,15 @@ function eraseCookie(name) {
   /********** On page load **/
 
   // Initialize runnables
-   $('.runnable').each(function () {
-     // First, we reinitialize the query contents because some languages require
-     // specific formatting
-     var $runnable = $(this);
-     var currentQuery = $runnable.attr('data-current');
-     updateQueryContents($runnable, currentQuery);
+  $('.runnable').each(function() {
+    // First, we reinitialize the query contents because some languages require
+    // specific formatting
+    var $runnable = $(this);
+    var currentQuery = $runnable.attr('data-current');
+    updateQueryContents($runnable, currentQuery);
 
-     setupRunnableClipboard(this);
-   });
+    setupRunnableClipboard(this);
+  });
 
   /********** Config **/
 
