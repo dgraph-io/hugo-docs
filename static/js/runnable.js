@@ -286,8 +286,8 @@ function eraseCookie(name) {
   }
 
   /**
-   * isDefaultQuery returns true if the query being executed hasn't been changed
-   * by the user.
+   * hasQueryChanged returns true if the query being executed has been edited by
+   * the user.
    *
    * @params $runnable {JQueryElement}
    */
