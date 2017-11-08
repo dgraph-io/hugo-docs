@@ -14,12 +14,10 @@ import (
   "context"
   "flag"
   "fmt"
-  "io/ioutil"
   "log"
-  "os"
 
   "github.com/dgraph-io/dgraph/client"
-  "github.com/gogo/protobuf/proto"
+  "github.com/dgraph-io/dgraph/protos"
   "google.golang.org/grpc"
 )
 
@@ -35,22 +33,12 @@ func main() {
   }
   defer conn.Close()
 
-  // The Dgraph client needs a directory in which to write its blank node maps.
-  clientDir, err := ioutil.TempDir("", "client_")
+  dg := client.NewDgraphClient(protos.NewDgraphClient(conn))
+
+  resp, err := dg.NewTxn().Query(context.Background(),
+    `<span class="query-content">{{ .Code }}</span>`, nil)
   if err != nil {
     log.Fatal(err)
   }
-  defer os.RemoveAll(clientDir)
-
-  dgraphClient := client.NewDgraphClient([]*grpc.ClientConn{conn}, client.DefaultOptions, clientDir)
-  defer dgraphClient.Close()
-
-  req := client.Req{}
-  req.SetQuery(`<span class="query-content">{{ .Code }}</span>`)
-
-  resp, err := dgraphClient.Run(context.Background(), &req)
-  if err != nil {
-    log.Fatalf("Error in getting response from server, %s", err)
-  }
-  fmt.Printf("Response %+v\n", proto.MarshalTextString(resp))
+  fmt.Printf("Response: %s\n", resp.Json)
 }</code></pre>
