@@ -43,7 +43,7 @@
       {{ $currentBranch := getenv "CURRENT_BRANCH" }}
 
       {{/* Set dgraph endpoint depending on version to ensure that runnables work fine */}}
-      window.DGRAPH_ENDPOINT = {{ if eq $currentBranch "master" }}"http://localhost:8080/query?latency=true"{{ else }}"http://localhost:8080/query?latency=true"{{ end }}
+      window.DGRAPH_ENDPOINT = {{ if eq $currentBranch "master" }}"https://play-master.dgraph.io/query?latency=true"{{ else }}"https://play.dgraph.io/query?latency=true"{{ end }}
     </script>
 
     <title>
