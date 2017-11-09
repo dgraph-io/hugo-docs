@@ -1,13 +1,19 @@
 {{ $currentBranch := getenv "CURRENT_BRANCH" }}
 
-{{/*
-  Display different import paths depending on the version of Dgraph.
 
-  If the branch is `master` or not in a format of `release/vx.x.x`, use default.
-  (to check for `release/vx.x.x`, here we just check if the branch name is of
-  length 14 - FIXME if better solution emerges)
-*/}}
+{{ $majorVersion := 0 }}
+{{ $minorVersion := 0 }}
+{{ $patchVersion := 0 }}
 
+{{ if (ne $currentBranch "master") }}
+  {{ $version := slicestr $currentBranch 9 }}
+  {{ $majorVersion := int (slicestr $version 0 1) }}
+  {{ $minorVersion := int (slicestr $version 2 3) }}
+  {{ $patchVersion := int (slicestr $version 4 5) }}
+{{ end }}
+
+
+{{ if or (eq $currentBranch "master") (ge $majorVersion 1) (ge $minorVersion 9) }}
 <pre><code class="no-copy" tabindex="-1">package main
 
 import (
@@ -42,3 +48,53 @@ func main() {
   }
   fmt.Printf("Response: %s\n", resp.Json)
 }</code></pre>
+{{ else }}
+<pre><code class="no-copy" tabindex="-1">package main
+
+import (
+  "context"
+  "flag"
+  "fmt"
+  "io/ioutil"
+  "log"
+  "os"
+
+  "github.com/dgraph-io/dgraph/client"
+  "github.com/gogo/protobuf/proto"
+  "google.golang.org/grpc"
+)
+
+var (
+  dgraph = flag.String("d", "127.0.0.1:9080", "Dgraph server address")
+)
+
+func main() {
+  flag.Parse()
+  conn, err := grpc.Dial(*dgraph, grpc.WithInsecure())
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer conn.Close()
+
+  // The Dgraph client needs a directory in which to write its blank node maps.
+  clientDir, err := ioutil.TempDir("", "client_")
+  if err != nil {
+    log.Fatal(err)
+  }
+  defer os.RemoveAll(clientDir)
+
+  dgraphClient := client.NewDgraphClient([]*grpc.ClientConn{conn}, client.DefaultOptions, clientDir)
+  defer dgraphClient.Close()
+
+  req := client.Req{}
+  req.SetQuery(`<span class="query-content">{{ .Code }}</span>`)
+
+  resp, err := dgraphClient.Run(context.Background(), &req)
+  if err != nil {
+    log.Fatalf("Error in getting response from server, %s", err)
+  }
+  fmt.Printf("Response %+v\n", proto.MarshalTextString(resp))
+}</code></pre>
+
+{{ end }}
+
