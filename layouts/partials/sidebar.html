@@ -17,12 +17,33 @@
   </div>
 
   <ul class="topics">
+   {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
-      <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
-        <a href="{{.URL}}">
-          {{ .Name }}
-        </a>
-      </li>
+      {{ if .HasChildren }}
+          <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+              <a href="{{.URL}}">
+                  {{ .Pre }}
+                   <span>{{ .Name }}</span>
+              </a>
+          </li>
+          <ul class="sub-menu">
+              {{ range .Children }}
+          <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+                <a href="{{.URL}}">
+                    {{ .Pre }}
+                     <span>{{ .Name }}</span>
+                </a>
+          </li>
+              {{ end }}
+          </ul>
+      {{ else }}
+          <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+              <a href="{{ .URL }}">
+                  {{ .Pre }}
+                  <span>{{ .Name }}</span>
+              </a>
+          </li>
+      {{ end }}
     {{ end }}
   </ul>
 

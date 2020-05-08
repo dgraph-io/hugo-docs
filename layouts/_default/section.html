@@ -1,7 +1,13 @@
 {{ partial "header.html" . }}
 
 {{ range .Data.Pages.ByWeight  }}
-  {{ .Render "article" }}
+  {{ if .Params.root }}
+    {{ .Render "article" }}
+    {{ else }}
+      {{ if .Params.child }}
+        {{ .Render "article" }}
+      {{ end }}
+   {{ end }}
 {{ end }}
 
 {{ partial "runnable-modal.html" . }}
