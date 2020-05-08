@@ -30,6 +30,7 @@
           <ul class="sub-topics">
               {{ range .Children }}
                 <li class="topic sub-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+                <i class="fa fa-angle-right"></i>
                       <a href="{{.URL}}">
                           {{ .Pre }}
                           <span>{{ .Name }}</span>
