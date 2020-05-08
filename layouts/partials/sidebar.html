@@ -26,16 +26,18 @@
                    <span>{{ .Name }}</span>
               </a>
           </li>
-          <ul class="sub-menu">
+          {{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          <ul class="sub-topics">
               {{ range .Children }}
-          <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
-                <a href="{{.URL}}">
-                    {{ .Pre }}
-                     <span>{{ .Name }}</span>
-                </a>
-          </li>
+                <li class="topic sub-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+                      <a href="{{.URL}}">
+                          {{ .Pre }}
+                          <span>{{ .Name }}</span>
+                      </a>
+                </li>
               {{ end }}
           </ul>
+          {{ end }}
       {{ else }}
           <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
               <a href="{{ .URL }}">
