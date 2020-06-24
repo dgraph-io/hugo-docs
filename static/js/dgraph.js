@@ -194,36 +194,36 @@ function getPathAfterVersionName(location, versionName) {
 
   // console.log(h2sWithH3s);
 
-  function createSubtopic(container, headers) {
-    var subMenu = document.createElement("ul");
-    subMenu.className = "sub-topics";
-    container.appendChild(subMenu);
+  // function createSubtopic(container, headers) {
+  //   var subMenu = document.createElement("ul");
+  //   subMenu.className = "sub-topics";
+  //   container.appendChild(subMenu);
 
-    Array.prototype.forEach.call(headers, function(h) {
-      var li = createSubtopicItem(h.header);
-      li.className = "topic sub-topic";
-      subMenu.appendChild(li);
+  //   Array.prototype.forEach.call(headers, function(h) {
+  //     var li = createSubtopicItem(h.header);
+  //     li.className = "topic sub-topic";
+  //     subMenu.appendChild(li);
 
-      if (h.subHeaders) {
-        createSubtopic(subMenu, h.subHeaders);
-      }
-    });
-  }
+  //     if (h.subHeaders) {
+  //       createSubtopic(subMenu, h.subHeaders);
+  //     }
+  //   });
+  // }
 
-  function createSubtopicItem(h) {
-    allLinks.push(h);
+  // function createSubtopicItem(h) {
+  //   allLinks.push(h);
 
-    var li = document.createElement("li");
-    li.innerHTML =
-      '<i class="fa fa-angle-right"></i> <a href="#' +
-      h.id +
-      '" data-scroll class="' +
-      h.tagName +
-      '">' +
-      (h.title || h.textContent) +
-      "</a>";
-    return li;
-  }
+  //   var li = document.createElement("li");
+  //   li.innerHTML =
+  //     '<i class="fa fa-angle-right"></i> <a href="#' +
+  //     h.id +
+  //     '" data-scroll class="' +
+  //     h.tagName +
+  //     '">' +
+  //     (h.title || h.textContent) +
+  //     "</a>";
+  //   return li;
+  // }
 
   // setActiveSubTopic updates the active subtopic on the sidebar based on the
   // hash
@@ -269,9 +269,9 @@ function getPathAfterVersionName(location, versionName) {
     }
   }
 
-  if (h2sWithH3s.length > 0 && activeLink) {
-    createSubtopic(activeLink, h2sWithH3s);
-  }
+  // if (h2sWithH3s.length > 0 && activeLink) {
+  //   createSubtopic(activeLink, h2sWithH3s);
+  // }
 
   var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
   for (var i = 0; i < subTopics.length; i++) {

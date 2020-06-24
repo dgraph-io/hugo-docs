@@ -133,7 +133,90 @@ html p {
 }
 .content-wrapper .content {
   padding: 21px 43px 67px;
+  display: block;
 }
+@media screen and (min-width: 992px) {
+.content-wrapper .content {
+  display: flex;
+}
+}
+
+div.top-toc {
+  display: block;
+  max-width: 500px;
+  padding-left: 0px;
+  margin: 0;
+}
+
+div.top-toc #TableOfContents {
+  width: 100%;
+  padding: 0 0 0 10px;
+  border-left: 5px solid #F3F3F3;
+}
+
+@media screen and (min-width: 1072px)
+{
+div.top-toc {
+    display: none;
+}
+}
+
+div.right-toc {
+  display: none;
+}
+
+div.right-toc #TableOfContents ul,
+div.top-toc #TableOfContents ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+div.right-toc #TableOfContents ul li ul,
+div.top-toc #TableOfContents ul li ul{
+  list-style-type: none;
+  padding: 0;
+  margin-left: 10px;
+}
+
+div.right-toc #TableOfContents > ul:before,
+div.top-toc #TableOfContents > ul:before {
+  content: "Contents";
+  font-weight: 600;
+  font-size: 16px;
+  color: black;
+  display: block;
+  padding-bottom: 8px;
+}
+
+@media screen and (min-width: 1072px) {
+div.right-toc {
+  display: block;
+  max-height: 85vh;
+  padding-right: 15px;
+  background: #ffffff;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+}
+
+div.right-toc #TableOfContents {
+  position: fixed;
+}
+}
+article {
+  max-width: 100%;
+}
+
+@media screen and (min-width: 1072px) {
+article {
+  padding-top: 0;
+    min-height: 625px;
+    /* margin-left: 310px; */
+    margin-right: 45px;
+    max-width: 75%;
+}
+}
+
 
 @media screen and (max-width: 480px) {
   .content-wrapper .content {
@@ -412,10 +495,16 @@ pre.collapsed .showmore span {
 }
 
 .sub-topics {
+  display: none;
   list-style: none;
   padding-left: 14px;
   font-weight: 400;
 }
+
+.topic.active > .sub-topics {
+  display: block;
+}
+
 .sub-topics li {
   color: #707070;
 }
@@ -423,7 +512,8 @@ pre.collapsed .showmore span {
   /*color: #ff6929;*/
   color: #fb5812;
 }
-.sub-topics li a {
+ul.sub-topics li a,
+#TableOfContents ul li a {
   color: inherit;
   display: block;
   font-size: 0.95em;
