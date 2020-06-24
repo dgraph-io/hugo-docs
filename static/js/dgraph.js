@@ -228,21 +228,21 @@ function getPathAfterVersionName(location, versionName) {
   // setActiveSubTopic updates the active subtopic on the sidebar based on the
   // hash
   // @params hash [String] - hash including the hash sign at the beginning
-  function setActiveSubTopic(hash) {
-    // Set inactive the previously active topic
-    var prevActiveTopic = document.querySelector(".sub-topics .topic.active");
-    var nextActiveTopic = document.querySelector(
-      '.sub-topics a[href="' + hash + '"]'
-    ).parentNode;
+  // function setActiveSubTopic(hash) {
+  //   // Set inactive the previously active topic
+  //   var prevActiveTopic = document.querySelector(".sub-topics .topic.active");
+  //   var nextActiveTopic = document.querySelector(
+  //     '.sub-topics a[href="' + hash + '"]'
+  //   ).parentNode;
 
-    if (prevActiveTopic !== nextActiveTopic) {
-      nextActiveTopic.classList.add("active");
+  //   if (prevActiveTopic !== nextActiveTopic) {
+  //     nextActiveTopic.classList.add("active");
 
-      if (prevActiveTopic) {
-        prevActiveTopic.classList.remove("active");
-      }
-    }
-  }
+  //     if (prevActiveTopic) {
+  //       prevActiveTopic.classList.remove("active");
+  //     }
+  //   }
+  // }
 
   // updateSidebar updates the active menu in the sidebar
   function updateSidebar() {
@@ -273,14 +273,14 @@ function getPathAfterVersionName(location, versionName) {
   //   createSubtopic(activeLink, h2sWithH3s);
   // }
 
-  var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
-  for (var i = 0; i < subTopics.length; i++) {
-    var subTopic = subTopics[i];
-    subTopic.addEventListener("click", function(e) {
-      var hash = e.target.hash;
-      setActiveSubTopic(hash);
-    });
-  }
+  // var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
+  // for (var i = 0; i < subTopics.length; i++) {
+  //   var subTopic = subTopics[i];
+  //   subTopic.addEventListener("click", function(e) {
+  //     var hash = e.target.hash;
+  //     setActiveSubTopic(hash);
+  //   });
+  // }
 
   // Scrollspy for sidebar
   window.addEventListener("scroll", debounce(updateSidebar, 15));

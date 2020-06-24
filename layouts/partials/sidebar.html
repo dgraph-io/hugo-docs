@@ -28,14 +28,14 @@
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
         {{ if .HasChildren }}
-            <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+            <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                 <a href="{{ .URL }}">
                     {{ .Pre }}
                     {{ .Name }}
                 </a>
                 <ul class="sub-topics">
                   {{ range .Children }}
-                      <li class="topic sub-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+                      <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                         <i class="fa fa-angle-right"></i>
                           <a href="{{ .URL }}">{{ .Name }}</a>
                       </li>
@@ -44,7 +44,7 @@
             </li>
 
         {{ else }}
-        <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
+        <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
           <a href="{{ .URL }}">
               {{ .Pre }}
               {{ .Name }}
