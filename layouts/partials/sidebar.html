@@ -29,7 +29,7 @@
     {{ range .Site.Menus.main }}
         {{ if .HasChildren }}
             <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-                <a href="{{ .URL }}">
+                <a id="{{ .Name | urlize }}" href="#">
                     {{ .Pre }}
                     {{ .Name }}
                 </a>
@@ -52,10 +52,6 @@
             </li>
         {{ end }}
     {{ end }}
-
-
-
-
   </ul>
 
   <ul class="sidebar-menu">

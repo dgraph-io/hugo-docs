@@ -26,9 +26,12 @@
 
   <div>{{ .Content }}</div>
 </article>
+
+{{ if not .Sections }}
 <div class="right-toc">
 {{ .TableOfContents }}
 </div>
+{{ end }}
 {{ partial "runnable-modal.html" . }}
 
 {{ partial "footer.html" . }}

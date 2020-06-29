@@ -163,34 +163,34 @@ function getPathAfterVersionName(location, versionName) {
   });
 
   // Sidebar
-  var h2s = document.querySelectorAll("h2");
-  var h3s = document.querySelectorAll("h3");
-  var isAfter = function(e1, e2) {
-    return e1.compareDocumentPosition(e2) & Node.DOCUMENT_POSITION_FOLLOWING;
-  };
-  var activeLink = document.querySelector(".topic.active");
-  var allLinks = [];
+  // var h2s = document.querySelectorAll("h2");
+  // var h3s = document.querySelectorAll("h3");
+  // var isAfter = function(e1, e2) {
+  //   return e1.compareDocumentPosition(e2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  // };
+  // var activeLink = document.querySelector(".topic.active");
+  // var allLinks = [];
 
-  var h2sWithH3s = [];
-  var j = 0;
-  for (var i = 0; i < h2s.length; i++) {
-    var h2 = h2s[i];
-    var nextH2 = h2s[i + 1];
-    var ourH3s = [];
-    while (
-      h3s[j] &&
-      isAfter(h2, h3s[j]) &&
-      (!nextH2 || !isAfter(nextH2, h3s[j]))
-    ) {
-      ourH3s.push({ header: h3s[j] });
-      j++;
-    }
+  // var h2sWithH3s = [];
+  // var j = 0;
+  // for (var i = 0; i < h2s.length; i++) {
+  //   var h2 = h2s[i];
+  //   var nextH2 = h2s[i + 1];
+  //   var ourH3s = [];
+  //   while (
+  //     h3s[j] &&
+  //     isAfter(h2, h3s[j]) &&
+  //     (!nextH2 || !isAfter(nextH2, h3s[j]))
+  //   ) {
+  //     ourH3s.push({ header: h3s[j] });
+  //     j++;
+  //   }
 
-    h2sWithH3s.push({
-      header: h2,
-      subHeaders: ourH3s
-    });
-  }
+  //   h2sWithH3s.push({
+  //     header: h2,
+  //     subHeaders: ourH3s
+  //   });
+  // }
 
   // console.log(h2sWithH3s);
 
@@ -245,33 +245,61 @@ function getPathAfterVersionName(location, versionName) {
   // }
 
   // updateSidebar updates the active menu in the sidebar
-  function updateSidebar() {
-    var currentScrollY = document.body.scrollTop;
-    var topSideOffset = 120;
+  // function updateSidebar() {
+  //   var currentScrollY = document.body.scrollTop;
+  //   var topSideOffset = 120;
 
-    var activeHash;
-    for (var i = 0; i < allLinks.length; i++) {
-      var h = allLinks[i];
-      var hash = h.getElementsByTagName("a")[0].hash;
+  //   var activeHash;
+  //   for (var i = 0; i < allLinks.length; i++) {
+  //     var h = allLinks[i];
+  //     var hash = h.getElementsByTagName("a")[0].hash;
 
-      if (h.offsetTop - topSideOffset > currentScrollY) {
-        if (!activeHash) {
-          activeHash = hash;
-          break;
-        }
-      } else {
-        activeHash = hash;
-      }
-    }
+  //     if (h.offsetTop - topSideOffset > currentScrollY) {
+  //       if (!activeHash) {
+  //         activeHash = hash;
+  //         break;
+  //       }
+  //     } else {
+  //       activeHash = hash;
+  //     }
+  //   }
 
-    if (activeHash) {
-      setActiveSubTopic(activeHash);
-    }
-  }
+  //   if (activeHash) {
+  //     setActiveSubTopic(activeHash);
+  //   }
+  // }
 
   // if (h2sWithH3s.length > 0 && activeLink) {
   //   createSubtopic(activeLink, h2sWithH3s);
   // }
+
+    var mainTopics = document.querySelectorAll(".main-topic");
+  for (var i = 0; i < mainTopics.length; i++) {
+    var mainTopic = mainTopics[i];
+    mainTopic.addEventListener("click", function(e) {
+      var id = e.target.id;
+      setActiveMainTopic(id);
+    });
+  }
+
+
+  //   setActiveMainTopic updates the active mainopic on the sidebar based on the
+  // id
+  // @params id [Node] - id of the clicked object
+  function setActiveMainTopic(id) {
+    // Set inactive the previously active topic
+    var prevActiveTopic = document.querySelector("li.topic.main-topic.active");
+    var nextActiveTopic = document.querySelector("#" + id).parentNode;
+
+    if (prevActiveTopic !== nextActiveTopic) {
+      nextActiveTopic.classList.add("active");
+
+      if (prevActiveTopic) {
+        prevActiveTopic.classList.remove("active");
+      }
+    }
+  }
+
 
   // var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
   // for (var i = 0; i < subTopics.length; i++) {
@@ -283,7 +311,7 @@ function getPathAfterVersionName(location, versionName) {
   // }
 
   // Scrollspy for sidebar
-  window.addEventListener("scroll", debounce(updateSidebar, 15));
+  // window.addEventListener("scroll", debounce(updateSidebar, 15));
 
   // Sidebar toggle
   document
@@ -404,10 +432,10 @@ function getPathAfterVersionName(location, versionName) {
   }
 
   /********** On page load **/
-  updateSidebar();
-  var activeTopic = document.querySelector(".sub-topics .topic.active");
+  // updateSidebar();
+  // var activeTopic = document.querySelector(".sub-topics .topic.active");
 
-  if (activeTopic) {
-    activeTopic.scrollIntoView();
-  }
+  // if (activeTopic) {
+  //   activeTopic.scrollIntoView();
+  // }
 })();
