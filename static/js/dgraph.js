@@ -3,10 +3,10 @@
 function debounce(func, wait, immediate) {
   var timeout;
 
-  return function() {
+  return function () {
     var context = this,
       args = arguments;
-    var later = function() {
+    var later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
@@ -114,10 +114,10 @@ function getPathAfterVersionName(location, versionName) {
   return path + location.hash;
 }
 
-(function() {
+(function () {
   // clipboard
   var clipInit = false;
-  $("pre code:not(.no-copy)").each(function() {
+  $("pre code:not(.no-copy)").each(function () {
     var code = $(this),
       text = code.text();
 
@@ -125,7 +125,7 @@ function getPathAfterVersionName(location, versionName) {
       if (!clipInit) {
         var text;
         var clip = new Clipboard(".copy-btn", {
-          text: function(trigger) {
+          text: function (trigger) {
             text = $(trigger)
               .prev("code")
               .text();
@@ -133,24 +133,24 @@ function getPathAfterVersionName(location, versionName) {
           }
         });
 
-        clip.on("success", function(e) {
+        clip.on("success", function (e) {
           e.clearSelection();
           $(e.trigger)
             .text("Copied to clipboard!")
             .addClass("copied");
 
-          window.setTimeout(function() {
+          window.setTimeout(function () {
             $(e.trigger)
               .text("Copy")
               .removeClass("copied");
           }, 2000);
         });
 
-        clip.on("error", function(e) {
+        clip.on("error", function (e) {
           e.clearSelection();
           $(e.trigger).text("Error copying");
 
-          window.setTimeout(function() {
+          window.setTimeout(function () {
             $(e.trigger).text("Copy");
           }, 2000);
         });
@@ -273,31 +273,36 @@ function getPathAfterVersionName(location, versionName) {
   //   createSubtopic(activeLink, h2sWithH3s);
   // }
 
-    var mainTopics = document.querySelectorAll(".main-topic");
+  var mainTopics = document.querySelectorAll(".children");
   for (var i = 0; i < mainTopics.length; i++) {
     var mainTopic = mainTopics[i];
-    mainTopic.addEventListener("click", function(e) {
+    mainTopic.addEventListener("click", function (e) {
       var id = e.target.id;
       setActiveMainTopic(id);
     });
   }
 
 
-  //   setActiveMainTopic updates the active mainopic on the sidebar based on the
+  // setActiveMainTopic updates the active mainopic on the sidebar based on the
   // id
   // @params id [Node] - id of the clicked object
   function setActiveMainTopic(id) {
     // Set inactive the previously active topic
     var prevActiveTopic = document.querySelector("li.topic.main-topic.active");
     var nextActiveTopic = document.querySelector("#" + id).parentNode;
-
-    if (prevActiveTopic !== nextActiveTopic) {
-      nextActiveTopic.classList.add("active");
-
-      if (prevActiveTopic) {
-        prevActiveTopic.classList.remove("active");
-      }
+    // console.log(prevActiveTopic);
+    nextActiveTopic.classList.toggle("active");
+    prevActiveTopic.classList.toggle("active");
+    if (nextActiveTopic === prevActiveTopic) {
+      nextActiveTopic.classList.toggle("active");
     }
+    // if (prevActiveTopic !== nextActiveTopic) {
+    //   nextActiveTopic.classList.add("active");
+
+    //   if (prevActiveTopic) {
+    //     prevActiveTopic.classList.remove("active");
+    //   }
+    // }
   }
 
 
@@ -316,7 +321,7 @@ function getPathAfterVersionName(location, versionName) {
   // Sidebar toggle
   document
     .getElementById("sidebar-toggle")
-    .addEventListener("click", function(e) {
+    .addEventListener("click", function (e) {
       e.preventDefault();
       var klass = document.body.className;
       if (klass === "sidebar-visible") {
@@ -355,7 +360,7 @@ function getPathAfterVersionName(location, versionName) {
 
   // code collapse
   var pres = $("pre");
-  pres.each(function() {
+  pres.each(function () {
     var self = this;
 
     var isInRunnable = $(self).parents(".runnable").length > 0;
@@ -373,7 +378,7 @@ function getPathAfterVersionName(location, versionName) {
       var showMore = document.createElement("div");
       showMore.className = "showmore";
       showMore.innerHTML = "<span>Show all</span>";
-      showMore.addEventListener("click", function() {
+      showMore.addEventListener("click", function () {
         self.className = "";
         showMore.parentNode.removeChild(showMore);
       });
@@ -386,7 +391,7 @@ function getPathAfterVersionName(location, versionName) {
   var currentVersion = getCurrentVersion(location.pathname);
   document
     .getElementsByClassName("version-selector")[0]
-    .addEventListener("change", function(e) {
+    .addEventListener("change", function (e) {
       // targetVersion: '', 'master', 'v0.7.7', 'v0.7.6', etc.
       var targetVersion = e.target.value;
 

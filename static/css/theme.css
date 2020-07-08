@@ -463,20 +463,42 @@ pre.collapsed .showmore span {
   font-weight: 600;
   font-size: 16px;
   color: black;
-  display: block;
+  /* display: block; */
   padding-bottom: 8px;
 }
-.topics .main-topic.active > a {
+.topics .main-topic.active > a,
+.topics .main-topic > a:hover {
   font-weight: 600;
   color: #fb5812;
 }
+
+.topics .main-topic > .arrow-down {
+  display: inline-block;
+  border: solid #152849;
+  border-width: 0 2px 2px 0;
+  padding: 2px;
+  margin-left: 4px;
+  margin-bottom: 2px;
+  transition: transform 0.2s ease, margin-bottom 0.2s ease;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  cursor: pointer;
+}
+
+
+.topics .main-topic.active > .arrow-down {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-bottom: 0px;
+}
+
 
 .topic {
   position: relative;
   transition: all 250ms ease-out;
 }
 
-.topic .fa {
+/* .topic .fa {
   visibility: hidden;
   position: absolute;
   left: -11px;
@@ -492,7 +514,7 @@ pre.collapsed .showmore span {
 .topic.active > .fa {
   visibility: visible;
   color: #fb5812;
-}
+} */
 
 .sub-topics {
   display: none;
@@ -508,7 +530,8 @@ pre.collapsed .showmore span {
 .sub-topics li {
   color: #707070;
 }
-.sub-topics li.active {
+.sub-topics li.active,
+.sub-topics li:hover {
   /*color: #ff6929;*/
   color: #fb5812;
 }
