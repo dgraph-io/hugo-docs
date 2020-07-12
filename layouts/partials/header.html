@@ -2,13 +2,95 @@
 <html lang="en" class="js csstransforms3d">
   <head>
     <script>
+      // -1 urls seem to have an issue, why?
+      var subPaths = {
+        "/clients/#implementation": "/clients/overview/#implementation",
+        "/clients/#transactions": "/clients/overview/#transactions",
+        "/clients/#create-the-client": "/clients/go/#create-the-client",
+         "/clients/#alter-the-database": "/clients/go/#alter-the-database",
+          "/clients/#create-a-transaction": "/clients/go/#create-a-transaction", 
+          "/clients/#read-only-transactions": "/clients/go/#read-only-transactions", 
+          "/clients/#run-a-query": "/clients/go/#run-a query", 
+          "/clients/#run-a-mutation": "/clients/go/#run-a-mutation", 
+          "/clients/#commit-the-transaction": "/clients/go/#commit-the-transaction", 
+          "/clients/#complete-example": "/clients/go/#complete-example",
+          "/clients/#grpc": "/clients/javascript/#grpc", 
+          "/clients/#http": "/clients/javascript#http",
+          "/clients/#create-the-client-1": "/clients/raw-http/#create-the-client",
+          "/clients/#alter-the-database-1": "/clients/raw-http/#alter-the-database", 
+          "/clients/#start-a-transaction": "/clients/raw-http/#start-a-transaction", 
+          "/clients/#run-a-query-1": "/clients/raw-http/#run-a-query", 
+          "/clients/#run-a-mutation-1": "/clients/raw-http/#run-a-mutation", 
+          "/clients/#committing-the-transaction": "/clients/raw-http/#committing-the-transaction", 
+          "/clients/#aborting-the-transaction": "/clients/raw-http/#aborting-the-transaction", 
+          "/clients/#running-read-only-queries": "/clients/raw-http/#running-read-only-queries", 
+          "/clients/#running-best-effort-queries": "/clients/raw-http/#running-best-effort-queries", 
+          "/clients/#compression-via-http": "/clients/raw-http/#compression-via-http", 
+          "/clients/#run-a-query-in-json-format": "/clients/raw-http/#run-a-query-in-json-format",
+          "/deploy/#install-dgraph": "/deploy/download",
+          "/deploy/#docker": "/deploy/download/#docker", 
+          "/deploy/#automatic-download": "/deploy/download/#automatic-download", 
+          "/deploy/#manual-download-[optional]": "/deploy/download/#manual-download-[optional]", 
+          "/deploy/#building-from-source": "/deploy/download/#building-from-source",
+          "/deploy/#understanding-dgraph-cluster": "/deploy/cluster-setup/#understanding-dgraph-cluster", 
+          "/deploy/#sharding": "/deploy/cluster-setup/#sharding", 
+          "/deploy/#shard-rebalancing": "/deploy/cluster-setup/#shard-rebalancing", 
+          "/deploy/#consistent-replication": "/deploy/cluster-setup/#consistent-replication",
+          "/deploy/#types-of-ports": "/deploy/ports-usage/#types-of-ports", 
+          "/deploy/#ports-used-by-different-nodes": "/deploy/ports-usage/#ports-used-by-different-nodes", 
+          "/deploy/#ha-cluster-setup": "/deploy/ports-usage/#ha-cluster-setup", 
+          "/deploy/#dgraph-zero": "/deploy/ports-usage/#dgraph-zero", 
+          "/deploy/#dgraph-alpha": "/deploy/ports-usage/#dgraph-alpha",
+          "/deploy/#run-directly-on-the-host": "/deploy/single-host-setup/#run-directly-on-the-host", 
+          "/deploy/#run-dgraph-zero": "/deploy/single-host-setup/#run-dgraph-zero", 
+          "/deploy/#run-dgraph-alpha": "/deploy/single-host-setup/#run-dgraph-alpha", 
+          "/deploy/#run-dgraph-ui": "/deploy/single-host-setup/#run-dgraph-ui", 
+          "/deploy/#run-using-docker": "/deploy/single-host-setup/#run-using-docker", 
+          "/deploy/#create-docker-network": "/deploy/single-host-setup/#create-docker-network", 
+          "/deploy/#run-dgraph-zero": "/deploy/single-host-setup/#run-dgraph-zero", 
+          "/deploy/#run-dgraph-alpha": "/deploy/single-host-setup/#run-dgraph-alpha", 
+          "/deploy/#run-dgraph-ui": "/deploy/single-host-setup/#run-dgraph-ui", 
+          "/deploy/#run-using-docker-compose-(on-single-aws-instance)": "/deploy/single-host-setup/#run-using-docker-compose-(on-single-aws-instance)",
+          "/deploy/#using-docker-swarm": "/deploy/multi-host-setup/#using-docker-swarm", 
+          "/deploy/#cluster-setup-using-docker-swarm": "/deploy/multi-host-setup/#cluster-setup-using-docker-swarm", 
+          "/deploy/#ha-cluster-setup-using-docker-swarm": "/deploy/multi-host-setup/#ha-cluster-setup-using-docker-swarm",
+          "/deploy/#single-server": "/deploy/kubernetes/#single-server", 
+          "/deploy/#deploy-single-server": "/deploy/kubernetes/#deploy-single-server", 
+          "/deploy/#verify-single-server": "/deploy/kubernetes/#verify-single-server", 
+          "/deploy/#test-single-server-setup": "/deploy/kubernetes/#test-single-server-setup", 
+          "/deploy/#remove-single-server-resources": "/deploy/kubernetes/#remove-single-server-resources", 
+          "/deploy/#ha-cluster-setup-using-kubernetes": "/deploy/kubernetes/#ha-cluster-setup-using-kubernetes", 
+          "/deploy/#validate-kubernetes-cluster-for-ha": "/deploy/kubernetes/#validate-kubernetes-cluster-for-ha", 
+          "/deploy/#verify-dgraph-ha-cluster": "/deploy/kubernetes/#verify-dgraph-ha-cluster", 
+          "/deploy/#test-dgraph-ha-cluster-setup": "/deploy/kubernetes/#test-dgraph-ha-cluster-setup", 
+          "/deploy/#delete-dgraph-ha-cluster-resources": "/deploy/kubernetes/#delete-dgraph-ha-cluster-resources", 
+          "/deploy/#using-helm-chart": "/deploy/kubernetes/#using-helm-chart", 
+          "/deploy/#installing-the-chart": "/deploy/kubernetes/#installing-the-chart", 
+          "/deploy/#upgrading-the-chart": "/deploy/kubernetes/#upgrading-the-chart", 
+          "/deploy/#deleting-the-chart": "/deploy/kubernetes/#deleting-the-chart", 
+          "/deploy/#configuration": "/deploy/kubernetes/#configuration", 
+          "/deploy/#monitoring-in-kubernetes": "/deploy/kubernetes/#monitoring-in-kubernetes", 
+          "/deploy/#kubernetes-storage": "/deploy/kubernetes/#kubernetes-storage", 
+          "/deploy/#local-storage": "/deploy/kubernetes/#local-storage", 
+          "/deploy/#non-local-persistent-disks": "/deploy/kubernetes/#non-local-persistent-disks", 
+          "/deploy/#removing-a-dgraph-pod": "/deploy/kubernetes/#removing-a-dgraph-pod", 
+          "/deploy/#kubernetes-and-bulk-loader": "/deploy/kubernetes/#kubernetes-and-bulk-loader"
+      };
+
       var redirectPaths = ["clients", "query-language", "mutations", "deploy", "enterprise-features", "howto", "design-concepts"];
       var pathSplit = document.URL.split("/");
+      {{/*  console.log(pathSplit);  */}}
       if (redirectPaths.includes(pathSplit[3])) {
-        var urlSplit = pathSplit[4].split("#");
-        if (urlSplit[1]) {
-          location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
+        var urlSplit = pathSplit[pathSplit.length - 1].split("#");
+        {{/*  console.log(pathSplit[3] + "/#" + urlSplit[1]);  */}}
+        var origPath = "/" + pathSplit[3] + "/#" + urlSplit[1];
+        if (origPath in subPaths){
+          console.log(subPaths[origPath]);
+          location.href = subPaths[origPath];
         }
+        else if(urlSplit[1]) {
+          location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
+        } 
       }
     </script>
     <meta charset="utf-8">
