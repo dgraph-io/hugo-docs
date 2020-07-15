@@ -1,167 +1,406 @@
 <!DOCTYPE html>
 <html lang="en" class="js csstransforms3d">
-  <head>
-    <script>
-      // -1 urls seem to have an issue, why?
-      var subPaths = {
-        "/clients/#implementation": "/clients/overview/#implementation",
-        "/clients/#transactions": "/clients/overview/#transactions",
-        "/clients/#create-the-client": "/clients/go/#create-the-client",
-         "/clients/#alter-the-database": "/clients/go/#alter-the-database",
-          "/clients/#create-a-transaction": "/clients/go/#create-a-transaction", 
-          "/clients/#read-only-transactions": "/clients/go/#read-only-transactions", 
-          "/clients/#run-a-query": "/clients/go/#run-a query", 
-          "/clients/#run-a-mutation": "/clients/go/#run-a-mutation", 
-          "/clients/#commit-the-transaction": "/clients/go/#commit-the-transaction", 
-          "/clients/#complete-example": "/clients/go/#complete-example",
-          "/clients/#grpc": "/clients/javascript/#grpc", 
-          "/clients/#http": "/clients/javascript#http",
-          "/clients/#create-the-client-1": "/clients/raw-http/#create-the-client",
-          "/clients/#alter-the-database-1": "/clients/raw-http/#alter-the-database", 
-          "/clients/#start-a-transaction": "/clients/raw-http/#start-a-transaction", 
-          "/clients/#run-a-query-1": "/clients/raw-http/#run-a-query", 
-          "/clients/#run-a-mutation-1": "/clients/raw-http/#run-a-mutation", 
-          "/clients/#committing-the-transaction": "/clients/raw-http/#committing-the-transaction", 
-          "/clients/#aborting-the-transaction": "/clients/raw-http/#aborting-the-transaction", 
-          "/clients/#running-read-only-queries": "/clients/raw-http/#running-read-only-queries", 
-          "/clients/#running-best-effort-queries": "/clients/raw-http/#running-best-effort-queries", 
-          "/clients/#compression-via-http": "/clients/raw-http/#compression-via-http", 
-          "/clients/#run-a-query-in-json-format": "/clients/raw-http/#run-a-query-in-json-format",
-          "/deploy/#install-dgraph": "/deploy/download",
-          "/deploy/#docker": "/deploy/download/#docker", 
-          "/deploy/#automatic-download": "/deploy/download/#automatic-download", 
-          "/deploy/#manual-download-[optional]": "/deploy/download/#manual-download-[optional]", 
-          "/deploy/#building-from-source": "/deploy/download/#building-from-source",
-          "/deploy/#understanding-dgraph-cluster": "/deploy/cluster-setup/#understanding-dgraph-cluster", 
-          "/deploy/#sharding": "/deploy/cluster-setup/#sharding", 
-          "/deploy/#shard-rebalancing": "/deploy/cluster-setup/#shard-rebalancing", 
-          "/deploy/#consistent-replication": "/deploy/cluster-setup/#consistent-replication",
-          "/deploy/#types-of-ports": "/deploy/ports-usage/#types-of-ports", 
-          "/deploy/#ports-used-by-different-nodes": "/deploy/ports-usage/#ports-used-by-different-nodes", 
-          "/deploy/#ha-cluster-setup": "/deploy/ports-usage/#ha-cluster-setup", 
-          "/deploy/#dgraph-zero": "/deploy/ports-usage/#dgraph-zero", 
-          "/deploy/#dgraph-alpha": "/deploy/ports-usage/#dgraph-alpha",
-          "/deploy/#run-directly-on-the-host": "/deploy/single-host-setup/#run-directly-on-the-host", 
-          "/deploy/#run-dgraph-zero": "/deploy/single-host-setup/#run-dgraph-zero", 
-          "/deploy/#run-dgraph-alpha": "/deploy/single-host-setup/#run-dgraph-alpha", 
-          "/deploy/#run-dgraph-ui": "/deploy/single-host-setup/#run-dgraph-ui", 
-          "/deploy/#run-using-docker": "/deploy/single-host-setup/#run-using-docker", 
-          "/deploy/#create-docker-network": "/deploy/single-host-setup/#create-docker-network", 
-          "/deploy/#run-dgraph-zero": "/deploy/single-host-setup/#run-dgraph-zero", 
-          "/deploy/#run-dgraph-alpha": "/deploy/single-host-setup/#run-dgraph-alpha", 
-          "/deploy/#run-dgraph-ui": "/deploy/single-host-setup/#run-dgraph-ui", 
-          "/deploy/#run-using-docker-compose-(on-single-aws-instance)": "/deploy/single-host-setup/#run-using-docker-compose-(on-single-aws-instance)",
-          "/deploy/#using-docker-swarm": "/deploy/multi-host-setup/#using-docker-swarm", 
-          "/deploy/#cluster-setup-using-docker-swarm": "/deploy/multi-host-setup/#cluster-setup-using-docker-swarm", 
-          "/deploy/#ha-cluster-setup-using-docker-swarm": "/deploy/multi-host-setup/#ha-cluster-setup-using-docker-swarm",
-          "/deploy/#single-server": "/deploy/kubernetes/#single-server", 
-          "/deploy/#deploy-single-server": "/deploy/kubernetes/#deploy-single-server", 
-          "/deploy/#verify-single-server": "/deploy/kubernetes/#verify-single-server", 
-          "/deploy/#test-single-server-setup": "/deploy/kubernetes/#test-single-server-setup", 
-          "/deploy/#remove-single-server-resources": "/deploy/kubernetes/#remove-single-server-resources", 
-          "/deploy/#ha-cluster-setup-using-kubernetes": "/deploy/kubernetes/#ha-cluster-setup-using-kubernetes", 
-          "/deploy/#validate-kubernetes-cluster-for-ha": "/deploy/kubernetes/#validate-kubernetes-cluster-for-ha", 
-          "/deploy/#verify-dgraph-ha-cluster": "/deploy/kubernetes/#verify-dgraph-ha-cluster", 
-          "/deploy/#test-dgraph-ha-cluster-setup": "/deploy/kubernetes/#test-dgraph-ha-cluster-setup", 
-          "/deploy/#delete-dgraph-ha-cluster-resources": "/deploy/kubernetes/#delete-dgraph-ha-cluster-resources", 
-          "/deploy/#using-helm-chart": "/deploy/kubernetes/#using-helm-chart", 
-          "/deploy/#installing-the-chart": "/deploy/kubernetes/#installing-the-chart", 
-          "/deploy/#upgrading-the-chart": "/deploy/kubernetes/#upgrading-the-chart", 
-          "/deploy/#deleting-the-chart": "/deploy/kubernetes/#deleting-the-chart", 
-          "/deploy/#configuration": "/deploy/kubernetes/#configuration", 
-          "/deploy/#monitoring-in-kubernetes": "/deploy/kubernetes/#monitoring-in-kubernetes", 
-          "/deploy/#kubernetes-storage": "/deploy/kubernetes/#kubernetes-storage", 
-          "/deploy/#local-storage": "/deploy/kubernetes/#local-storage", 
-          "/deploy/#non-local-persistent-disks": "/deploy/kubernetes/#non-local-persistent-disks", 
-          "/deploy/#removing-a-dgraph-pod": "/deploy/kubernetes/#removing-a-dgraph-pod", 
-          "/deploy/#kubernetes-and-bulk-loader": "/deploy/kubernetes/#kubernetes-and-bulk-loader"
-      };
 
-      var redirectPaths = ["clients", "query-language", "mutations", "deploy", "enterprise-features", "howto", "design-concepts"];
-      var pathSplit = document.URL.split("/");
-      {{/*  console.log(pathSplit);  */}}
-      if (redirectPaths.includes(pathSplit[3])) {
-        var urlSplit = pathSplit[pathSplit.length - 1].split("#");
-        {{/*  console.log(pathSplit[3] + "/#" + urlSplit[1]);  */}}
-        var origPath = "/" + pathSplit[3] + "/#" + urlSplit[1];
-        if (origPath in subPaths){
-          console.log(subPaths[origPath]);
-          location.href = subPaths[origPath];
-        }
-        else if(urlSplit[1]) {
-          location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
-        } 
+<head>
+  <script>
+    // -1 urls seem to have an issue, why?
+    var subPaths = {
+      "/clients/#implementation": "/clients/overview/#implementation",
+      "/clients/#transactions": "/clients/overview/#transactions",
+      "/clients/#create-the-client": "/clients/go/#create-the-client",
+      "/clients/#alter-the-database": "/clients/go/#alter-the-database",
+      "/clients/#create-a-transaction": "/clients/go/#create-a-transaction",
+      "/clients/#read-only-transactions": "/clients/go/#read-only-transactions",
+      "/clients/#run-a-query": "/clients/go/#run-a query",
+      "/clients/#run-a-mutation": "/clients/go/#run-a-mutation",
+      "/clients/#commit-the-transaction": "/clients/go/#commit-the-transaction",
+      "/clients/#complete-example": "/clients/go/#complete-example",
+      "/clients/#grpc": "/clients/javascript/#grpc",
+      "/clients/#http": "/clients/javascript#http",
+      "/clients/#create-the-client-1": "/clients/raw-http/#create-the-client",
+      "/clients/#alter-the-database-1": "/clients/raw-http/#alter-the-database",
+      "/clients/#start-a-transaction": "/clients/raw-http/#start-a-transaction",
+      "/clients/#run-a-query-1": "/clients/raw-http/#run-a-query",
+      "/clients/#run-a-mutation-1": "/clients/raw-http/#run-a-mutation",
+      "/clients/#committing-the-transaction": "/clients/raw-http/#committing-the-transaction",
+      "/clients/#aborting-the-transaction": "/clients/raw-http/#aborting-the-transaction",
+      "/clients/#running-read-only-queries": "/clients/raw-http/#running-read-only-queries",
+      "/clients/#running-best-effort-queries": "/clients/raw-http/#running-best-effort-queries",
+      "/clients/#compression-via-http": "/clients/raw-http/#compression-via-http",
+      "/clients/#run-a-query-in-json-format": "/clients/raw-http/#run-a-query-in-json-format",
+      "/deploy/#install-dgraph": "/deploy/download",
+      "/deploy/#docker": "/deploy/download/#docker",
+      "/deploy/#automatic-download": "/deploy/download/#automatic-download",
+      "/deploy/#manual-download-[optional]": "/deploy/download/#manual-download-[optional]",
+      "/deploy/#building-from-source": "/deploy/download/#building-from-source",
+      "/deploy/#understanding-dgraph-cluster": "/deploy/cluster-setup/#understanding-dgraph-cluster",
+      "/deploy/#sharding": "/deploy/cluster-setup/#sharding",
+      "/deploy/#shard-rebalancing": "/deploy/cluster-setup/#shard-rebalancing",
+      "/deploy/#consistent-replication": "/deploy/cluster-setup/#consistent-replication",
+      "/deploy/#types-of-ports": "/deploy/ports-usage/#types-of-ports",
+      "/deploy/#ports-used-by-different-nodes": "/deploy/ports-usage/#ports-used-by-different-nodes",
+      "/deploy/#ha-cluster-setup": "/deploy/ports-usage/#ha-cluster-setup",
+      "/deploy/#dgraph-zero": "/deploy/ports-usage/#dgraph-zero",
+      "/deploy/#dgraph-alpha": "/deploy/ports-usage/#dgraph-alpha",
+      "/deploy/#run-directly-on-the-host": "/deploy/single-host-setup/#run-directly-on-the-host",
+      "/deploy/#run-dgraph-zero": "/deploy/single-host-setup/#run-dgraph-zero",
+      "/deploy/#run-dgraph-alpha": "/deploy/single-host-setup/#run-dgraph-alpha",
+      "/deploy/#run-dgraph-ui": "/deploy/single-host-setup/#run-dgraph-ui",
+      "/deploy/#run-using-docker": "/deploy/single-host-setup/#run-using-docker",
+      "/deploy/#create-docker-network": "/deploy/single-host-setup/#create-docker-network",
+      "/deploy/#run-dgraph-zero": "/deploy/single-host-setup/#run-dgraph-zero",
+      "/deploy/#run-dgraph-alpha": "/deploy/single-host-setup/#run-dgraph-alpha",
+      "/deploy/#run-dgraph-ui": "/deploy/single-host-setup/#run-dgraph-ui",
+      "/deploy/#run-using-docker-compose-(on-single-aws-instance)": "/deploy/single-host-setup/#run-using-docker-compose-(on-single-aws-instance)",
+      "/deploy/#using-docker-swarm": "/deploy/multi-host-setup/#using-docker-swarm",
+      "/deploy/#cluster-setup-using-docker-swarm": "/deploy/multi-host-setup/#cluster-setup-using-docker-swarm",
+      "/deploy/#ha-cluster-setup-using-docker-swarm": "/deploy/multi-host-setup/#ha-cluster-setup-using-docker-swarm",
+      "/deploy/#single-server": "/deploy/kubernetes/#single-server",
+      "/deploy/#deploy-single-server": "/deploy/kubernetes/#deploy-single-server",
+      "/deploy/#verify-single-server": "/deploy/kubernetes/#verify-single-server",
+      "/deploy/#test-single-server-setup": "/deploy/kubernetes/#test-single-server-setup",
+      "/deploy/#remove-single-server-resources": "/deploy/kubernetes/#remove-single-server-resources",
+      "/deploy/#ha-cluster-setup-using-kubernetes": "/deploy/kubernetes/#ha-cluster-setup-using-kubernetes",
+      "/deploy/#validate-kubernetes-cluster-for-ha": "/deploy/kubernetes/#validate-kubernetes-cluster-for-ha",
+      "/deploy/#verify-dgraph-ha-cluster": "/deploy/kubernetes/#verify-dgraph-ha-cluster",
+      "/deploy/#test-dgraph-ha-cluster-setup": "/deploy/kubernetes/#test-dgraph-ha-cluster-setup",
+      "/deploy/#delete-dgraph-ha-cluster-resources": "/deploy/kubernetes/#delete-dgraph-ha-cluster-resources",
+      "/deploy/#using-helm-chart": "/deploy/kubernetes/#using-helm-chart",
+      "/deploy/#installing-the-chart": "/deploy/kubernetes/#installing-the-chart",
+      "/deploy/#upgrading-the-chart": "/deploy/kubernetes/#upgrading-the-chart",
+      "/deploy/#deleting-the-chart": "/deploy/kubernetes/#deleting-the-chart",
+      "/deploy/#configuration": "/deploy/kubernetes/#configuration",
+      "/deploy/#monitoring-in-kubernetes": "/deploy/kubernetes/#monitoring-in-kubernetes",
+      "/deploy/#kubernetes-storage": "/deploy/kubernetes/#kubernetes-storage",
+      "/deploy/#local-storage": "/deploy/kubernetes/#local-storage",
+      "/deploy/#non-local-persistent-disks": "/deploy/kubernetes/#non-local-persistent-disks",
+      "/deploy/#removing-a-dgraph-pod": "/deploy/kubernetes/#removing-a-dgraph-pod",
+      "/deploy/#kubernetes-and-bulk-loader": "/deploy/kubernetes/#kubernetes-and-bulk-loader",
+      "/deploy/#more-about-dgraph-alpha": "/deploy/dgraph-alpha",
+      "/deploy/#querying-health": "/deploy/dgraph-alpha/#querying-health",
+      "/deploy/#more-about-dgraph-zero": "/deploy/dgraph-zero",
+      "/deploy/#more-about-state-endpoint": "/deploy/dgraph-zero/#more-about-state-endpoint",
+      "/deploy/#query-logging": "/deploy/log-format/#query-logging",
+      "/deploy/#dgraph-certificate-management-tool": "/deploy/tls-configuration/#dgraph-certificate-management-tool",
+      "/deploy/#file-naming-conventions": "/deploy/tls-configuration/#file-naming-conventions",
+      "/deploy/#certificate-inspection": "/deploy/tls-configuration/#certificate-inspection",
+      "/deploy/#tls-options": "/deploy/tls-configuration/#tls-options",
+      "/deploy/#using-tls-without-client-authentication": "/deploy/tls-configuration/#using-tls-without-client-authentication",
+      "/deploy/#using-tls-with-client-authentication": "/deploy/tls-configuration/#using-tls-with-client-authentication",
+      "/deploy/#client-authentication-options": "/deploy/tls-configuration/#client-authentication-options",
+      "/deploy/#using-ratel-ui-with-client-authentication": "/deploy/tls-configuration/#using-ratel-ui-with-client-authentication",
+      "/deploy/#using-curl-with-client-authentication": "/deploy/tls-configuration/#using-curl-with-client-authentication",
+      "/deploy/#access-data-using-a-client": "/deploy/tls-configuration/#access-data-using-a-client",
+      "/deploy/#troubleshooting-ratel-s-client-authentication": "/deploy/tls-configuration/#troubleshooting-ratel-s-client-authentication",
+      "/deploy/#live-loader": "/deploy/fast-data-loading/#live-loader",
+      "/deploy/#encrypted-imports-via-live-loader": "/deploy/fast-data-loading/#encrypted-imports-via-live-loader",
+      "/deploy/#encrypted-rdf-json-file-and-schema-via-live-loader": "/deploy/fast-data-loading/#encrypted-rdf-json-file-and-schema-via-live-loader",
+      "/deploy/#other-live-loader-options": "/deploy/fast-data-loading/#other-live-loader-options",
+      "/deploy/#bulk-loader": "/deploy/fast-data-loading/#bulk-loader",
+      "/deploy/#encryption-at-rest-with-bulk-loader": "/deploy/fast-data-loading/#encryption-at-rest-with-bulk-loader",
+      "/deploy/#encrypting-imports-via-bulk-loader": "/deploy/fast-data-loading/#encrypting-imports-via-bulk-loader",
+      "/deploy/#other-bulk-loader-options": "/deploy/fast-data-loading/#other-bulk-loader-options",
+      "/deploy/#tuning-monitoring": "/deploy/fast-data-loading/#tuning-monitoring",
+      "/deploy/#disk-metrics": "/deploy/metrics/#disk-metrics",
+      "/deploy/#memory-metrics": "/deploy/metrics/#memory-metrics",
+      "/deploy/#activity-metrics": "/deploy/metrics/#activity-metrics",
+      "/deploy/#health-metrics": "/deploy/metrics/#health-metrics",
+      "/deploy/#go-metrics": "/deploy/metrics/#go-metrics",
+      "/deploy/#examining-traces-with-zpages": "/deploy/tracing/#examining-traces-with-zpages",
+      "/deploy/#examining-traces-with-jaeger": "/deploy/tracing/#examining-traces-with-jaeger",
+      "/deploy/#setting-up-multiple-dgraph-clusters-with-jaeger": "/deploy/tracing/#setting-up-multiple-dgraph-clusters-with-jaeger",
+      "/deploy/#whitelisting-admin-operations": "/deploy/dgraph-administration/#whitelisting-admin-operations",
+      "/deploy/#restricting-mutation-operations": "/deploy/dgraph-administration/#restricting-mutation-operations",
+      "/deploy/#securing-alter-operations": "/deploy/dgraph-administration/#securing-alter-operations",
+      "/deploy/#exporting-database": "/deploy/dgraph-administration/#exporting-database",
+      "/deploy/#encrypting-exports": "/deploy/dgraph-administration/#encrypting-exports",
+      "/deploy/#shutting-down-database": "/deploy/dgraph-administration/#shutting-down-database",
+      "/deploy/#deleting-database": "/deploy/dgraph-administration/#deleting-database",
+      "/deploy/#upgrading-database": "/deploy/dgraph-administration/#upgrading-database",
+      "/deploy/#upgrading-from-v1-2-2-to-v20-03-0-for-enterprise-customers": "/deploy/dgraph-administration/#upgrading-from-v1-2-2-to-v20-03-0-for-enterprise-customers",
+      "/deploy/#post-installation": "/deploy/dgraph-administration/#post-installation",
+      "/deploy/#running-oom-out-of-memory": "/deploy/troubleshooting/#running-oom-out-of-memory",
+      "/deploy/#too-many-open-files": "/deploy/troubleshooting/#too-many-open-files",
+      "/deploy/#cluster-requirements": "/deploy/production-checklist/#cluster-requirements",
+      "/deploy/#machine-requirements": "/deploy/production-checklist/#machine-requirements",
+      "/deploy/#operating-system": "/deploy/production-checklist/#operating-system",
+      "/deploy/#cpu-and-memory": "/deploy/production-checklist/#cpu-and-memory",
+      "/deploy/#disk": "/deploy/production-checklist/#disk",
+      "/deploy/#firewall-rules": "/deployproduction-checklist/#firewall-rules",
+      "/deploy/#operating-system-tuning": "/deploy/production-checklist/#operating-system-tuning",
+      "/deploy/#deployment": "/deploy/production-checklist/#deployment",
+      "/deploy/#terminology": "/deploy/production-checklist/#terminology",
+      "/deploy/#basic-setup-2-node-cluster": "/deploy/production-checklist/#basic-setup-2-node-cluster",
+      "/deploy/#ha-setup-6-node-cluster": "/deploy/production-checklist/#ha-setup-6-node-cluster",
+      "/deploy/#supplementary-services": "/deploy/production-checklist/#supplementary-services",
+      "/deploy/#see-also": "/deploy/",
+      "/query-language/#take-a-tour-https-tour-dgraph-io": "/query-language/graphql-fundamentals/#take-a-tour-https-tour-dgraph-io",
+      "/query-language/#running-examples": "/query-language/graphql-fundamentals/#running-examples",
+      "/query-language/#graphql-fundamentals": "/query-language/graphql-fundamentals/#graphql-fundamentals",
+      "/query-language/#returning-values": "/query-language/graphql-fundamentals/#returning-values",
+      "/query-language/#expanding-graph-edges": "/query-language/graphql-fundamentals/#expanding-graph-edges",
+      "/query-language/#comments": "/query-language/graphql-fundamentals/#comments",
+      "/query-language/#applying-filters": "/query-language/graphql-fundamentals/#applying-filters",
+      "/query-language/#language-support": "/query-language/graphql-fundamentals/#language-support",
+      "/query-language/#functions": "/query-language/functions",
+      "/query-language/#term-matching": "/query-language/functions/#term-matching",
+      "/query-language/#allofterms": "/query-language/functions/#allofterms",
+      "/query-language/#usage-at-root": "/query-language/functions/#usage-at-root",
+      "/query-language/#usage-as-filter": "/query-language/functions/#usage-as-filter",
+      "/query-language/#anyofterms": "/query-language/functions/#anyofterms",
+      "/query-language/#usage-at-root-1": "/query-language/functions/#usage-at-root-1",
+      "/query-language/#usage-as-filter-1": "/query-language/functions/#usage-as-filter-1",
+      "/query-language/#regular-expressions": "/query-language/functions/#regular-expressions",
+      "/query-language/#technical-details": "/query-language/functions/#technical-details",
+      "/query-language/#writing-efficient-regular-expressions-and-limitations": "/query-language/functions/#writing-efficient-regular-expressions-and-limitations",
+      "/query-language/#fuzzy-matching": "/query-language/functions/#fuzzy-matching",
+      "/query-language/#full-text-search": "/query-language/functions/#full-text-search",
+      "/query-language/#inequality": "/query-language/functions/#inequality",
+      "/query-language/#equal-to": "/query-language/functions/#equal-to",
+      "/query-language/#less-than-less-than-or-equal-to-greater-than-and-greater-than-or-equal-to": "/query-language/functions/#less-than-less-than-or-equal-to-greater-than-and-greater-than-or-equal-to",
+      "/query-language/#uid": "/query-language/functions/#uid",
+      "/query-language/#uid-in": "/query-language/functions/#uid-in",
+      "/query-language/#has": "/query-language/functions/#has",
+      "/query-language/#geolocation": "/query-language/functions/#geolocation",
+      "/query-language/#mutations": "/query-language/functions/#mutations",
+      "/query-language/#query": "/query-language/functions/#query",
+      "/query-language/#near": "/query-language/functions/#near",
+      "/query-language/#within": "/query-language/functions/#within",
+      "/query-language/#contains": "/query-language/functions/#contains",
+      "/query-language/#intersects": "/query-language/functions/#intersects",
+      "/query-language/#connecting-filters": "/query-language/connecting-filters/",
+      "/query-language/#and-or-and-not": "/query-language/connecting-filters/#and-or-and-not",
+      "/query-language/#alias": "/query-language/alias",
+      "/query-language/#pagination": "/query-language/pagination",
+      "/query-language/#first": "/query-language/pagination/#first",
+      "/query-language/#offset": "/query-language/paginatio/n#offset",
+      "/query-language/#after": "/query-language/pagination/#after",
+      "/query-language/#count": "/query-language/count",
+      "/query-language/#sorting": "/query-language/sorting",
+      "/query-language/#multiple-query-blocks": "/query-language/multiple-query-blocks",
+      "/query-language/#var-blocks": "/query-language/multiple-query-blocks/#var-blocks",
+      "/query-language/#query-variables": "/query-language/query-variables/",
+      "/query-language/#value-variables": "/query-language/value-variables/",
+      "/query-language/#variable-propagation": "/query-language/value-variables/#variable-propagation",
+      "/query-language/#aggregation": "/query-language/aggregation/",
+      "/query-language/#min": "/query-language/aggregation/#min",
+      "/query-language/#usage-at-root-2": "/query-language/aggregation/#usage-at-root-2",
+      "/query-language/#usage-at-other-levels": "/query-language/aggregation/#usage-at-other-levels",
+      "/query-language/#max": "/query-language/aggregation/#max",
+      "/query-language/#usage-at-root-3": "/query-language/aggregation/#usage-at-root-3",
+      "/query-language/#usage-at-other-levels-1": "/query-language/aggregation/#usage-at-other-levels-1",
+      "/query-language/#sum-and-avg": "/query-language/aggregation/#sum-and-avg",
+      "/query-language/#usage-at-root-4": "/query-language/aggregation/#usage-at-root-4",
+      "/query-language/#usage-at-other-levels-2": "/query-language/aggregation/#usage-at-other-levels-2",
+      "/query-language/#aggregating-aggregates": "/query-language/aggregation/#aggregating-aggregates",
+      "/query-language/#math-on-value-variables": "/query-language/math-on-value-variables/",
+      "/query-language/#groupby": "/query-language/groupby/",
+      "/query-language/#expand-predicates": "/query-language/expand-predicates/",
+      "/query-language/#filtering-during-expand": "/query-language/expand-predicates/#filtering-during-expand",
+      "/query-language/#cascade-directive": "/query-language/cascade-directive/",
+      "/query-language/#normalize-directive": "/query-language/normalize-directive/",
+      "/query-language/#ignorereflex-directive": "/query-language/ignorereflex-directive/",
+      "/query-language/#debug": "/query-language/debug/",
+      "/query-language/#schema": "/query-language/schema/",
+      "/query-language/#schema-types": "/query-language/schema/#schema-types",
+      "/query-language/#scalar-types": "/query-language/schema/#scalar-types",
+      "/query-language/#uid-type": "/query-language/schema/#uid-type",
+      "/query-language/#adding-or-modifying-schema": "/query-language/schema/#adding-or-modifying-schema",
+      "/query-language/#indexes-in-background": "/query-language/schema/#indexes-in-background",
+      "/query-language/#http-api": "/query-language/schema/#http-api",
+      "/query-language/#grpc-api": "/query-language/schema/#grpc-api",
+      "/query-language/#predicate-name-rules": "/query-language/schema/#predicate-name-rules",
+      "/query-language/#allowed-special-characters": "/query-language/schema/#allowed-special-characters",
+      "/query-language/#forbidden-special-characters": "/query-language/schema/#forbidden-special-characters",
+      "/query-language/#predicates-i18n": "/query-language/schema/#predicates-i18n",
+      "/query-language/#upsert-directive": "/query-language/schema/#upsert-directive",
+      "/query-language/#noconflict-directive": "/query-language/schema/#noconflict-directive",
+      "/query-language/#rdf-types": "/query-language/schema/#rdf-types",
+      "/query-language/#extended-types": "/query-language/schema/#extended-types",
+      "/query-language/#password-type": "/query-language/schema/#password-type",
+      "/query-language/#indexing": "/query-language/schema/#indexing",
+      "/query-language/#string-indices": "/query-language/schema/#string-indices",
+      "/query-language/#datetime-indices": "/query-language/schema/#datetime-indices",
+      "/query-language/#sortable-indices": "/query-language/schema/#sortable-indices",
+      "/query-language/#count-index": "/query-language/schema/#count-index",
+      "/query-language/#list-type": "/query-language/schema/#list-type",
+      "/query-language/#filtering-on-list": "/query-language/schema/#filtering-on-list",
+      "/query-language/#reverse-edges": "/query-language/schema/#reverse-edges",
+      "/query-language/#querying-schema": "/query-language/schema/#querying-schema",
+      "/query-language/#type-system": "/query-language/type-system/",
+      "/query-language/#type-definition": "/query-language/schema/#type-definition",
+      "/query-language/#setting-the-type-of-a-node": "/query-language/schema/#setting-the-type-of-a-node",
+      "/query-language/#using-types-during-queries": "/query-language/schema/#using-types-during-queries",
+      "/query-language/#deleting-a-type": "/query-language/schema/#deleting-a-type",
+      "/query-language/#expand-queries-and-types": "/query-language/schema/#expand-queries-and-types",
+      "/query-language/#facets-edge-attributes": "/query-language/facets/",
+      "/query-language/#facets-on-scalar-predicates": "/query-language/facets/#facets-on-scalar-predicates",
+      "/query-language/#facets-i18n": "/query-language/facets/#facets-i18n",
+      "/query-language/#alias-with-facets": "/query-language/facets/#alias-with-facets",
+      "/query-language/#facets-on-uid-predicates": "/query-language/facets/#facets-on-uid-predicates",
+      "/query-language/#filtering-on-facets": "/query-language/facets/#filtering-on-facets",
+      "/query-language/#sorting-using-facets": "/query-language/facets/#sorting-using-facets",
+      "/query-language/#assigning-facet-values-to-a-variable": "/query-language/facets/#assigning-facet-values-to-a-variable",
+      "/query-language/#facets-and-variable-propagation": "/query-language/facets/#facets-and-variable-propagation",
+      "/query-language/#facets-and-aggregation": "/query-language/facets/#facets-and-aggregation",
+      "/query-language/#k-shortest-path-queries": "/query-language/k-shortest-path-queries/",
+      "/query-language/#recurse-query": "/query-language/recurse-query/",
+      "/query-language/#fragments": "/query-language/fragments/",
+      "/query-language/#graphql-variables": "/query-language/graphql-variables/",
+      "/query-language/#indexing-with-custom-tokenizers": "/query-language/indexing-custom-tokenizers/",
+      "/query-language/#caveats": "/query-language/indexing-custom-tokenizers/#caveats",
+      "/query-language/#implementing-a-plugin": "/query-language/indexing-custom-tokenizers/#implementing-a-plugin",
+      "/query-language/#building-the-plugin": "/query-language/indexing-custom-tokenizers/#building-the-plugin",
+      "/query-language/#running-dgraph-with-plugins": "/query-language/indexing-custom-tokenizers/#running-dgraph-with-plugins",
+      "/query-language/#adding-the-index-to-the-schema": "/query-language/indexing-custom-tokenizers/#adding-the-index-to-the-schema",
+      "/query-language/#using-the-index-in-queries": "/query-language/indexing-custom-tokenizers/#using-the-index-in-queries",
+      "/query-language/#examples": "/query-language/indexing-custom-tokenizers/#examples",
+      "/query-language/#unicode-characters": "/query-language/indexing-custom-tokenizers/#unicode-characters",
+      "/query-language/#cidr-range": "/query-language/indexing-custom-tokenizers/#cidr-range",
+      "/query-language/#anagram": "/query-language/indexing-custom-tokenizers/#anagram",
+      "/query-language/#integer-prime-factors": "/query-language/indexing-custom-tokenizers/#integer-prime-factors",
+      "/design-concepts/#can-we-do-pre-writes-only-on-leaders": "/design-concepts/transactions-faq/",
+      "/design-concepts/#edges": "/design-concepts/concepts/#edges",
+      "/design-concepts/#posting-list": "/design-concepts/concepts/#posting-list",
+      "/design-concepts/#badger": "/design-concepts/concepts/#badger",
+      "/design-concepts/#group": "/design-concepts/concepts/#group",
+      "/design-concepts/#replication-and-server-failure": "/design-concepts/concepts/#replication-and-server-failure",
+      "/design-concepts/#new-server-and-discovery": "/design-concepts/concepts/#new-server-and-discovery",
+      "/design-concepts/#write-ahead-logs": "/design-concepts/concepts/#write-ahead-logs",
+      "/design-concepts/#mutations": "/design-concepts/concepts/#mutations",
+      "/design-concepts/#queries": "/design-concepts/concepts/#queries",
+      "/design-concepts/#network-calls": "/design-concepts/concepts/#network-calls",
+      "/design-concepts/#worker": "/design-concepts/concepts/#worker",
+      "/design-concepts/#worker-pool": "/design-concepts/concepts/#worker-pool",
+      "/design-concepts/#protocol-buffers": "/design-concepts/concepts/#protocol-buffers",
+      "/design-concepts/#sql-nosql": "/design-concepts/minimizing-network-calls/#sql-nosql",
+      "/design-concepts/#dgraph": "/design-concepts/minimizing-network-calls/#dgraph",
+      "/design-concepts/#term": "/design-concepts/raft/#dgraph",
+      "/design-concepts/#server-states": "/design-concepts/raft/#server-states",
+      "/design-concepts/#communication": "/design-concepts/raft/#communication",
+      "/design-concepts/#log-entries": "/design-concepts/raft/#log-entries",
+      "/design-concepts/#voting": "/design-concepts/raft/#voting",
+      "/design-concepts/#cluster-membership": "/design-concepts/raft/#cluster-membership",
+      "/design-concepts/#log-compaction": "/design-concepts/raft/#log-compaction",
+      "/design-concepts/#clients": "/design-concepts/raft/#clients",
+      "/design-concepts/#linearizable-semantics": "/design-concepts/raft/#linearizable-semantics",
+      "/design-concepts/#read-only-queries": "/design-concepts/raft/#read-only-queries",
+      "/mutations/#deletion-of-non-list-predicates": "/mutations/delete/#deletion-of-non-list-predicates",
+      "/mutations/#setting-literal-values": "/mutations/json-mutation-format/#setting-literal-values",
+      "/mutations/#language-support": "/mutations/json-mutation-format/#language-support",
+      "/mutations/#geolocation-support": "/mutations/json-mutation-format/#geolocation-support",
+      "/mutations/#referencing-existing-nodes": "/mutations/json-mutation-format/#referencing-existing-nodes",
+      "/mutations/#edges-between-nodes": "/mutations/json-mutation-format/#edges-between-nodes",
+      "/mutations/#deleting-literal-values": "/mutations/json-mutation-format/#deleting-literal-values",
+      "/mutations/#deleting-edges": "/mutations/json-mutation-format/#deleting-edges",
+      "/mutations/#facets": "/mutations/json-mutation-format/#facets",
+      "/mutations/#deleting-facets": "/mutations/json-mutation-format/#deleting-facets",
+      "/mutations/#creating-a-list-with-json-and-interacting-with": "/mutations/json-mutation-format/#creating-a-list-with-json-and-interacting-with",
+      "/mutations/#facets-in-list-type-with-json": "/mutations/json-mutation-format/#facets-in-list-type-with-json",
+      "/mutations/#specifying-multiple-operations": "/mutations/json-mutation-format/#specifying-multiple-operations",
+      "/mutations/#json-syntax-using-raw-http-or-ratel-ui": "/mutations/json-mutation-format/#json-syntax-using-raw-http-or-ratel-ui",
+      "/mutations/#using-json-operations-via-curl": "/mutations/json-mutation-format/#using-json-operations-via-curl",
+      "/mutations/#uid-function": "/mutations/upsert-block/#uid-function",
+      "/mutations/#val-function": "/mutations/upsert-block/#val-function",
+      "/mutations/#example-of-uid-function": "/mutations/upsert-block/#example-of-uid-function",
+      "/mutations/#example-of-val-function": "/mutations/upsert-block/#example-of-val-function",
+      "/mutations/#bulk-delete-example": "/mutations/upsert-block/#bulk-delete-example",
+      "/mutations/#example-of-conditional-upsert": "/mutations/conditional-upsert/#example-of-conditional-upsert",
+      "/mutations/#example-of-multiple-mutation-blocks": "/mutations/conditional-upsert/#example-of-multiple-mutation-blocks",
+
+    };
+
+    var redirectPaths = ["clients", "query-language", "mutations", "deploy", "enterprise-features", "howto", "design-concepts"];
+    var pathSplit = document.URL.split("/");
+    if (redirectPaths.includes(pathSplit[3])) {
+      var urlSplit = pathSplit[pathSplit.length - 1].split("#");
+      var origPath = "/" + pathSplit[3] + "/#" + urlSplit[1];
+      if (origPath in subPaths) {
+        console.log(subPaths[origPath]);
+        location.href = subPaths[origPath];
       }
-    </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    {{ .Hugo.Generator }}
-    {{ partial "meta.html" . }}
-    <link rel="canonical" href="{{ .RelPermalink }}" />
+      else if (urlSplit[1]) {
+        location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
+      }
+    }
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  {{ .Hugo.Generator }}
+  {{ partial "meta.html" . }}
+  <link rel="canonical" href="{{ .RelPermalink }}" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
-    <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/images/favicons/manifest.json">
-    <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" color="#fe2c06">
-    <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" color="#fe2c06">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/go.min.js"></script>
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/java.min.js" integrity="sha256-RyOs5MjQ+Ef9DQrPHp4QGr2tcNjxLh6mCkkW+sS4doU=" crossorigin="anonymous"></script>
-    <script src="//code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/go.min.js"></script>
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/languages/java.min.js"
+    integrity="sha256-RyOs5MjQ+Ef9DQrPHp4QGr2tcNjxLh6mCkkW+sS4doU=" crossorigin="anonymous"></script>
+  <script src="//code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
 
-    <!-- START: Required by runnable -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.js" integrity="sha256-x3BtPVERvw1ozPlwivuFLZoViFCeAAs1Gt6SxEedmo8=" crossorigin="anonymous"></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.css" rel="stylesheet" integrity="sha256-7sZe9dsqyNZC9Mk+WPRB7nVvPPPXyorzm2QKqlgXC4k=" crossorigin="anonymous" />
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/addon/edit/closebrackets.min.js" integrity="sha256-qhu2a7DSpQaammMaLw1iruxBpxmgdw8mdQaQWQUokcY=" crossorigin="anonymous"></script>
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/javascript/javascript.min.js" integrity="sha256-7Bdg/UdDMmHDPafpQDYZNPCEbnRP7eAvu+2hEoqRCXs=" crossorigin="anonymous"></script>
-    <!-- END: Required by runnable -->
+  <!-- START: Required by runnable -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.js"
+    integrity="sha256-x3BtPVERvw1ozPlwivuFLZoViFCeAAs1Gt6SxEedmo8=" crossorigin="anonymous"></script>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.css" rel="stylesheet"
+    integrity="sha256-7sZe9dsqyNZC9Mk+WPRB7nVvPPPXyorzm2QKqlgXC4k=" crossorigin="anonymous" />
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/addon/edit/closebrackets.min.js"
+    integrity="sha256-qhu2a7DSpQaammMaLw1iruxBpxmgdw8mdQaQWQUokcY=" crossorigin="anonymous"></script>
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/javascript/javascript.min.js"
+    integrity="sha256-7Bdg/UdDMmHDPafpQDYZNPCEbnRP7eAvu+2hEoqRCXs=" crossorigin="anonymous"></script>
+  <!-- END: Required by runnable -->
 
-    <script>
-      {{ $currentBranch := getenv "CURRENT_BRANCH" }}
-      {{ $dgraphEndpoint := getenv "DGRAPH_ENDPOINT" }}
+  <script>
+    {{ $currentBranch:= getenv "CURRENT_BRANCH" }}
+    {{ $dgraphEndpoint:= getenv "DGRAPH_ENDPOINT" }}
 
-      {{/* Set dgraph endpoint depending on the DGRAPH_ENDPOINT environment variable in the script local.sh to ensure that runnables work fine */}}
-      window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }}{{ $dgraphEndpoint }}{{ end }}
-    </script>
+    window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }} {{ $dgraphEndpoint }} {{ end }}
+  </script>
 
-    <title>
-      {{.Section | default "Dgraph Documentation" | humanize}} — {{ .Site.Title }}
-    </title>
+  <title>
+    {{.Section | default "Dgraph Documentation" | humanize}} — {{ .Site.Title }}
+  </title>
 
-    <link
-      href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
-      rel="stylesheet"
-      />
-    <link
-      href='{{ .Site.BaseURL }}/css/runnable.css?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
-      rel="stylesheet"
-      />
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <link href="//fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+  <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
+    rel="stylesheet" />
+  <link href='{{ .Site.BaseURL }}/css/runnable.css?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
+    rel="stylesheet" />
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+    integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+    crossorigin="anonymous"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+    integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+    crossorigin="anonymous"></script>
+  <link href="//fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 
-    <!-- DocSearch -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-  </head>
-  <body>
-    {{ partial "topbar.html" . }}
-    {{ partial "sidebar.html" . }}
+  <!-- DocSearch -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+</head>
 
-    <main class="content-wrapper">
-      <div class="content">
+<body>
+  {{ partial "topbar.html" . }}
+  {{ partial "sidebar.html" . }}
+
+  <main class="content-wrapper">
+    <div class="content">
