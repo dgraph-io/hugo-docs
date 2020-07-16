@@ -1,5 +1,6 @@
 // debounce limits the amount of function invocation by spacing out the calls
 // by at least `wait` ms.
+
 function debounce(func, wait, immediate) {
   var timeout;
 
