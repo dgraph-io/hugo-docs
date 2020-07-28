@@ -17,12 +17,40 @@
   </div>
 
   <ul class="topics">
-    {{ range .Site.Menus.main }}
+    <!-- {{ range .Site.Menus.main }}
       <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
         <a href="{{.URL}}">
           {{ .Name }}
         </a>
       </li>
+    {{ end }} -->
+
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+            <li class="topic main-topic children {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+               <a id="{{ .Name | urlize }}" href="#">
+                    {{ .Pre }}
+                    {{ .Name }}
+                </a><div class="arrow-down"></div>
+                <ul class="sub-topics">
+                  {{ range .Children }}
+                      <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                        {{/*  <i class="fa fa-angle-right"></i>  */}}
+                          <a href="{{ .URL }}">{{ .Name }}</a>
+                      </li>
+                  {{ end }}
+              </ul>
+            </li>
+
+        {{ else }}
+        <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+          <a href="{{ .URL }}">
+              {{ .Pre }}
+              {{ .Name }}
+          </a>
+            </li>
+        {{ end }}
     {{ end }}
   </ul>
 

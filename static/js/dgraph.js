@@ -1,12 +1,13 @@
 // debounce limits the amount of function invocation by spacing out the calls
 // by at least `wait` ms.
+
 function debounce(func, wait, immediate) {
   var timeout;
 
-  return function() {
+  return function () {
     var context = this,
       args = arguments;
-    var later = function() {
+    var later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
@@ -114,10 +115,10 @@ function getPathAfterVersionName(location, versionName) {
   return path + location.hash;
 }
 
-(function() {
+(function () {
   // clipboard
   var clipInit = false;
-  $("pre code:not(.no-copy)").each(function() {
+  $("pre code:not(.no-copy)").each(function () {
     var code = $(this),
       text = code.text();
 
@@ -125,7 +126,7 @@ function getPathAfterVersionName(location, versionName) {
       if (!clipInit) {
         var text;
         var clip = new Clipboard(".copy-btn", {
-          text: function(trigger) {
+          text: function (trigger) {
             text = $(trigger)
               .prev("code")
               .text();
@@ -133,24 +134,24 @@ function getPathAfterVersionName(location, versionName) {
           }
         });
 
-        clip.on("success", function(e) {
+        clip.on("success", function (e) {
           e.clearSelection();
           $(e.trigger)
             .text("Copied to clipboard!")
             .addClass("copied");
 
-          window.setTimeout(function() {
+          window.setTimeout(function () {
             $(e.trigger)
               .text("Copy")
               .removeClass("copied");
           }, 2000);
         });
 
-        clip.on("error", function(e) {
+        clip.on("error", function (e) {
           e.clearSelection();
           $(e.trigger).text("Error copying");
 
-          window.setTimeout(function() {
+          window.setTimeout(function () {
             $(e.trigger).text("Copy");
           }, 2000);
         });
@@ -163,132 +164,165 @@ function getPathAfterVersionName(location, versionName) {
   });
 
   // Sidebar
-  var h2s = document.querySelectorAll("h2");
-  var h3s = document.querySelectorAll("h3");
-  var isAfter = function(e1, e2) {
-    return e1.compareDocumentPosition(e2) & Node.DOCUMENT_POSITION_FOLLOWING;
-  };
-  var activeLink = document.querySelector(".topic.active");
-  var allLinks = [];
+  // var h2s = document.querySelectorAll("h2");
+  // var h3s = document.querySelectorAll("h3");
+  // var isAfter = function(e1, e2) {
+  //   return e1.compareDocumentPosition(e2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  // };
+  // var activeLink = document.querySelector(".topic.active");
+  // var allLinks = [];
 
-  var h2sWithH3s = [];
-  var j = 0;
-  for (var i = 0; i < h2s.length; i++) {
-    var h2 = h2s[i];
-    var nextH2 = h2s[i + 1];
-    var ourH3s = [];
-    while (
-      h3s[j] &&
-      isAfter(h2, h3s[j]) &&
-      (!nextH2 || !isAfter(nextH2, h3s[j]))
-    ) {
-      ourH3s.push({ header: h3s[j] });
-      j++;
-    }
+  // var h2sWithH3s = [];
+  // var j = 0;
+  // for (var i = 0; i < h2s.length; i++) {
+  //   var h2 = h2s[i];
+  //   var nextH2 = h2s[i + 1];
+  //   var ourH3s = [];
+  //   while (
+  //     h3s[j] &&
+  //     isAfter(h2, h3s[j]) &&
+  //     (!nextH2 || !isAfter(nextH2, h3s[j]))
+  //   ) {
+  //     ourH3s.push({ header: h3s[j] });
+  //     j++;
+  //   }
 
-    h2sWithH3s.push({
-      header: h2,
-      subHeaders: ourH3s
-    });
-  }
+  //   h2sWithH3s.push({
+  //     header: h2,
+  //     subHeaders: ourH3s
+  //   });
+  // }
 
   // console.log(h2sWithH3s);
 
-  function createSubtopic(container, headers) {
-    var subMenu = document.createElement("ul");
-    subMenu.className = "sub-topics";
-    container.appendChild(subMenu);
+  // function createSubtopic(container, headers) {
+  //   var subMenu = document.createElement("ul");
+  //   subMenu.className = "sub-topics";
+  //   container.appendChild(subMenu);
 
-    Array.prototype.forEach.call(headers, function(h) {
-      var li = createSubtopicItem(h.header);
-      li.className = "topic sub-topic";
-      subMenu.appendChild(li);
+  //   Array.prototype.forEach.call(headers, function(h) {
+  //     var li = createSubtopicItem(h.header);
+  //     li.className = "topic sub-topic";
+  //     subMenu.appendChild(li);
 
-      if (h.subHeaders) {
-        createSubtopic(subMenu, h.subHeaders);
-      }
-    });
-  }
+  //     if (h.subHeaders) {
+  //       createSubtopic(subMenu, h.subHeaders);
+  //     }
+  //   });
+  // }
 
-  function createSubtopicItem(h) {
-    allLinks.push(h);
+  // function createSubtopicItem(h) {
+  //   allLinks.push(h);
 
-    var li = document.createElement("li");
-    li.innerHTML =
-      '<i class="fa fa-angle-right"></i> <a href="#' +
-      h.id +
-      '" data-scroll class="' +
-      h.tagName +
-      '">' +
-      (h.title || h.textContent) +
-      "</a>";
-    return li;
-  }
+  //   var li = document.createElement("li");
+  //   li.innerHTML =
+  //     '<i class="fa fa-angle-right"></i> <a href="#' +
+  //     h.id +
+  //     '" data-scroll class="' +
+  //     h.tagName +
+  //     '">' +
+  //     (h.title || h.textContent) +
+  //     "</a>";
+  //   return li;
+  // }
 
   // setActiveSubTopic updates the active subtopic on the sidebar based on the
   // hash
   // @params hash [String] - hash including the hash sign at the beginning
-  function setActiveSubTopic(hash) {
-    // Set inactive the previously active topic
-    var prevActiveTopic = document.querySelector(".sub-topics .topic.active");
-    var nextActiveTopic = document.querySelector(
-      '.sub-topics a[href="' + hash + '"]'
-    ).parentNode;
+  // function setActiveSubTopic(hash) {
+  //   // Set inactive the previously active topic
+  //   var prevActiveTopic = document.querySelector(".sub-topics .topic.active");
+  //   var nextActiveTopic = document.querySelector(
+  //     '.sub-topics a[href="' + hash + '"]'
+  //   ).parentNode;
 
-    if (prevActiveTopic !== nextActiveTopic) {
-      nextActiveTopic.classList.add("active");
+  //   if (prevActiveTopic !== nextActiveTopic) {
+  //     nextActiveTopic.classList.add("active");
 
-      if (prevActiveTopic) {
-        prevActiveTopic.classList.remove("active");
-      }
-    }
-  }
+  //     if (prevActiveTopic) {
+  //       prevActiveTopic.classList.remove("active");
+  //     }
+  //   }
+  // }
 
   // updateSidebar updates the active menu in the sidebar
-  function updateSidebar() {
-    var currentScrollY = document.body.scrollTop;
-    var topSideOffset = 120;
+  // function updateSidebar() {
+  //   var currentScrollY = document.body.scrollTop;
+  //   var topSideOffset = 120;
 
-    var activeHash;
-    for (var i = 0; i < allLinks.length; i++) {
-      var h = allLinks[i];
-      var hash = h.getElementsByTagName("a")[0].hash;
+  //   var activeHash;
+  //   for (var i = 0; i < allLinks.length; i++) {
+  //     var h = allLinks[i];
+  //     var hash = h.getElementsByTagName("a")[0].hash;
 
-      if (h.offsetTop - topSideOffset > currentScrollY) {
-        if (!activeHash) {
-          activeHash = hash;
-          break;
-        }
-      } else {
-        activeHash = hash;
-      }
-    }
+  //     if (h.offsetTop - topSideOffset > currentScrollY) {
+  //       if (!activeHash) {
+  //         activeHash = hash;
+  //         break;
+  //       }
+  //     } else {
+  //       activeHash = hash;
+  //     }
+  //   }
 
-    if (activeHash) {
-      setActiveSubTopic(activeHash);
-    }
-  }
+  //   if (activeHash) {
+  //     setActiveSubTopic(activeHash);
+  //   }
+  // }
 
-  if (h2sWithH3s.length > 0 && activeLink) {
-    createSubtopic(activeLink, h2sWithH3s);
-  }
+  // if (h2sWithH3s.length > 0 && activeLink) {
+  //   createSubtopic(activeLink, h2sWithH3s);
+  // }
 
-  var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
-  for (var i = 0; i < subTopics.length; i++) {
-    var subTopic = subTopics[i];
-    subTopic.addEventListener("click", function(e) {
-      var hash = e.target.hash;
-      setActiveSubTopic(hash);
+  var mainTopics = document.querySelectorAll(".children");
+  for (var i = 0; i < mainTopics.length; i++) {
+    var mainTopic = mainTopics[i];
+    mainTopic.addEventListener("click", function (e) {
+      var id = e.target.id;
+      setActiveMainTopic(id);
     });
   }
 
+
+  // setActiveMainTopic updates the active mainopic on the sidebar based on the
+  // id
+  // @params id [Node] - id of the clicked object
+  function setActiveMainTopic(id) {
+    // Set inactive the previously active topic
+    var prevActiveTopic = document.querySelector("li.topic.main-topic.active");
+    var nextActiveTopic = document.querySelector("#" + id).parentNode;
+    // console.log(prevActiveTopic);
+    nextActiveTopic.classList.toggle("active");
+    prevActiveTopic.classList.toggle("active");
+    if (nextActiveTopic === prevActiveTopic) {
+      nextActiveTopic.classList.toggle("active");
+    }
+    // if (prevActiveTopic !== nextActiveTopic) {
+    //   nextActiveTopic.classList.add("active");
+
+    //   if (prevActiveTopic) {
+    //     prevActiveTopic.classList.remove("active");
+    //   }
+    // }
+  }
+
+
+  // var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
+  // for (var i = 0; i < subTopics.length; i++) {
+  //   var subTopic = subTopics[i];
+  //   subTopic.addEventListener("click", function(e) {
+  //     var hash = e.target.hash;
+  //     setActiveSubTopic(hash);
+  //   });
+  // }
+
   // Scrollspy for sidebar
-  window.addEventListener("scroll", debounce(updateSidebar, 15));
+  // window.addEventListener("scroll", debounce(updateSidebar, 15));
 
   // Sidebar toggle
   document
     .getElementById("sidebar-toggle")
-    .addEventListener("click", function(e) {
+    .addEventListener("click", function (e) {
       e.preventDefault();
       var klass = document.body.className;
       if (klass === "sidebar-visible") {
@@ -327,7 +361,7 @@ function getPathAfterVersionName(location, versionName) {
 
   // code collapse
   var pres = $("pre");
-  pres.each(function() {
+  pres.each(function () {
     var self = this;
 
     var isInRunnable = $(self).parents(".runnable").length > 0;
@@ -345,7 +379,7 @@ function getPathAfterVersionName(location, versionName) {
       var showMore = document.createElement("div");
       showMore.className = "showmore";
       showMore.innerHTML = "<span>Show all</span>";
-      showMore.addEventListener("click", function() {
+      showMore.addEventListener("click", function () {
         self.className = "";
         showMore.parentNode.removeChild(showMore);
       });
@@ -358,7 +392,7 @@ function getPathAfterVersionName(location, versionName) {
   var currentVersion = getCurrentVersion(location.pathname);
   document
     .getElementsByClassName("version-selector")[0]
-    .addEventListener("change", function(e) {
+    .addEventListener("change", function (e) {
       // targetVersion: '', 'master', 'v0.7.7', 'v0.7.6', etc.
       var targetVersion = e.target.value;
 
@@ -404,10 +438,10 @@ function getPathAfterVersionName(location, versionName) {
   }
 
   /********** On page load **/
-  updateSidebar();
-  var activeTopic = document.querySelector(".sub-topics .topic.active");
+  // updateSidebar();
+  // var activeTopic = document.querySelector(".sub-topics .topic.active");
 
-  if (activeTopic) {
-    activeTopic.scrollIntoView();
-  }
+  // if (activeTopic) {
+  //   activeTopic.scrollIntoView();
+  // }
 })();
