@@ -122,6 +122,12 @@ html p {
   margin: 0 0 0.8em;
 }
 
+.alert-warning {
+  height: 50px;
+  position: fixed;
+  float: left;
+}
+
 .content-wrapper {
   padding-top: 64px;
   position: relative;
