@@ -377,18 +377,19 @@
 
     var redirectPaths = ["clients", "query-language", "mutations", "deploy", "enterprise-features", "howto", "design-concepts"];
     var pathSplit = document.URL.split("/");
+    // Example: ["https:", "", "dgraph.io", "docs", "deploy", "#bulk-loader"]
     console.log(pathSplit);
-    if (redirectPaths.includes(pathSplit[3])) {
+    if (redirectPaths.includes(pathSplit[pathSplit.length - 2])) {
       var urlSplit = pathSplit[pathSplit.length - 1].split("#");
       console.log(urlSplit);
-      var origPath = "/" + pathSplit[3] + "/#" + urlSplit[1];
+      var origPath = "/" + pathSplit[pathSplit.length - 2] + "/#" + urlSplit[1];
       console.log(origPath);
       if (origPath in subPaths) {
         console.log(subPaths[origPath]);
-        location.href = subPaths[origPath];
+        location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
       }
       else if (urlSplit[1]) {
-       location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
+        location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
       }
     }
   </script>
