@@ -3,6 +3,9 @@
 {{ $versions := split $versionString "," }}
 {{ $latestVersion := index $versions 0 }}
 
+{{ partial "header.html" . }}
+
+
 {{ if (eq $currentVersion "master") }}
   <div class="alert alert-warning">
     <i class="fa fa-warning"></i> You are looking at the docs for the unreleased <code>master</code> branch of Dgraph. The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
@@ -12,7 +15,9 @@
     <i class="fa fa-warning"></i> You are looking at the docs for an older version of Dgraph ({{ $currentVersion }}). The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
   </div>
 {{ end }}
-
+<div class="top-toc">
+  {{ .TableOfContents }}
+  </div>
 <article id="{{ .Slug }}">
   {{ partial "request-edit.html" . }}
   {{ partial "suggest-edit.html" . }}
@@ -22,4 +27,11 @@
   <div>{{ .Content }}</div>
 </article>
 
+{{ if not .Sections }}
+<div class="right-toc">
 {{ .TableOfContents }}
+</div>
+{{ end }}
+{{ partial "runnable-modal.html" . }}
+
+{{ partial "footer.html" . }}
