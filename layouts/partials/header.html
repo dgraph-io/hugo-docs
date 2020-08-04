@@ -386,7 +386,7 @@
       console.log(origPath);
       if (origPath in subPaths) {
         console.log(subPaths[origPath]);
-          location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
+        location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
       }
       else if (urlSplit[1]) {
         location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
