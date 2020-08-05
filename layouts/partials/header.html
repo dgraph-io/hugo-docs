@@ -388,8 +388,8 @@
         console.log(subPaths[origPath]);
         location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
       }
-      else if (urlSplit[1]) {
-        location.href = "/" + pathSplit[3] + "/" + urlSplit[1];
+      else if (urlSplit[1]) { // an anchor tag
+        location.href = "{{ .Site.BaseURL }}" + "/" + pathSplit[4] + "/" + urlSplit[1];
       }
     }
   </script>
