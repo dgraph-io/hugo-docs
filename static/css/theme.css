@@ -123,9 +123,11 @@ html p {
 }
 
 .alert-warning {
-  margin-top: -80px;
   height: auto;
-  position: absolute;
+  width: 44%;
+  margin-top: 0px;
+  margin-left: 17%;
+  position: fixed;
   z-index: 1000;
 }
 
