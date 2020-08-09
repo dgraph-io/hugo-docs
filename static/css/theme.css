@@ -125,7 +125,7 @@ html p {
 .alert-warning {
   margin-top: -80px;
   height: auto;
-  position: fixed;
+  position: absolute;
   z-index: 1000;
 }
 
