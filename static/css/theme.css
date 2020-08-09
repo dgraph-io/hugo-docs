@@ -123,9 +123,10 @@ html p {
 }
 
 .alert-warning {
-  height: 50px;
+  margin-top: -80px;
+  height: auto;
   position: fixed;
-  float: left;
+  z-index: 1000;
 }
 
 .content-wrapper {
