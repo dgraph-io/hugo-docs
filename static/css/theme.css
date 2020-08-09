@@ -122,6 +122,15 @@ html p {
   margin: 0 0 0.8em;
 }
 
+.alert-warning {
+  height: auto;
+  width: 44%;
+  margin-top: 0px;
+  margin-left: 17%;
+  position: fixed;
+  z-index: 1000;
+}
+
 .content-wrapper {
   padding-top: 64px;
   position: relative;
