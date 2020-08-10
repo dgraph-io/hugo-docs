@@ -128,7 +128,7 @@ html p {
   margin-top: 0px;
   margin-left: 17%;
   position: fixed;
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 .content-wrapper {
