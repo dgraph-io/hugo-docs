@@ -532,6 +532,11 @@ pre.collapsed .showmore span {
   font-weight: 400;
 }
 
+/* Children menus are always open */
+.sub-topics .sub-topics {
+  display: block;
+}
+
 .topic.active > .sub-topics {
   display: block;
 }
