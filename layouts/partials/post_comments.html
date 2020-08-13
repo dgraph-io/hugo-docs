@@ -1,0 +1,26 @@
+<div class="post__comments">
+
+    <div id="discourse-comments"></div>
+
+    {{if .Site.Params.discourse}}
+    <script type="text/javascript">
+        DiscourseEmbed = {
+            discourseUrl: "{{.Site.Params.discourse}}",
+            {{ if .Params.discuss -}}
+            topicId: {{ .Params.discuss }}
+            {{ else -}}
+            discourseEmbedUrl: "{{ .Permalink }}"
+            {{ end -}}
+        };
+        (function() {
+            var d = document.createElement("script");
+            d.type = "text/javascript";
+            d.async = true;
+            d.src = DiscourseEmbed.discourseUrl + "javascripts/embed.js";
+            (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(d);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the comments on <a href="{{.Site.Params.discourse}}">discuss</a>.</noscript>
+    {{end}}
+
+</div>
