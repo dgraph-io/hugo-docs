@@ -213,6 +213,7 @@ div.right-toc #TableOfContents {
 }
 }
 article {
+  width: 100%;
   max-width: 100%;
 }
 
