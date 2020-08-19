@@ -283,6 +283,18 @@ function getPathAfterVersionName(location, versionName) {
     });
   }
 
+  document.querySelectorAll(".topics .sub-topic").forEach(function(topic) {
+    topic.addEventListener("click", function(e) {
+      // If we have children, then toggle the menu. Else, follow the link
+      if(e.currentTarget.querySelectorAll(".sub-topic").length) {
+        e.preventDefault();
+        e.currentTarget.classList.toggle("active");
+      } else {
+        e.stopPropagation()
+      }
+    })
+  })
+
 
   // setActiveMainTopic updates the active mainopic on the sidebar based on the
   // id
