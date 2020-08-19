@@ -283,11 +283,15 @@ function getPathAfterVersionName(location, versionName) {
     });
   }
 
-  // Submenus
-  document.querySelectorAll(".topics .sub-topic").forEach(topic => {
-    topic.addEventListener("click", e => {
-      e.stopPropagation();
-      e.currentTarget.classList.toggle("active");
+  document.querySelectorAll(".topics .sub-topic").forEach(function(topic) {
+    topic.addEventListener("click", function(e) {
+      // If we have children, then toggle the menu. Else, follow the link
+      if(e.currentTarget.querySelectorAll(".sub-topic").length) {
+        e.preventDefault();
+        e.currentTarget.classList.toggle("active");
+      } else {
+        e.stopPropagation()
+      }
     })
   })
 
