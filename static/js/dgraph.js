@@ -283,6 +283,14 @@ function getPathAfterVersionName(location, versionName) {
     });
   }
 
+  // Submenus
+  document.querySelectorAll(".topics .sub-topic").forEach(topic => {
+    topic.addEventListener("click", e => {
+      e.stopPropagation();
+      e.currentTarget.classList.toggle("active");
+    })
+  })
+
 
   // setActiveMainTopic updates the active mainopic on the sidebar based on the
   // id

@@ -39,6 +39,7 @@
                         {{/*  <i class="fa fa-angle-right"></i>  */}}
                           <a href="{{ .URL }}">{{ .Name }}</a>
                           {{ if .HasChildren }}
+                          <div class="arrow-down"></div>
                           <ul class="sub-topics">
                             {{ range .Children }}
                               <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
