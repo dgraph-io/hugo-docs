@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     {{ .Hugo.Generator }}
     {{ partial "meta.html" . }}
-    {{ $canonicalUrl := .RelPermalink }}
-    {{ if not (eq (getenv "CANONICAL_PATH") "") }}
-      {{ $canonicalUrl = replace $canonicalUrl .Site.BaseURL (getenv "CANONICAL_PATH") }}
+    {{ $canonicalUrl := string .Permalink }}
+    {{ if (ne (getenv "CANONICAL_PATH") "") }}
+      {{ $canonicalUrl = (replace $canonicalUrl .Site.BaseURL (getenv "CANONICAL_PATH")) }}
     {{ end }}
     <link rel="canonical" href="{{ $canonicalUrl }}" />
 
