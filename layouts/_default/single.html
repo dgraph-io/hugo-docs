@@ -17,15 +17,19 @@
 {{ end }}
 <div class="top-toc">
   {{ .TableOfContents }}
-  </div>
-<article id="{{ .Slug }}">
-  {{ partial "request-edit.html" . }}
-  {{ partial "suggest-edit.html" . }}
+</div>
+<div>
+  <article id="{{ .Slug }}">
+    {{ partial "request-edit.html" . }}
+    {{ partial "suggest-edit.html" . }}
 
-  <h1 class="post-title">{{ .Title }}</h1>
+    <h1 class="post-title">{{ .Title }}</h1>
 
-  <div>{{ .Content }}</div>
-</article>
+    <div>{{ .Content }}</div>
+
+    {{ partial "post_comments.html" . }}
+  </article>
+</div>
 
 {{ if not .Sections }}
 <div class="right-toc">
