@@ -452,9 +452,7 @@
           })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
   </script>
 
-  <title>
-    {{.Section | default "Dgraph Documentation" | humanize}} — {{ .Site.Title }}
-  </title>
+  <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation" | humanize}}</title>
 
   <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
     rel="stylesheet" />
