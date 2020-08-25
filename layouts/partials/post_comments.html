@@ -2,7 +2,7 @@
 
     <div id="discourse-comments"></div>
 
-    {{if .Site.Params.discourse}}
+    {{if (and .Site.Params.discourse (eq "Fetching and Updating Your Schema" .Page.Title))}}
     <script type="text/javascript">
         DiscourseEmbed = {
             discourseUrl: "{{.Site.Params.discourse}}",
