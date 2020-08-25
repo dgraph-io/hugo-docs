@@ -213,6 +213,7 @@ div.right-toc #TableOfContents {
 }
 }
 article {
+  width: 100%;
   max-width: 100%;
 }
 
@@ -481,7 +482,7 @@ pre.collapsed .showmore span {
   color: #fb5812;
 }
 
-.topics .main-topic > .arrow-down {
+.topics .main-topic > .arrow-down, .topics .sub-topic > .arrow-down {
   display: inline-block;
   border: solid #152849;
   border-width: 0 2px 2px 0;
@@ -495,7 +496,7 @@ pre.collapsed .showmore span {
 }
 
 
-.topics .main-topic.active > .arrow-down {
+.topics .main-topic.active > .arrow-down, .topics .sub-topic.active > .arrow-down {
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
   margin-bottom: 0px;
@@ -532,6 +533,11 @@ pre.collapsed .showmore span {
   font-weight: 400;
 }
 
+/* Children menus are always open */
+.sub-topics.active > .sub-topics {
+  display: block;
+}
+
 .topic.active > .sub-topics {
   display: block;
 }
@@ -547,7 +553,7 @@ pre.collapsed .showmore span {
 ul.sub-topics li a,
 #TableOfContents ul li a {
   color: inherit;
-  display: block;
+  display: inline-block;
   font-size: 0.95em;
   padding: 5px 0px;
 }

@@ -38,6 +38,16 @@
                       <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                         {{/*  <i class="fa fa-angle-right"></i>  */}}
                           <a href="{{ .URL }}">{{ .Name }}</a>
+                          {{ if .HasChildren }}
+                          <div class="arrow-down"></div>
+                          <ul class="sub-topics">
+                            {{ range .Children }}
+                              <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                                <a href="{{ .URL }}">{{ .Name }}</a>
+                              </li>
+                            {{ end }}
+                          </ul>
+                          {{ end }}
                       </li>
                   {{ end }}
               </ul>
@@ -61,7 +71,7 @@
     <li>
       <a href="https://discuss.dgraph.io/" target="_blank">Community</a>
     </li>
-  
+
     <li>
       <a href="https://github.com/dgraph-io/dgraph" target="_blank">GitHub</a>
     </li>
