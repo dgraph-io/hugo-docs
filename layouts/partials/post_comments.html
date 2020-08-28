@@ -2,7 +2,7 @@
 
     <div id="discourse-comments"></div>
 
-    {{if (and .Site.Params.discourse (eq "Dropping Data from your Backend" .Page.Title))}}
+    {{if .Site.Params.discourse}}
     <script type="text/javascript">
         DiscourseEmbed = {
             discourseUrl: "{{.Site.Params.discourse}}",
