@@ -198,6 +198,8 @@ div.top-toc #TableOfContents > ul:before {
 
   div.right-toc #TableOfContents {
     position: fixed;
+    max-height: 85vh;
+    overflow-y: auto;
   }
 }
 article {
