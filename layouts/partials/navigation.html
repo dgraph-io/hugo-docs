@@ -1,0 +1,8 @@
+    <div class="navigation-buttons">
+      {{if .NextInSection}}
+        <div><a class="nav-prev-btn" href="{{.NextInSection.Permalink}}">← {{.NextInSection.Title}} </a></div>
+      {{end}}
+      {{if .PrevInSection}}
+        <div><a class="nav-next-btn" href="{{.PrevInSection.Permalink}}">{{.PrevInSection.Title}} →</a></div>
+      {{end}}
+    </div>

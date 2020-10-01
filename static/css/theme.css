@@ -593,6 +593,17 @@ h3:hover .anchor i {
   top: -83px;
   visibility: hidden;
 }
+.nav-prev-btn {
+  float: left;
+  text-decoration: none;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  padding: 2px 9px;
+  color: #5d5d5d;
+  font-size: 12px;
+  margin: 8px 4px;
+}
+.nav-next-btn,
 .edit-btn {
   float: right;
   text-decoration: none;
@@ -603,10 +614,14 @@ h3:hover .anchor i {
   font-size: 12px;
   margin: 8px 4px;
 }
+.nav-prev-btn:hover,
+.nav-next-btn:hover,
 .edit-btn:hover {
   color: #333333;
   box-shadow: 0px 0px 0.5px 0px #888888;
 }
+.nav-prev-btn .fa,
+.nav-next-btn .fa,
 .edit-btn .fa {
   margin-right: 3px;
 }
