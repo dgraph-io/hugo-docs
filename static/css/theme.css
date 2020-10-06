@@ -139,6 +139,12 @@ html p {
   }
 }
 
+div.navigation-buttons {
+  border: 1px solid #d6d6d6;
+  margin-top: 20px;
+  margin-bottom: 58px;
+}
+
 div.top-toc {
   display: block;
   max-width: 500px;
