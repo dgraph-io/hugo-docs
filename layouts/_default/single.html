@@ -5,6 +5,8 @@
 
 {{ partial "header.html" . }}
 
+<main class="content-wrapper">
+  <div class="content">
 
 {{ if (eq $currentVersion "master") }}
   <div class="alert alert-warning">
@@ -15,6 +17,7 @@
     <i class="fa fa-warning"></i> You are looking at the docs for an older version of Dgraph ({{ $currentVersion }}). The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
   </div>
 {{ end }}
+
 <div class="top-toc">
   {{ .TableOfContents }}
 </div>
@@ -32,10 +35,12 @@
 </article>
 
 {{ if not .Sections }}
-<div class="right-toc">
-{{ .TableOfContents }}
-</div>
+  <div class="right-toc">
+    {{ .TableOfContents }}
+  </div>
 {{ end }}
-{{ partial "runnable-modal.html" . }}
+
+  </div>
+</main>
 
 {{ partial "footer.html" . }}

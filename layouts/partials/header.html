@@ -378,22 +378,17 @@
     var redirectPaths = ["clients", "query-language", "mutations", "deploy", "enterprise-features", "howto", "design-concepts"];
     var pathSplit = document.URL.split("/");
     // Example: ["https:", "", "dgraph.io", "docs", "deploy", "#bulk-loader"]
-    console.log(pathSplit);
     if (redirectPaths.includes(pathSplit[pathSplit.length - 2])) {
       var urlSplit = pathSplit[pathSplit.length - 1].split("#");
-      console.log(urlSplit);
       var origPath = "/" + pathSplit[pathSplit.length - 2] + "/#" + urlSplit[1];
-      console.log(origPath);
       if (origPath in subPaths) {
-        console.log(subPaths[origPath]);
         location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
-      }
-	else if (urlSplit[1]) { // an anchor tag
-	    if (urlSplit[1]) === "sidebar"{
-		location.href = "{{ .Site.BaseURL }}" + pathSplit[4]
-	    } else {
-		location.href = "{{ .Site.BaseURL }}" + pathSplit[4] + "/" + urlSplit[1];
-	    }
+      } else if (urlSplit[1]) { // an anchor tag
+        if (urlSplit[1] === "sidebar") {
+  		    location.href = "{{ .Site.BaseURL }}" + pathSplit[4]
+        } else {
+    	    location.href = "{{ .Site.BaseURL }}" + pathSplit[4] + "/" + urlSplit[1];
+        }
       }
     }
   </script>
@@ -474,6 +469,7 @@
   <link href="//fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" />
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+  <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet" crossorigin="anonymous" />
 
   <!-- DocSearch -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
@@ -482,6 +478,3 @@
 <body>
   {{ partial "topbar.html" . }}
   {{ partial "sidebar.html" . }}
-
-  <main class="content-wrapper">
-    <div class="content">
