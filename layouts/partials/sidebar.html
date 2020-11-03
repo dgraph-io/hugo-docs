@@ -10,7 +10,12 @@
           {{ if eq $i 0 }}
             <option value="">{{ $version }} (latest)</option>
           {{ else }}
-            <option value="{{$version}}">{{ $version }}</option>
+            {{ $shortVer := split $version "." }}
+            {{ if ge (len $shortVer) 2 }}
+              <option value="{{$version}}">{{ index $shortVer 0 }}.{{ index $shortVer 1 }}.x</option>
+            {{ else }}
+              <option value="{{$version}}">{{ $version }}</option>
+            {{ end }}
           {{ end }}
       {{ end }}
     </select>
