@@ -384,11 +384,7 @@
       if (origPath in subPaths) {
         location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
       } else if (urlSplit[1]) { // an anchor tag
-        if (urlSplit[1] === "sidebar") {
-  		    location.href = "{{ .Site.BaseURL }}" + pathSplit[4]
-        } else {
-    	    location.href = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/" + urlSplit[1];
-        }
+    		location.href = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
       }
     }
   </script>
