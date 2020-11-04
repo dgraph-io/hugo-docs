@@ -378,13 +378,18 @@
     var redirectPaths = ["clients", "query-language", "mutations", "deploy", "enterprise-features", "howto", "design-concepts"];
     var pathSplit = document.URL.split("/");
     // Example: ["https:", "", "dgraph.io", "docs", "deploy", "#bulk-loader"]
+    // Using location.replace is better for SEO:
+    // 		1. https://socpub.com/articles/leveraging-googlebots-detection-javascript-redirects-ranking-16789
+    //		2. https://www.contentkingapp.com/academy/redirects/faq/javascript-redirect-bad-seo/
     if (redirectPaths.includes(pathSplit[pathSplit.length - 2])) {
       var urlSplit = pathSplit[pathSplit.length - 1].split("#");
       var origPath = "/" + pathSplit[pathSplit.length - 2] + "/#" + urlSplit[1];
       if (origPath in subPaths) {
-        location.href = "{{ .Site.BaseURL }}" + subPaths[origPath];
+    	loc =  "{{ .Site.BaseURL }}" + subPaths[origPath];
+    	window.location.replace(loc);
       } else if (urlSplit[1]) { // an anchor tag
-    		location.href = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
+    	loc = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
+    	window.location.replace(loc);
       }
     }
   </script>
