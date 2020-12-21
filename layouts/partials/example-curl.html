@@ -9,7 +9,7 @@
 
 {{ if or (eq $currentBranch "master") (not $useOldHttpApi) }}
     {{ if eq ( .Vars ) nil }}
-        <pre><code class="no-copy" tabindex="-1">curl -H "Content-Type: application/graphql+-" localhost:8080/query -XPOST -d '<br/><span class="query-content">{{ .Code }}</span>' | python -m json.tool | less
+        <pre><code class="no-copy" tabindex="-1">curl -H "Content-Type: application/dql" localhost:8080/query -XPOST -d '<br/><span class="query-content">{{ .Code }}</span>' | python -m json.tool | less
         </code></pre>
     {{ else }}
         <pre><code class="no-copy" tabindex="-1">curl -H "Content-Type: application/json" localhost:8080/query -XPOST -d '{
