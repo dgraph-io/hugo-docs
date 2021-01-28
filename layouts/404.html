@@ -1,52 +1,24 @@
-<!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+{{ partial "header.html" . }}
 
-<head>
-  <meta charset="utf-8"> {{ partial "meta.html" . }}
-  <title>{{ .Title }}</title>
-  <link href="{{ .Site.BaseURL }}/css/nucleus.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}/css/font-awesome.min.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}/css/hybrid.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}/css/featherlight.min.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}/css/perfect-scrollbar.min.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}/css/theme.css" rel="stylesheet">
-  <link href="{{ .Site.BaseURL }}/css/hugo-theme.css" rel="stylesheet">
-  <style type="text/css">
-    :root #header + #content > #left > #rlblock_left {
-      display: none !important;
-    }
+<main class="content-wrapper">
+  <div class="content">
+    <article id="{{ .Slug }}">
+      {{if (ne .Title "Get started with Dgraph") }}
+      {{ partial "request-edit.html" . }}
+      {{ partial "suggest-edit.html" . }}
+      {{ end }}
 
-    p,
-    li,
-    ul {
-      text-align: center
-    }
+      <!-- <h1 class="post-title">{{ .Title }}</h1> -->
 
-    ul {
-      list-style-type: none;
-    }
-  </style>
-</head>
+      <div class="page-not-found">
+        <h1>Uh-oh</h1>
 
-<body>
+        <h3>Sorry, but we can't find the page!</h3>
 
-  <body class="" data-url="/">
-
-    <section id="body" style="margin-left:0px;">
-      <div id="overlay"></div>
-      <div id="chapter">
-        <div id="body-inner">
-          <h1>Error </h1>
-          <p>
-          </p>
-          <p>Woops. Looks like this page doesn't exist.</p>
-          <p></p>
-          <p><a href="{{.Site.BaseURL}}">Go to homepage</a></p>
-          <p><img src="{{ .Site.BaseURL }}/images/gopher-404.jpg" style="width:50%"></img></p>
-        </div>
+        <p><a href="{{.Site.BaseURL}}">Go to homepage</a></p>
       </div>
+    </article>
+  </div>
+</main>
 
-    </section>
-  </body>
-
-</html>
+{{ partial "footer.html" . }}

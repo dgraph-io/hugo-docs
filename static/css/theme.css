@@ -1,6 +1,6 @@
 @charset "UTF-8";
 html body {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 15px;
   line-height: 1.6;
   background-color: #fff;
@@ -91,7 +91,7 @@ html h3,
 html h4,
 html h5,
 html h6 {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 700;
   color: #232323;
   line-height: 1.1;
@@ -184,7 +184,7 @@ div.top-toc #TableOfContents ul li ul {
 
 div.right-toc #TableOfContents > ul:before,
 div.top-toc #TableOfContents > ul:before {
-  content: "Contents";
+  content: 'Contents';
   font-weight: 600;
   font-size: 16px;
   color: black;
@@ -355,7 +355,7 @@ pre.collapsed .showmore span {
   padding-left: 16px;
 }
 #header .outer-menu-container:before {
-  content: "";
+  content: '';
   display: inline-block;
   vertical-align: middle;
   height: 100%;
@@ -718,6 +718,12 @@ h3:hover .anchor i {
   }
 }
 
+.page-not-found {
+  margin: auto;
+  width: 50%;
+  margin-top: 15%;
+}
+
 /* table of contents in home page */
 
 section.toc .section-name {
@@ -732,7 +738,7 @@ section.toc .section-item {
 }
 
 /* custom bootstrap */
-.row-no-padding [class^="col-"] {
+.row-no-padding [class^='col-'] {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -831,7 +837,8 @@ section.toc .section-item {
   font-size: 1rem;
   font-weight: bold;
 }
-.landing .item h2:hover, .landing .item .cta:hover  {
+.landing .item h2:hover,
+.landing .item .cta:hover {
   text-decoration: underline;
 }
 
