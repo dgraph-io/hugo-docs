@@ -453,7 +453,7 @@
           })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
   </script>
 
-  <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation" | humanize}}</title>
+  <title>{{ with .Params.seoTitle }}{{ . }}{{ else }}{{ .Page.Title }} - {{ replace ( replace ( .Section | humanize ) "Graphql" "GraphQL" ) "Dql" "DQL" | default "Dgraph Documentation" }}{{ end }}</title>
 
   <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
     rel="stylesheet" />
