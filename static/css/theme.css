@@ -1,7 +1,7 @@
 @charset "UTF-8";
 html body {
   font-family: 'Lato', sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
   background-color: #fff;
   color: #4a4a4a;
@@ -263,7 +263,7 @@ html pre code {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
-  font-size: 90%;
+  font-size: 100%;
 }
 pre.collapsed {
   max-height: 330px;
@@ -449,7 +449,7 @@ pre.collapsed .showmore span {
 #sidebar .sidebar-menu a {
   display: block;
   color: #a7a4a4;
-  font-size: 12px;
+  font-size: 14px;
 }
 #sidebar .sidebar-menu a:hover {
   color: #464646;
@@ -465,7 +465,7 @@ pre.collapsed .showmore span {
 }
 .topics .main-topic > a {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 17px;
   color: black;
   /* display: block; */
   padding-bottom: 8px;
@@ -548,7 +548,7 @@ ul.sub-topics li a,
 #TableOfContents ul li a {
   color: inherit;
   display: inline-block;
-  font-size: 0.95em;
+  font-size: 1.1em;
   padding: 5px 0px;
 }
 .menu-header {
