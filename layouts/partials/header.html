@@ -437,6 +437,13 @@
     integrity="sha256-7Bdg/UdDMmHDPafpQDYZNPCEbnRP7eAvu+2hEoqRCXs=" crossorigin="anonymous"></script>
   <!-- END: Required by runnable -->
 
+  <script>
+    {{ $currentBranch:= getenv "CURRENT_BRANCH" }}
+    {{ $dgraphEndpoint:= getenv "DGRAPH_ENDPOINT" }}
+
+    window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }} {{ $dgraphEndpoint }} {{ end }};
+  </script>
+
   <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation" | humanize}}</title>
 
   <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
