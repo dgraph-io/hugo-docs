@@ -1,12 +1,13 @@
 <aside id="sidebar">
   <div class="menu-header">
-    <div class="heading">
-      Dgraph manual
-    </div>
-    {{ $VersionString := getenv "VERSIONS" }}
-    {{ $Versions := split $VersionString "," }}
-    <select class="version-selector">
-      {{ range $i, $version := $Versions }}
+    {{ if eq .Site.Params.site "dgraph-docs" }}
+      <div class="heading">
+        Dgraph manual
+      </div>
+      {{ $VersionString := getenv "VERSIONS" }}
+      {{ $Versions := split $VersionString "," }}
+      <select class="version-selector">
+        {{ range $i, $version := $Versions }}
           {{ if eq $i 0 }}
             <option value="">{{ $version }} (latest)</option>
           {{ else }}
@@ -17,55 +18,81 @@
               <option value="{{$version}}">{{ $version }}</option>
             {{ end }}
           {{ end }}
-      {{ end }}
-    </select>
+        {{ end }}
+      </select>
+    {{ end }}
   </div>
 
   <ul class="topics">
-    <!-- {{ range .Site.Menus.main }}
-      <li class="topic main-topic{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} active{{end}}">
-        <a href="{{.URL}}">
-          {{ .Name }}
-        </a>
-      </li>
-    {{ end }} -->
-
     {{ $currentPage := . }}
-    {{ range .Site.Menus.main }}
+    {{ if eq .Site.Params.site "cloud-docs" }}
+      {{ range .Site.Menus.main }}
         {{ if .HasChildren }}
-            <li class="topic main-topic children {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-               <a id="{{ .Name | urlize }}" href="#">
-                    {{ .Pre }}
-                    {{ .Name }}
-                </a><div class="arrow-down"></div>
-                <ul class="sub-topics">
-                  {{ range .Children }}
-                      <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-                        {{/*  <i class="fa fa-angle-right"></i>  */}}
+          <li class="topic children {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+            <ul class="sub-topics">
+              {{ range .Children }}
+                <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                  <a href="{{ .URL }}">{{ .Name }}</a>
+                  {{ if .HasChildren }}
+                    <div class="arrow-down"></div>
+                    <ul class="sub-topics">
+                      {{ range .Children }}
+                        <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                           <a href="{{ .URL }}">{{ .Name }}</a>
-                          {{ if .HasChildren }}
-                          <div class="arrow-down"></div>
-                          <ul class="sub-topics">
-                            {{ range .Children }}
-                              <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-                                <a href="{{ .URL }}">{{ .Name }}</a>
-                              </li>
-                            {{ end }}
-                          </ul>
-                          {{ end }}
-                      </li>
+                        </li>
+                      {{ end }}
+                    </ul>
                   {{ end }}
-              </ul>
-            </li>
-
+                </li>
+              {{ end }}
+            </ul>
+          </li>
         {{ else }}
-        <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-          <a href="{{ .URL }}">
+          <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+            <a href="{{ .URL }}">
               {{ .Pre }}
               {{ .Name }}
-          </a>
-            </li>
+            </a>
+          </li>
         {{ end }}
+      {{ end }}
+    {{ else }}
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+          <li class="topic main-topic children {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+            <a id="{{ .Name | urlize }}" href="#">
+              {{ .Pre }}
+              {{ .Name }}
+            </a>
+            <div class="arrow-down"></div>
+            <ul class="sub-topics">
+              {{ range .Children }}
+                <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                  <a href="{{ .URL }}">{{ .Name }}</a>
+                  {{ if .HasChildren }}
+                    <div class="arrow-down"></div>
+                    <ul class="sub-topics">
+                      {{ range .Children }}
+                        <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                          <a href="{{ .URL }}">{{ .Name }}</a>
+                        </li>
+                      {{ end }}
+                    </ul>
+                  {{ end }}
+                </li>
+              {{ end }}
+            </ul>
+          </li>
+        {{ else }}
+          <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+            <a href="{{ .URL }}">
+              {{ .Pre }}
+              {{ .Name }}
+            </a>
+          </li>
+        {{ end }}
+      {{ end }}
     {{ end }}
   </ul>
 

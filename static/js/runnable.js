@@ -341,7 +341,7 @@ function eraseCookie(name) {
     codeEl.text("Waiting for the server response...");
 
     var startTime;
-    var headers = { "Content-Type": "application/graphql+-"};
+    var headers = { "Content-Type": "application/dql"};
     var postBody = query;
     if(vars) {
       headers = { "Content-Type": "application/json"};
@@ -557,5 +557,8 @@ function eraseCookie(name) {
 
   // Get clipboard.js to work inside bootstrap modal
   // http://stackoverflow.com/questions/38398070/bootstrap-modal-does-not-work-with-clipboard-js-on-firefox
-  $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+  // This condition prevents javascript error for cannot find Constructor of undefined
+  if ($.fn.modal) {
+    $.fn.modal.Constructor.prototype._enforceFocus = function () {};
+  }
 })();

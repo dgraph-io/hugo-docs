@@ -25,10 +25,11 @@
         <li>
           <a href="https://discuss.dgraph.io/" target="_blank">Community</a>
         </li>
-       
-        <li>
-          <a href="https://github.com/dgraph-io/dgraph-docs" target="_blank">GitHub</a>
-        </li>
+        {{ with .Site.Params.site }}
+          <li>
+            <a href="https://github.com/dgraph-io/{{ . }}" target="_blank">GitHub</a>
+          </li>
+        {{ end }}
       </ul>
     </div>
   </div>

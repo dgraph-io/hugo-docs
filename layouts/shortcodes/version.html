@@ -1,1 +1,5 @@
-{{ getenv "CURRENT_LATEST_TAG" }}
+{{ if eq .Site.Params.site "dgraph-docs" }}
+  {{ getenv "CURRENT_LATEST_TAG" }}
+{{ else }}
+  {{ getenv "CURRENT_VERSION" }}
+{{ end }}

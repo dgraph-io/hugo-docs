@@ -385,18 +385,18 @@
       var urlSplit = pathSplit[pathSplit.length - 1].split("#");
       var origPath = "/" + pathSplit[pathSplit.length - 2] + "/#" + urlSplit[1];
       if (origPath in subPaths) {
-    	loc =  "{{ .Site.BaseURL }}" + subPaths[origPath];
-    	window.location.replace(loc);
+        loc = "{{ .Site.BaseURL }}" + subPaths[origPath];
+        window.location.replace(loc);
       } else if (urlSplit[1]) { // an anchor tag
-    	loc = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
-    	window.location.replace(loc);
+        loc = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
+        window.location.replace(loc);
       }
     }
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="referrer" content="no-referrer-when-downgrade">
-  {{ .Hugo.Generator }}
+  {{ hugo.Generator }}
   {{ partial "meta.html" . }}
   <link rel="canonical" href="{{ partial "canonical.html" . }}" />
 
@@ -444,13 +444,27 @@
     window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }} {{ $dgraphEndpoint }} {{ end }};
   </script>
 
-  <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation" | humanize}}</title>
+  <title>
+    {{ with .Params.seoTitle }}
+      {{ . }}
+    {{ else }}
+      {{ .Page.Title | default "Dgraph Documentation" }}
+      {{ with .Section }} - 
+        {{ $pairs := (dict "Graphql" "GraphQL" "Dql" "DQL" " api" " API") }}
+        {{ $.Scratch.Set "sectionTitle" (. | humanize) }}
+        {{ range $key, $val := $pairs }}
+            {{ $.Scratch.Set "sectionTitle" (replace ($.Scratch.Get "sectionTitle") $key $val) }}
+        {{ end }}
+        {{ $.Scratch.Get  "sectionTitle" }}
+      {{ end }}
+    {{ end }}
+  </title>
 
-  <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
+  <link href='{{ relURL "css/theme.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
     rel="stylesheet" />
-  <link href='{{ .Site.BaseURL }}/css/runnable.css?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
+  <link href='{{ relURL "css/runnable.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
     rel="stylesheet" />
-  <link href='{{ .Site.BaseURL }}/css/tabs.css?{{ md5 (readFile "themes/hugo-docs/static/css/tabs.css") }}'
+  <link href='{{ relURL "css/tabs.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/tabs.css") }}'
     rel="stylesheet" />
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
