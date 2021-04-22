@@ -444,7 +444,7 @@
     window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }} {{ $dgraphEndpoint }} {{ end }};
   </script>
 
-  <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation" | humanize}}</title>
+  <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation"}}</title>
 
   <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
     rel="stylesheet" />
