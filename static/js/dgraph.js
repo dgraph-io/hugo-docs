@@ -375,35 +375,6 @@ function getPathAfterVersionName(location, versionName) {
     appendAnchor(h2s[i]);
   }
 
-  // code collapse
-  var pres = $("pre");
-  pres.each(function () {
-    var self = this;
-
-    var isInRunnable = $(self).parents(".runnable").length > 0;
-    if (isInRunnable) {
-      return;
-    }
-
-    if (self.clientHeight > 330) {
-      if (self.clientHeight < 380) {
-        return;
-      }
-
-      self.className += " collapsed";
-
-      var showMore = document.createElement("div");
-      showMore.className = "showmore";
-      showMore.innerHTML = "<span>Show all</span>";
-      showMore.addEventListener("click", function () {
-        self.className = "";
-        showMore.parentNode.removeChild(showMore);
-      });
-
-      this.appendChild(showMore);
-    }
-  });
-
   // version selector
   var currentVersion = getCurrentVersion(location.pathname);
   document
