@@ -377,7 +377,7 @@ function getPathAfterVersionName(location, versionName) {
   // version selector
   var currentVersion = getCurrentVersion(location.pathname);
   const versionSelectors = document.getElementsByClassName("version-selector");
-  if (Array.isArray(versionSelector) && versionSelector.length) {
+  if (versionSelectors.length) {
     versionSelectors[0].addEventListener("change", function (e) {
       // targetVersion: '', 'master', 'v0.7.7', 'v0.7.6', etc.
       var targetVersion = e.target.value;
