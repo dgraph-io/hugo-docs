@@ -339,9 +339,11 @@ pre.collapsed .showmore span {
   background: #ffffff;
   opacity: 0.99;
 }
+
 #header .logo {
   width: 118px;
 }
+
 #header .menu-search {
   width: 250px;
 }
@@ -458,6 +460,8 @@ pre.collapsed .showmore span {
 }
 .topics .main-topic {
   padding-bottom: 8px;
+  /* padding-left: 14px; */
+  /* margin-top: 6px; */
 }
 .topics .main-topic > a {
   font-weight: 600;
@@ -606,28 +610,48 @@ h3:hover .anchor i {
   margin: 8px 4px;
 }
 .nav-next-btn,
+.question-btn {
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+}
+.nav-next-btn,
+.question-btn,
 .edit-btn {
   float: right;
   text-decoration: none;
-  border: 1px solid #d6d6d6;
-  border-radius: 2px;
   padding: 2px 9px;
   color: #5d5d5d;
   font-size: 12px;
   margin: 8px 4px;
 }
+footer .question-btn,
+footer .edit-btn {
+  float: left;
+}
 .nav-prev-btn:hover,
 .nav-next-btn:hover,
+.question-btn:hover,
 .edit-btn:hover {
   color: #333333;
   box-shadow: 0px 0px 0.5px 0px #888888;
 }
 .nav-prev-btn .fa,
 .nav-next-btn .fa,
+.question-btn .fa,
 .edit-btn .fa {
   margin-right: 3px;
 }
-
+.clearfix {
+	clear: both;
+}
+footer {
+	font-size: 1.2195em;
+	margin-top: 0.5em;
+}
+footer .logo {
+	float: right;
+	max-height: 30px;
+}
 /* min-width: 800px */
 /* toggle sidebar visibility */
 @media screen and (min-width: 800px) {
@@ -657,6 +681,7 @@ h3:hover .anchor i {
   #header .menu-container {
     display: none;
   }
+  .question-btn,
   .edit-btn {
     display: none;
   }
@@ -760,6 +785,7 @@ section.toc .section-item {
     border-top: 1px solid #ccc !important;
   }
 }
+
 :root {
   --cols: 1;
   --width: 90vw;

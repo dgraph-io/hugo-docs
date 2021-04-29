@@ -4,7 +4,7 @@
   <div class="content">
     <article id="{{ .Slug }}">
       {{if (ne .Title "Get started with Dgraph") }}
-        {{ partial "request-edit.html" . }}
+        {{ partial "ask-question.html" . }}
         {{ partial "suggest-edit.html" . }}
       {{ end }}
 

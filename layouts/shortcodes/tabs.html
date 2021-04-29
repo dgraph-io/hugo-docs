@@ -1,21 +1,4 @@
-{{ $type := .Get 0}}
-
-{{ if eq $type "json" }}
-<div class="tabbed">
-  <input name="tabbed" id="tabbed-{{ $type }}" type="radio" checked>
-{{ else }}
-  <input name="tabbed" id="tabbed-{{ $type }}" type="radio">
-{{ end }}
-
-  <section>
-    <h1>
-      <label for="tabbed-{{ $type }}">{{ upper $type }}</label>
-    </h1>
-    <div>
-	{{ .Inner | markdownify }}
-    </div>
-  </section>
-
-{{ if eq $type "rdf" }}
+<div class="tabs">
+  <ul class="nav nav-tabs"></ul>
+  <div class="tab-content">{{ .Inner }}</div>
 </div>
-{{ end }}
