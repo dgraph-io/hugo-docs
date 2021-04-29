@@ -1,7 +1,7 @@
 [build]
   base = "/"
   command = "./scripts/local.sh --preview $DEPLOY_PRIME_URL"
-  public = "./public"
+  publish = "./public"
 
 [context.production.environment]
   HUGO_VERSION = "0.79.0"
