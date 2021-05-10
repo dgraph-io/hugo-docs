@@ -444,21 +444,7 @@
     window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }} {{ $dgraphEndpoint }} {{ end }};
   </script>
 
-  <title>
-    {{ with .Params.seoTitle }}
-      {{ . }}
-    {{ else }}
-      {{ .Page.Title | default "Dgraph Documentation" }}
-      {{ with .Section }} - 
-        {{ $pairs := (dict "Graphql" "GraphQL" "Dql" "DQL" " api" " API") }}
-        {{ $.Scratch.Set "sectionTitle" (. | humanize) }}
-        {{ range $key, $val := $pairs }}
-            {{ $.Scratch.Set "sectionTitle" (replace ($.Scratch.Get "sectionTitle") $key $val) }}
-        {{ end }}
-        {{ $.Scratch.Get  "sectionTitle" }}
-      {{ end }}
-    {{ end }}
-  </title>
+  <title>{{ with .Params.seoTitle }}{{ . }}{{ else }}{{ .Page.Title | default "Dgraph Documentation" }}{{ with .Section }} - {{ $pairs := (dict "Graphql" "GraphQL" "Dql" "DQL" " api" " API") }}{{ $.Scratch.Set "sectionTitle" (. | humanize) }}{{ range $key, $val := $pairs }}{{ $.Scratch.Set "sectionTitle" (replace ($.Scratch.Get "sectionTitle") $key $val) }}{{ end }}{{ $.Scratch.Get  "sectionTitle" }}{{ end }}{{ end }}</title>
 
   <link href='{{ relURL "css/theme.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
     rel="stylesheet" />
