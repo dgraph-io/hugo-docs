@@ -2,14 +2,14 @@
   <div class="menu-header">
     {{ if eq .Site.Params.site "dgraph-docs" }}
       <div class="heading">
-        Dgraph manual
+        Dgraph version:
       </div>
       {{ $VersionString := getenv "VERSIONS" }}
       {{ $Versions := split $VersionString "," }}
       <select class="version-selector">
         {{ range $i, $version := $Versions }}
           {{ if eq $i 0 }}
-            <option value="">{{ $version }} (latest)</option>
+            <option value="">{{ $version }} (latest) Rocket</option>
           {{ else }}
             {{ $shortVer := split $version "." }}
             {{ if ge (len $shortVer) 3 }}
