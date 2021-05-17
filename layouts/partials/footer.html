@@ -21,9 +21,16 @@
       }
     </script>
 
-  <script defer src='{{ relURL "/js/clipboard.min.js"}}'></script>
-  <script defer src='{{ relURL "/js/dgraph.js"}}?{{ md5 (readFile "themes/hugo-docs/static/js/dgraph.js") }}'></script>
-  <script defer src='{{ relURL "/js/runnable.js"}}?{{ md5 (readFile "themes/hugo-docs/static/js/runnable.js") }}'></script>
+  <!-- Script that enables the copy button on code blocks -->
+  {{ $clipboardJS := resources.Get "js/clipboard.min.js" }}
+  <script defer src="{{ $clipboardJS.Permalink }}"></script>
+  <!-- Script to make copy buttons, make version selector, and tab functionality. -->
+  {{ $dgraphJS := resources.Get "js/dgraph.js" | minify | resources.Fingerprint "md5" }}
+  <script defer src="{{ $dgraphJS.Permalink }}"></script>
+  <!-- Script that makes the code example runnable as live queries/mutations -->
+  {{ $runnableJS := resources.Get "js/runnable.js" | minify | resources.Fingerprint "md5" }}
+  <script defer src="{{ $runnableJS.Permalink }}"></script>
+  <!-- Script built from https://github.com/dgraph-io/community-js that initializes Google Analytics -->
   <script async src="//unpkg.com/@dgraph-io/community"></script>
   <script defer src='https://cdn.ranksci.com/dgraph-411505.min.js' type='text/javascript'></script>
 

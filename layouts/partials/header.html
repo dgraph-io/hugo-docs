@@ -446,12 +446,13 @@
 
   <title>{{ with .Params.seoTitle }}{{ . }}{{ else }}{{ .Page.Title | default "Dgraph Documentation" }}{{ with .Section }} - {{ $pairs := (dict "Graphql" "GraphQL" "Dql" "DQL" " api" " API") }}{{ $.Scratch.Set "sectionTitle" (. | humanize) }}{{ range $key, $val := $pairs }}{{ $.Scratch.Set "sectionTitle" (replace ($.Scratch.Get "sectionTitle") $key $val) }}{{ end }}{{ $.Scratch.Get  "sectionTitle" }}{{ end }}{{ end }}</title>
 
-  <link href='{{ relURL "css/theme.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
-    rel="stylesheet" />
-  <link href='{{ relURL "css/runnable.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
-    rel="stylesheet" />
-  <link href='{{ relURL "css/tabs.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/tabs.css") }}'
-    rel="stylesheet" />
+  {{ $themeStyle := resources.Get "css/theme.css" | minify | resources.Fingerprint "md5" }}
+  <link href="{{ $themeStyle.Permalink }}"  rel="stylesheet" />
+  {{ $runnableStyle := resources.Get "css/runnable.css" | minify | resources.Fingerprint "md5" }}
+  <link href="{{ $runnableStyle.Permalink }}"  rel="stylesheet" />
+  {{ $tabsStyle := resources.Get "css/tabs.css" | minify | resources.Fingerprint "md5" }}
+  <link href="{{ $tabsStyle.Permalink }}"  rel="stylesheet" />
+
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <script defer src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
@@ -469,23 +470,8 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   <!-- Segment -->
-  <script>
-    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="aQlf725vSBKhpQnINiGBc6rCtFyVCiAP";analytics.SNIPPET_VERSION="4.13.2";
-      analytics.load("aQlf725vSBKhpQnINiGBc6rCtFyVCiAP");
-      analytics.page();
-      // Track clicks
-      document.addEventListener('DOMContentLoaded', () => {
-        const links = document.querySelectorAll('a');
-        links.forEach((link) => 
-          analytics.trackLink(link, 'Click', {
-            id: link.id,
-            to: link.href,
-            text: link.innerText
-          })
-        );
-      });
-    }}();
-  </script>
+  {{ $segmentJS := resources.Get "js/segment.js" | minify | resources.Fingerprint "md5" }}
+  <script src="{{ $segmentJS.Permalink }}"></script>
 </head>
 
 <body>

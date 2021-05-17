@@ -5,6 +5,7 @@
  * the docs website, please write any custom JS elsewhere.
  *
  * Uses JQuery
+ * Uses clipboard.js
  */
 
 /********** Cookie helpers **/
