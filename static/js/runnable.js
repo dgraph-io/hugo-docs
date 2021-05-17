@@ -562,3 +562,5 @@ function eraseCookie(name) {
     $.fn.modal.Constructor.prototype._enforceFocus = function () {};
   }
 })();
+
+hljs.initHighlightingOnLoad();
