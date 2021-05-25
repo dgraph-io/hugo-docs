@@ -7,11 +7,27 @@
     {{ $VersionString := getenv "VERSIONS" }}
     {{ $Versions := split $VersionString "," }}
     <select class="version-selector">
-      <option value="">v21.03 Rocket (latest)</option>
-      <option value="v20.11">v20.11 Shuri</option>
-      <option value="v20.07">v20.07 T'Challa</option>
-      <option value="master">master</option>
-    </select>   
+      {{ range $i, $version := $Versions }}
+        {{ if eq $i 0 }}
+          <option value="">{{ $version }} Rocket (latest)</option>
+        {{ else }}
+          {{ $shortVer := split $version "." }}
+          {{ if ge (len $shortVer) 3 }}
+            <option value="{{$version}}">{{ index $shortVer 0 }}.{{ index $shortVer 1 }}.x</option>
+          {{ else }}
+            {{ if eq $i 1 }}
+              <option value="{{$version}}">{{ $version }} T'Challa</option>
+            {{ else }}
+              {{ if eq $i 2 }}
+                <option value="{{$version}}">{{ $version }} Shuri</option>
+              {{ else }}
+                <option value="{{$version}}">{{ $version }} </option>
+              {{ end }}    
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </select>
     {{ end }}
   </div>
 
