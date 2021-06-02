@@ -78,7 +78,7 @@
               {{ range .Children }}
                 <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                   {{ if .HasChildren }}
-                  <a href="#">{{ .Name }}</a>
+                    {{ .Name }}
                     <div class="arrow-down"></div>
                     <ul class="sub-topics">
                       {{ range .Children }}
@@ -88,7 +88,7 @@
                       {{ end }}
                     </ul>
                   {{ else }}
-                    <a href="{{ .URL }}">{{ .Name }}</a>
+                  <a href="{{ .URL }}">{{ .Name }}</a>
                   {{ end }}
                 </li>
               {{ end }}
