@@ -15,7 +15,7 @@
           apiKey: 'fe4cbc1640c6c87bbc5f099902d86f97',
           indexName: 'dgraph',
           inputSelector: '#algolia-doc-search',
-          algoliaOptions: { 'facetFilters': [`version:${version}`] },
+          algoliaOptions: { 'filters': `version:${version}` },
           debug: false // Set debug to true if you want to inspect the dropdown
         });
       }
