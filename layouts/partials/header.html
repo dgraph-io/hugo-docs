@@ -385,18 +385,18 @@
       var urlSplit = pathSplit[pathSplit.length - 1].split("#");
       var origPath = "/" + pathSplit[pathSplit.length - 2] + "/#" + urlSplit[1];
       if (origPath in subPaths) {
-    	loc =  "{{ .Site.BaseURL }}" + subPaths[origPath];
-    	window.location.replace(loc);
+        loc = "{{ .Site.BaseURL }}" + subPaths[origPath];
+        window.location.replace(loc);
       } else if (urlSplit[1]) { // an anchor tag
-    	loc = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
-    	window.location.replace(loc);
+        loc = "{{ .Site.BaseURL }}" + pathSplit.slice(4, pathSplit.length-1).join("/") + "/#" + urlSplit[1];
+        window.location.replace(loc);
       }
     }
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="referrer" content="no-referrer-when-downgrade">
-  {{ .Hugo.Generator }}
+  {{ hugo.Generator }}
   {{ partial "meta.html" . }}
   <link rel="canonical" href="{{ partial "canonical.html" . }}" />
 
@@ -442,24 +442,15 @@
     {{ $dgraphEndpoint:= getenv "DGRAPH_ENDPOINT" }}
 
     window.DGRAPH_ENDPOINT = {{ if (eq $dgraphEndpoint "" ) }}"https://play.dgraph.io/query?latency=true"{{ else }} {{ $dgraphEndpoint }} {{ end }};
-
-    (function(h,o,t,j,a,r){
-              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-              h._hjSettings={hjid:1883865,hjsv:6};
-              a=o.getElementsByTagName('head')[0];
-              r=o.createElement('script');r.async=1;
-              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-              a.appendChild(r);
-          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
   </script>
 
-  <title>{{ .Page.Title }} - {{.Section | default "Dgraph Documentation" | humanize}}</title>
+  <title>{{ with .Params.seoTitle }}{{ . }}{{ else }}{{ .Page.Title | default "Dgraph Documentation" }}{{ with .Section }} - {{ $pairs := (dict "Graphql" "GraphQL" "Dql" "DQL" " api" " API") }}{{ $.Scratch.Set "sectionTitle" (. | humanize) }}{{ range $key, $val := $pairs }}{{ $.Scratch.Set "sectionTitle" (replace ($.Scratch.Get "sectionTitle") $key $val) }}{{ end }}{{ $.Scratch.Get  "sectionTitle" }}{{ end }}{{ end }}</title>
 
-  <link href='{{ .Site.BaseURL }}/css/theme.css?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
+  <link href='{{ relURL "css/theme.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/theme.css") }}'
     rel="stylesheet" />
-  <link href='{{ .Site.BaseURL }}/css/runnable.css?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
+  <link href='{{ relURL "css/runnable.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/runnable.css") }}'
     rel="stylesheet" />
-  <link href='{{ .Site.BaseURL }}/css/tabs.css?{{ md5 (readFile "themes/hugo-docs/static/css/tabs.css") }}'
+  <link href='{{ relURL "css/tabs.css"}}?{{ md5 (readFile "themes/hugo-docs/static/css/tabs.css") }}'
     rel="stylesheet" />
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -476,6 +467,25 @@
 
   <!-- DocSearch -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+  <!-- Segment -->
+  <script>
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="aQlf725vSBKhpQnINiGBc6rCtFyVCiAP";analytics.SNIPPET_VERSION="4.13.2";
+      analytics.load("aQlf725vSBKhpQnINiGBc6rCtFyVCiAP");
+      analytics.page();
+      // Track clicks
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('a');
+        links.forEach((link) => 
+          analytics.trackLink(link, 'Click', {
+            id: link.id,
+            to: link.href,
+            text: link.innerText
+          })
+        );
+      });
+    }}();
+  </script>
 </head>
 
 <body>

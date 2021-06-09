@@ -4,11 +4,9 @@
   <div class="content">
     <article id="{{ .Slug }}">
       {{if (ne .Title "Get started with Dgraph") }}
-      {{ partial "request-edit.html" . }}
+      {{ partial "ask-question.html" . }}
       {{ partial "suggest-edit.html" . }}
       {{ end }}
-
-      <!-- <h1 class="post-title">{{ .Title }}</h1> -->
 
       <div class="page-not-found">
         <h1>Uh-oh</h1>

@@ -322,7 +322,6 @@ function getPathAfterVersionName(location, versionName) {
     // }
   }
 
-
   // var subTopics = document.querySelectorAll(".sub-topics .sub-topic");
   // for (var i = 0; i < subTopics.length; i++) {
   //   var subTopic = subTopics[i];
@@ -375,40 +374,11 @@ function getPathAfterVersionName(location, versionName) {
     appendAnchor(h2s[i]);
   }
 
-  // code collapse
-  var pres = $("pre");
-  pres.each(function () {
-    var self = this;
-
-    var isInRunnable = $(self).parents(".runnable").length > 0;
-    if (isInRunnable) {
-      return;
-    }
-
-    if (self.clientHeight > 330) {
-      if (self.clientHeight < 380) {
-        return;
-      }
-
-      self.className += " collapsed";
-
-      var showMore = document.createElement("div");
-      showMore.className = "showmore";
-      showMore.innerHTML = "<span>Show all</span>";
-      showMore.addEventListener("click", function () {
-        self.className = "";
-        showMore.parentNode.removeChild(showMore);
-      });
-
-      this.appendChild(showMore);
-    }
-  });
-
   // version selector
   var currentVersion = getCurrentVersion(location.pathname);
-  document
-    .getElementsByClassName("version-selector")[0]
-    .addEventListener("change", function (e) {
+  const versionSelectors = document.getElementsByClassName("version-selector");
+  if (versionSelectors.length) {
+    versionSelectors[0].addEventListener("change", function (e) {
       // targetVersion: '', 'master', 'v0.7.7', 'v0.7.6', etc.
       var targetVersion = e.target.value;
 
@@ -427,22 +397,23 @@ function getPathAfterVersionName(location, versionName) {
       }
     });
 
-  var versionSelector = document.getElementsByClassName("version-selector")[0],
-    options = versionSelector.options;
+    var versionSelector = versionSelectors[0],
+      options = versionSelector.options;
 
-  for (var i = 0; i < options.length; i++) {
-    if (options[i].value.indexOf("latest") != -1) {
-      options[i].value = options[i].value.replace(/\s\(latest\)/, "");
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].value.indexOf("latest") != -1) {
+        options[i].value = options[i].value.replace(/\s\(latest\)/, "");
+      }
     }
-  }
 
-  for (var i = 0; i < options.length; i++) {
-    if (options[i].value === currentVersion) {
-      options[i].selected = true;
-      break;
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].value === currentVersion) {
+        options[i].selected = true;
+        break;
+      }
     }
+    (" ");
   }
-  (" ");
 
   // Add target = _blank to all external links.
   var links = document.links;
@@ -461,3 +432,32 @@ function getPathAfterVersionName(location, versionName) {
   //   activeTopic.scrollIntoView();
   // }
 })();
+
+$(document).ready(function () {
+  $(".tab-content")
+    .find(".tab-pane")
+    .each(function (idx, item) {
+      const navTabs = $(this).closest(".tabs").find(".nav-tabs");
+      const title = $(this).attr("title");
+      navTabs.append(`<li><a href="#">${title}</a></li>`);
+    });
+
+  $(".tabs ul.nav-tabs").each(function () {
+    $(this).find("li:first").addClass("active");
+  });
+
+  $(".tabs .tab-content").each(function () {
+    $(this).find("div:first").addClass("active");
+  });
+
+  $(".nav-tabs a").click(function (e) {
+    e.preventDefault();
+    const tab = $(this).parent();
+    const tabIndex = tab.index();
+    const tabPanel = $(this).closest(".tabs");
+    const tabPane = tabPanel.find(".tab-pane").eq(tabIndex);
+    tabPanel.find(".active").removeClass("active");
+    tab.addClass("active");
+    tabPane.addClass("active");
+  });
+});

@@ -8,14 +8,16 @@
 <main class="content-wrapper">
   <div class="content">
 
-{{ if (eq $currentVersion "master") }}
-  <div class="alert alert-warning">
-    <i class="fa fa-warning"></i> You are looking at the docs for the unreleased <code>master</code> branch of Dgraph. The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
-  </div>
-{{ else if not (eq $latestVersion $currentVersion) }}
-  <div class="alert alert-warning">
-    <i class="fa fa-warning"></i> You are looking at the docs for an older version of Dgraph ({{ $currentVersion }}). The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
-  </div>
+{{ if eq .Site.Params.site "dgraph-docs" }}
+  {{ if (eq $currentVersion "master") }}
+    <div class="alert alert-warning">
+      <i class="fa fa-warning"></i> You are looking at the docs for the unreleased <code>master</code> branch of Dgraph. The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
+    </div>
+  {{ else if not (eq $latestVersion $currentVersion) }}
+    <div class="alert alert-warning">
+      <i class="fa fa-warning"></i> You are looking at the docs for an older version of Dgraph ({{ $currentVersion }}). The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
+    </div>
+   {{ end }}
 {{ end }}
 
 <div class="top-toc">
@@ -23,14 +25,15 @@
 </div>
 
 <article id="{{ .Slug }}">
-  {{ partial "request-edit.html" . }}
-  {{ partial "suggest-edit.html" . }}
+  {{ partial "ask-question.html" . }}
 
   <h1 class="post-title">{{ .Title }}</h1>
 
   <div>{{ .Content }}</div>
 
-  {{ partial "navigation.html" . }}
+  {{ if eq .Site.Params.site "dgraph-docs" }}
+	{{ partial "navigation.html" . }}
+  {{ end }}
   {{ partial "post_comments.html" . }}
 </article>
 

@@ -5,5 +5,3 @@ prev: /prev/path
 next: /next/path
 toc: true
 ---
-
-Lorem Ipsum

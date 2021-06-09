@@ -12,11 +12,11 @@
         }
 
         window.docsearch({
-         apiKey: 'fe4cbc1640c6c87bbc5f099902d86f97',
-         indexName: 'dgraph',
-         inputSelector: '#algolia-doc-search',
-         algoliaOptions: { 'facetFilters': ["version:"+version] },
-         debug: false // Set debug to true if you want to inspect the dropdown
+          apiKey: 'fe4cbc1640c6c87bbc5f099902d86f97',
+          indexName: 'dgraph',
+          inputSelector: '#algolia-doc-search',
+          algoliaOptions: { 'filters': `version:${version}` },
+          debug: false // Set debug to true if you want to inspect the dropdown
         });
       }
     </script>
@@ -46,13 +46,9 @@
       adroll.track("pageView");
   </script>
 
-  <script src="{{ .Site.BaseURL }}/js/clipboard.min.js"></script>
-  <script
-    src='{{ .Site.BaseURL }}/js/dgraph.js?{{ md5 (readFile "themes/hugo-docs/static/js/dgraph.js") }}'
-    ></script>
-  <script
-    src='{{ .Site.BaseURL }}/js/runnable.js?{{ md5 (readFile "themes/hugo-docs/static/js/runnable.js") }}'
-    ></script>
+  <script src='{{ relURL "/js/clipboard.min.js"}}'></script>
+  <script src='{{ relURL "/js/dgraph.js"}}?{{ md5 (readFile "themes/hugo-docs/static/js/dgraph.js") }}'></script>
+  <script src='{{ relURL "/js/runnable.js"}}?{{ md5 (readFile "themes/hugo-docs/static/js/runnable.js") }}'></script>
   <script>
     hljs.initHighlightingOnLoad();
   </script>
