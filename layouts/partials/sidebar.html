@@ -9,17 +9,17 @@
     <select class="version-selector">
       {{ range $i, $version := $Versions }}
         {{ if eq $i 0 }}
-          <option value="">{{ $version }} Rocket (latest)</option>
+          <option value="">{{ $version }} Zion (latest)</option>
         {{ else }}
           {{ $shortVer := split $version "." }}
           {{ if ge (len $shortVer) 3 }}
             <option value="{{$version}}">{{ index $shortVer 0 }}.{{ index $shortVer 1 }}.x</option>
           {{ else }}
             {{ if eq $i 1 }}
-              <option value="{{$version}}">{{ $version }} T'Challa</option>
+              <option value="{{$version}}">{{ $version }} Rocket</option>
             {{ else }}
               {{ if eq $i 2 }}
-                <option value="{{$version}}">{{ $version }} Shuri</option>
+                <option value="{{$version}}">{{ $version }} T'Challa</option>
               {{ else }}
                 <option value="{{$version}}">{{ $version }} </option>
               {{ end }}    
