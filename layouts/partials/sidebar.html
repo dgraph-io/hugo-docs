@@ -9,7 +9,7 @@
     <select class="version-selector">
       {{ range $i, $version := $Versions }}
         {{ if eq $i 0 }}
-          <option value="">{{ $version }} Zion (latest)</option>
+          <option value="">{{ $version }} (latest)</option>
         {{ else }}
           {{ $shortVer := split $version "." }}
           {{ if ge (len $shortVer) 3 }}
