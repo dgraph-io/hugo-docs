@@ -2,7 +2,7 @@
   {{- with getenv "CURRENT_LATEST_TAG" -}}
     {{- . -}}
   {{- else -}}
-    master
+    main
   {{- end -}}
 {{- else -}}
   {{- getenv "CURRENT_VERSION" -}}
