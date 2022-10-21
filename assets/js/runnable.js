@@ -5,6 +5,7 @@
  * the docs website, please write any custom JS elsewhere.
  *
  * Uses JQuery
+ * Uses clipboard.js
  */
 
 /********** Cookie helpers **/
@@ -562,3 +563,5 @@ function eraseCookie(name) {
     $.fn.modal.Constructor.prototype._enforceFocus = function () {};
   }
 })();
+
+hljs.initHighlightingOnLoad();

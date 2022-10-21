@@ -20,41 +20,19 @@
         });
       }
     </script>
-    <script type="text/javascript">
-      adroll_adv_id = "L42C3U2UXBBPVAMISVXVLC";
-      adroll_pix_id = "MOR4VUNPK5B2LHEZ2NNTDX";
-      adroll_version = "2.0";
-      (function(w, d, e, o, a) {
-          w.__adroll_loaded = true;
-          w.adroll = w.adroll || [];
-          w.adroll.f = [ 'setProperties', 'identify', 'track' ];
-          var roundtripUrl = "https://s.adroll.com/j/" + adroll_adv_id
-                  + "/roundtrip.js";
-          for (a = 0; a < w.adroll.f.length; a++) {
-              w.adroll[w.adroll.f[a]] = w.adroll[w.adroll.f[a]] || (function(n) {
-                  return function() {
-                      w.adroll.push([ n, arguments ])
-                  }
-              })(w.adroll.f[a])
-          }
-          e = d.createElement('script');
-          o = d.getElementsByTagName('script')[0];
-          e.async = 1;
-          e.src = roundtripUrl;
-          o.parentNode.insertBefore(e, o);
-      })(window, document);
-      adroll.track("pageView");
-  </script>
 
-  <script src='{{ relURL "/js/clipboard.min.js"}}'></script>
-  <script src='{{ relURL "/js/dgraph.js"}}?{{ md5 (readFile "themes/hugo-docs/static/js/dgraph.js") }}'></script>
-  <script src='{{ relURL "/js/runnable.js"}}?{{ md5 (readFile "themes/hugo-docs/static/js/runnable.js") }}'></script>
-  <script>
-    hljs.initHighlightingOnLoad();
-  </script>
-
+  <!-- Script that enables the copy button on code blocks -->
+  {{ $clipboardJS := resources.Get "js/clipboard.min.js" }}
+  <script defer src="{{ $clipboardJS.Permalink }}"></script>
+  <!-- Script to make copy buttons, make version selector, and tab functionality. -->
+  {{ $dgraphJS := resources.Get "js/dgraph.js" | minify | resources.Fingerprint "md5" }}
+  <script defer src="{{ $dgraphJS.Permalink }}"></script>
+  <!-- Script that makes the code example runnable as live queries/mutations -->
+  {{ $runnableJS := resources.Get "js/runnable.js" | minify | resources.Fingerprint "md5" }}
+  <script defer src="{{ $runnableJS.Permalink }}"></script>
+  <!-- Script built from https://github.com/dgraph-io/community-js that initializes Google Analytics -->
   <script async src="//unpkg.com/@dgraph-io/community"></script>
-  <script src='https://cdn.ranksci.com/dgraph-411505.min.js' type='text/javascript'></script>
+  <script defer src='https://cdn.ranksci.com/dgraph-411505.min.js' type='text/javascript'></script>
 
   </body>
 </html>
