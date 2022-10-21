@@ -40,10 +40,10 @@ LATEST_RELEASE=$(curl -s https://get.dgraph.io/latest \
   | head -1)
 
 
-export CURRENT_BRANCH="master"
-export CURRENT_VERSION="master"
+export CURRENT_BRANCH="main"
+export CURRENT_VERSION="main"
 export CURRENT_LATEST_TAG=LATEST_RELEASE
-export VERSIONS="master,$LATEST_RELEASE"
+export VERSIONS="main,$LATEST_RELEASE"
 export DGRAPH_ENDPOINT=${DGRAPH_ENDPOINT:-"https://play.dgraph.io/query?latency=true"}
 export CANONICAL_PATH="$HOST"
 
@@ -56,11 +56,11 @@ else
   BASE_URL=http://127.0.0.1:5500/public/
 fi
 
-build() # $1 = "master" | /v.+/ | "cloud"
+build() # $1 = "main" | /v.+/ | "cloud"
 {
-  if [[ $1 == "master" ]]; then
-    CURRENT_VERSION="master"
-    BRANCH="master"
+  if [[ $1 == "main" ]]; then
+    CURRENT_VERSION="main"
+    BRANCH="main"
     DIR=""
   elif [[ $1 == "cloud" ]]; then
     CURRENT_VERSION=
@@ -74,7 +74,7 @@ build() # $1 = "master" | /v.+/ | "cloud"
 
   HUGO_TITLE="Dgraph Theme Preview" \
     CANONICAL_PATH=${HOST} \
-    VERSIONS="master,$LATEST_RELEASE" \
+    VERSIONS="main,$LATEST_RELEASE" \
 		CURRENT_BRANCH=$BRANCH \
 		CURRENT_LATEST_TAG=$LATEST_RELEASE \
 		CURRENT_VERSION=$CURRENT_VERSION \
@@ -83,7 +83,7 @@ build() # $1 = "master" | /v.+/ | "cloud"
 		  --baseURL="$BASE_URL/$DIR" 1> /dev/null
 }
 
-build "master"
+build "main"
 
 git checkout "release/$LATEST_RELEASE" > /dev/null
 

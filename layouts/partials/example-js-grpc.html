@@ -4,7 +4,7 @@
 {{ $majorVersion := int (index $version 0) }}
 {{ $minorVersion := int (index $version 1) }}
 {{ $patchVersion := int (index $version 2) }}
-{{ $versionGe105 := or (eq $currentBranch "master") (gt $majorVersion 1) (and (eq $majorVersion 1) (gt $minorVersion 0)) (and (eq $majorVersion 1) (eq $minorVersion 0) (ge $patchVersion 5)) }}
+{{ $versionGe105 := or (eq $currentBranch "main") (gt $majorVersion 1) (and (eq $majorVersion 1) (gt $minorVersion 0)) (and (eq $majorVersion 1) (eq $minorVersion 0) (ge $patchVersion 5)) }}
 
 <pre><code class="no-copy" tabindex="-1">const dgraph = require("dgraph-js");
 const grpc = require("grpc");

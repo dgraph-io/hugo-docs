@@ -3,14 +3,14 @@
 <!--
   Getting the version here is very hacky. It assumes that $current branch is either:
 
-  1. "master"
+  1. "main"
   2. "release/vX.Y.Z"
 -->
 {{ $version := split (slicestr (replace (printf "%-14s" $currentBranch) " " "0") 9) "." }}
 {{ $majorVersion := int (index $version 0) }}
 {{ $minorVersion := int (index $version 1) }}
 {{ $patchVersion := int (index $version 2) }}
-{{ $versionGe110 := or (eq $currentBranch "master") (gt $majorVersion 1) (and (eq $majorVersion 1) (gt $minorVersion 1)) (and (eq $majorVersion 1) (ge $minorVersion 1) (ge $patchVersion 0)) }}
+{{ $versionGe110 := or (eq $currentBranch "main") (gt $majorVersion 1) (and (eq $majorVersion 1) (gt $minorVersion 1)) (and (eq $majorVersion 1) (ge $minorVersion 1) (ge $patchVersion 0)) }}
 
 <pre><code class="no-copy" tabindex="-1">package main
 

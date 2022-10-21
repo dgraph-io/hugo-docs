@@ -9,9 +9,9 @@
   <div class="content">
 
 {{ if eq .Site.Params.site "dgraph-docs" }}
-  {{ if (eq $currentVersion "master") }}
+  {{ if (eq $currentVersion "main") }}
     <div class="alert alert-warning">
-      <i class="fa fa-warning"></i> You are looking at the docs for the unreleased <code>master</code> branch of Dgraph. The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
+      <i class="fa fa-warning"></i> You are looking at the docs for the unreleased <code>main</code> branch of Dgraph. The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
     </div>
   {{ else if not (eq $latestVersion $currentVersion) }}
     <div class="alert alert-warning">
