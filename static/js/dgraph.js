@@ -370,30 +370,35 @@ function getPathAfterVersionName(location, versionName) {
   var h2s = document.querySelectorAll(
     ".content-wrapper h2, .content-wrapper h3"
   );
+
   for (var i = 0; i < h2s.length; i++) {
     appendAnchor(h2s[i]);
   }
 
   // version selector
+  function switchVersion(targetVersion) {
+    // change the path only if it does not include the right version
+    if ( ! location.href.includes(targetVersion)) { 
+      if (targetVersion == latestVersion) {
+        targetPath = location.origin + "/docs"; 
+      } else {
+        targetPath = location.origin + "/docs/" + targetVersion; 
+      }   
+      location.assign(targetPath);
+    }
+  }
   var currentVersion = getCurrentVersion(location.pathname);
+  var latestVersion;
+
   const versionSelectors = document.getElementsByClassName("version-selector");
   if (versionSelectors.length) {
+    
     versionSelectors[0].addEventListener("change", function (e) {
       // targetVersion: '', 'main', 'v0.7.7', 'v0.7.6', etc.
       var targetVersion = e.target.value;
 
       if (currentVersion !== targetVersion) {
-        var basePath = getPathBeforeVersionName(location, currentVersion);
-        // Getting everything after targetVersion and concatenating it with the hash part.
-        var currentPath = getPathAfterVersionName(location, currentVersion);
-
-        var targetPath;
-        if (targetVersion === "") {
-          targetPath = basePath + currentPath;
-        } else {
-          targetPath = basePath + targetVersion + "/" + currentPath;
-        }
-        location.assign(targetPath);
+        switchVersion(targetVersion);
       }
     });
 
@@ -412,7 +417,8 @@ function getPathAfterVersionName(location, versionName) {
         break;
       }
     }
-    (" ");
+    latestVersion = options[0].value;
+
   }
 
   // Add target = _blank to all external links.
@@ -433,6 +439,21 @@ function getPathAfterVersionName(location, versionName) {
   // }
 })();
 
+function setAlgolia(latestVersion) {
+  var branch = 'master'
+  var version = getCurrentVersion(location.pathname)
+  if (version != '') {
+     branch = "release/"+version
+  }
+  
+  algoliasearchNetlify({
+    appId: '2062O2HVZD',
+    apiKey: '9ba06b8093ca2e1559d88a234a7fbc9e',
+    siteId: 'db712a52-2779-4260-9ede-cc5c61bc2c20',
+    branch: branch,
+    selector: '#algolia-doc-search',
+  });
+}
 $(document).ready(function () {
   $(".tab-content")
     .find(".tab-pane")
