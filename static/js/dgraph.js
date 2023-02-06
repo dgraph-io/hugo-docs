@@ -378,21 +378,17 @@ function getPathAfterVersionName(location, versionName) {
   // version selector
   function switchVersion(targetVersion) {
     // change the path only if it does not include the right version
-    if ( ! location.href.includes(targetVersion)) { 
-      if (targetVersion == latestVersion) {
-        targetPath = location.origin + "/docs"; 
-      } else {
-        targetPath = location.origin + "/docs/" + targetVersion; 
-      }   
+    if (targetVersion != getCurrentVersion(location.pathname)) {
+      targetPath = location.origin + "/docs/" + targetVersion;
       location.assign(targetPath);
-    }
+    } 
   }
   var currentVersion = getCurrentVersion(location.pathname);
   var latestVersion;
 
   const versionSelectors = document.getElementsByClassName("version-selector");
   if (versionSelectors.length) {
-    
+
     versionSelectors[0].addEventListener("change", function (e) {
       // targetVersion: '', 'main', 'v0.7.7', 'v0.7.6', etc.
       var targetVersion = e.target.value;
@@ -445,7 +441,7 @@ function setAlgolia(latestVersion) {
   if (version != '') {
      branch = "release/"+version
   }
-  
+
   algoliasearchNetlify({
     appId: '2062O2HVZD',
     apiKey: '9ba06b8093ca2e1559d88a234a7fbc9e',
