@@ -293,6 +293,7 @@ function getPathAfterVersionName(location, versionName) {
       if(e.currentTarget.querySelectorAll(".sub-topic").length) {
         e.preventDefault();
         e.currentTarget.classList.toggle("active");
+        e.stopPropagation();
       } else {
         e.stopPropagation()
       }

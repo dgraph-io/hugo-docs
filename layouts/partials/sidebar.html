@@ -78,12 +78,24 @@
               {{ range .Children }}
                 <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                   {{ if .HasChildren }}
-                    <a href="#">{{ .Name }}</a>
+                    <a  href="#">{{ .Name }}</a>
                     <div class="arrow-down"></div>
                     <ul class="sub-topics">
                       {{ range .Children }}
                         <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                          {{ if .HasChildren }}
+                            <a id="{{ .Name | urlize }}" href="#">{{ .Name }}</a>
+                            <div class="arrow-down"></div>
+                            <ul class="sub-topics">
+                              {{ range .Children }}
+                                <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                                  <a href="{{ .URL }}">{{ .Name }}</a>
+                                </li>
+                              {{ end }}
+                            </ul>
+                          {{ else }}
                           <a href="{{ .URL }}">{{ .Name }}</a>
+                          {{ end }}
                         </li>
                       {{ end }}
                     </ul>
