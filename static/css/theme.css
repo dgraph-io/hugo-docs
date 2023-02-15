@@ -976,3 +976,19 @@ section.toc .section-item {
   text-align: center;
   font-weight: normal;
 }
+.screenshot img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  filter: drop-shadow(0.25rem 0.25rem 0.5rem #000000);
+}
+.screenshot h4{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  font-size: 1em;
+  font-weight: 200;
+  font-style: italic;
+}
