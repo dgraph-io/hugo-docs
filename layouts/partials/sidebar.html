@@ -68,8 +68,8 @@
       {{ $currentPage := . }}
       {{ range .Site.Menus.main }}
         {{ if .HasChildren }}
-          <li class="topic main-topic children {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-            <a id="{{ .Name | urlize }}" href="{{ .URL }}">
+          <li id="{{ .Name | urlize }}" class="topic main-topic children {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+            <a href="{{ .URL }}">
               {{ .Pre }}
               {{ .Name }}
             </a>
@@ -78,7 +78,7 @@
               {{ range .Children }}
                 <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                   {{ if .HasChildren }}
-                    <a  href="{{ .URL }}">{{ .Name }}</a>
+                    <a id="{{ .Name | urlize }}" href="{{ .URL }}">{{ .Name }}</a>
                     <div class="arrow-down"></div>
                     <ul class="sub-topics">
                       {{ range .Children }}
@@ -108,7 +108,7 @@
           </li>
         {{ else }}
           <li class="topic main-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
-            <a href="{{ .URL }}">
+            <a id="{{ .Name | urlize }}"  href="{{ .URL }}">
               {{ .Pre }}
               {{ .Name }}
             </a>

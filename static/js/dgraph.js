@@ -282,7 +282,7 @@ function getPathAfterVersionName(location, versionName) {
   for (var i = 0; i < mainTopics.length; i++) {
     var mainTopic = mainTopics[i];
     mainTopic.addEventListener("click", function (e) {
-      var id = e.target.id;
+      var id = e.target.id || e.target.parentElement.id;
       setActiveMainTopic(id);
     });
   }
