@@ -92,24 +92,25 @@ build $LATEST_RELEASE
 # back into /build
 popd > /dev/null
 
-git clone https://github.com/dgraph-io/cloud-docs.git cloud > /dev/null
-git clone https://github.com/dgraph-io/hugo-docs.git cloud/themes/hugo-docs > /dev/null
+# remove cloud repo copy. All content is now in the same repo !
+# git clone https://github.com/dgraph-io/cloud-docs.git cloud > /dev/null
+# git clone https://github.com/dgraph-io/hugo-docs.git cloud/themes/hugo-docs > /dev/null
 
 # go into /build/cloud/themes/hugo-docs
-pushd cloud/themes/hugo-docs > /dev/null
+# pushd cloud/themes/hugo-docs > /dev/null
 
-git checkout $THEME_BRANCH > /dev/null
+# git checkout $THEME_BRANCH > /dev/null
 
 # back into /build/
-popd > /dev/null
+#popd > /dev/null
 
 # go into /build/cloud
-pushd ./cloud > /dev/null
+#pushd ./cloud > /dev/null
 
-build "cloud"
+# build "cloud"
 
 # back into /build
-popd > /dev/null
+#popd > /dev/null
 
 cd ../
 rm -rfv build > /dev/null
