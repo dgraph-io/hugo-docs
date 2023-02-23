@@ -15,42 +15,40 @@
     </ul>
   </div>
   <div class="header-right">
-    <div style="
-      margin-top: 10px;
-    ">
       <div class="menu-search align-middle">
         <div class="menu-search-inner" id="searchbox">
 
           <div class="menu-search-inner" id="hits">
-        <div class="menu-search-inner" id="algolia-doc-search">
+            <div class="menu-search-inner" id="algolia-doc-search">
+            </div>
+          </div>
         </div>
-      </div>
+        <div>
+          <ul class="menu">
+            <li>
+              <a href="https://dgraph.io/" target="_blank">Home</a>
+            </li>
+            <li>
+              <a href="https://dgraph.io/learn" target="_blank">Learn</a>
+            </li>
+            <li>
+              <a href="https://dgraph.io/tour" target="_blank">Tour</a>
+            </li>
+            <li>
+              <a href="https://dgraph.io/pricing" target="_blank">Pricing</a>
+            </li>
+            <li>
+              <a href="https://discuss.dgraph.io/" target="_blank">Community</a>
+            </li>
+            {{ with .Site.Params.site }}
+              <li>
+                <a href="https://github.com/dgraph-io/{{ . }}" target="_blank">GitHub</a>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+     </div>
     </div>
-    <div>
-      <ul class="menu">
-        <li>
-          <a href="https://dgraph.io/" target="_blank">Home</a>
-        </li>
-        <li>
-          <a href="https://dgraph.io/learn" target="_blank">Learn</a>
-        </li>
-        <li>
-          <a href="https://dgraph.io/tour" target="_blank">Tour</a>
-        </li>
-        <li>
-          <a href="https://dgraph.io/pricing" target="_blank">Pricing</a>
-        </li>
-        <li>
-          <a href="https://discuss.dgraph.io/" target="_blank">Community</a>
-        </li>
-        {{ with .Site.Params.site }}
-          <li>
-            <a href="https://github.com/dgraph-io/{{ . }}" target="_blank">GitHub</a>
-          </li>
-        {{ end }}
-      </ul>
-    </div>
-  </div>
   <a href="#" id="sidebar-toggle">
     <i class="fa fa-bars"></i>
   </a>
