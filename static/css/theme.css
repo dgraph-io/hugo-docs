@@ -350,7 +350,7 @@ pre.collapsed .showmore {
     }
 
     #header .header-right {
-      margin-top: 5px;
+      margin: auto;
     }
 
     #header .logo {
@@ -990,4 +990,7 @@ section.toc .section-item {
   font-size: 1em;
   font-weight: 200;
   font-style: italic;
+}
+.aa-DetachedSearchButton {
+  height: 30px !important;
 }
