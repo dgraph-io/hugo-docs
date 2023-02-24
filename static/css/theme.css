@@ -945,6 +945,7 @@ section.toc .section-item {
 
 .landing .hero {
   position: relative;
+  min-height: 160px;
   margin-bottom: 32px;
 }
 .landing .hero h1 {
