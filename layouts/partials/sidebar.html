@@ -22,7 +22,7 @@
                 <option value="{{$version}}">{{ $version }}</option>
               {{ else }}
                 <option value="{{$version}}">{{ $version }}</option>
-              {{ end }}    
+              {{ end }}
             {{ end }}
           {{ end }}
         {{ end }}
@@ -76,9 +76,9 @@
             <div class="arrow-down"></div>
             <ul class="sub-topics">
               {{ range .Children }}
-                <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+                <li id="{{ .Name | urlize }}"  class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                   {{ if .HasChildren }}
-                    <a id="{{ .Name | urlize }}" href="{{ .URL }}">{{ .Name }}</a>
+                    <a href="{{ .URL }}">{{ .Name }}</a>
                     <div class="arrow-down"></div>
                     <ul class="sub-topics">
                       {{ range .Children }}
