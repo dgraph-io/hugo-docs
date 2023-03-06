@@ -995,3 +995,18 @@ section.toc .section-item {
 .aa-DetachedSearchButton {
   height: 30px !important;
 }
+
+.medium {
+  width: 70%;
+  margin:auto;
+}
+.medium img {
+  -webkit-filter: drop-shadow(3px 3px 3px #ccc);
+  filter: drop-shadow(3px 3px 3px #ccc);
+}
+.medium figcaption {
+  text-align: center;
+}
+.medium figcaption h4 {
+  margin-top: 0px;
+}
