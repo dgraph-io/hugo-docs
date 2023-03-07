@@ -1010,3 +1010,6 @@ section.toc .section-item {
 .medium figcaption h4 {
   margin-top: 0px;
 }
+kbd {
+  background-color: rgb(255, 32, 110) !important;
+}
