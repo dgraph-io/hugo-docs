@@ -283,6 +283,7 @@ function getPathAfterVersionName(location, versionName) {
     var mainTopic = mainTopics[i];
     mainTopic.addEventListener("click", function (e) {
       var id = e.target.id || e.target.parentElement.id;
+      e.stopPropagation();
       setActiveMainTopic(id);
     });
   }
@@ -291,7 +292,7 @@ function getPathAfterVersionName(location, versionName) {
     topic.addEventListener("click", function(e) {
       // If we have children, then toggle the menu. Else, follow the link
       if(e.currentTarget.querySelectorAll(".sub-topic").length) {
-        e.preventDefault();
+      //  e.preventDefault();
         e.currentTarget.classList.toggle("active");
         e.stopPropagation();
       } else {
@@ -307,12 +308,14 @@ function getPathAfterVersionName(location, versionName) {
   function setActiveMainTopic(id) {
     // Set inactive the previously active topic
     var prevActiveTopic = document.querySelector("li.topic.main-topic.active");
-    var nextActiveTopic = document.querySelector("#" + id).parentNode;
+    var nextActiveTopic = document.querySelector("#" + id);
     // console.log(prevActiveTopic);
     nextActiveTopic.classList.toggle("active");
-    prevActiveTopic.classList.toggle("active");
-    if (nextActiveTopic === prevActiveTopic) {
-      nextActiveTopic.classList.toggle("active");
+   
+    if (nextActiveTopic !== prevActiveTopic) {
+      prevActiveTopic.classList.toggle("active");
+    } else {
+      e.preventDefault();
     }
     // if (prevActiveTopic !== nextActiveTopic) {
     //   nextActiveTopic.classList.add("active");
@@ -382,7 +385,7 @@ function getPathAfterVersionName(location, versionName) {
     if (targetVersion != getCurrentVersion(location.pathname)) {
       targetPath = location.origin + "/docs/" + targetVersion;
       location.assign(targetPath);
-    } 
+    }
   }
   var currentVersion = getCurrentVersion(location.pathname);
   var latestVersion;
