@@ -34,13 +34,11 @@
   {{ if eq .Site.Params.site "dgraph-docs" }}
 	{{ partial "navigation.html" . }}
   {{ end }}
-  {{ partial "post_comments.html" . }}
+
 </article>
 
 {{ if not .Sections }}
-  <div class="right-toc">
-    {{ .TableOfContents }}
-  </div>
+{{ partial "toc.html" . }}
 {{ end }}
 
   </div>
