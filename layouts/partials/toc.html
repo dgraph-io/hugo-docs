@@ -1,0 +1,25 @@
+
+
+  <div class="right-toc">
+
+    {{ .TableOfContents }}
+    <div>
+          {{ partial "feed-back.html" . }}
+    </div>
+    <div class="contribute">
+      <a target="_blank" href="https://discuss.dgraph.io/c/docs/49">
+        Ask a Question
+      </a>
+      <a target="_blank"
+        href='https://github.com/dgraph-io/{{ .Site.Params.site }}/edit/{{ with getenv "CURRENT_BRANCH" }}{{ . }}{{ else }}main{{ end }}/content/{{with .File }}{{ replace ( replace .File.Path "\\" "/") "%5C" "/" }}{{ end }}'>
+        Edit the page
+      </a>
+      <a target="_blank"
+        href='https://github.com/dgraph-io/{{ .Site.Params.site }}/issues/new/choose'>
+        Report an issue
+      </a>
+
+    </div>
+
+
+</div>

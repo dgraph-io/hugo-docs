@@ -130,12 +130,13 @@ html p {
 }
 .content-wrapper .content {
   padding: 21px 43px 67px;
-  display: block;
+  display: flex;
+  flex-flow: column;
 }
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1072px) {
   .content-wrapper .content {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row nowrap;
   }
 }
 
@@ -184,7 +185,7 @@ div.top-toc #TableOfContents ul li ul {
 
 div.right-toc #TableOfContents > ul:before,
 div.top-toc #TableOfContents > ul:before {
-  content: 'Contents';
+  content: 'On This Page';
   font-weight: 600;
   font-size: 16px;
   color: black;
@@ -194,8 +195,9 @@ div.top-toc #TableOfContents > ul:before {
 
 @media screen and (min-width: 1072px) {
   div.right-toc {
-    display: block;
-    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 20%;
     padding-right: 15px;
     background: #ffffff;
     overflow-y: auto;
@@ -203,7 +205,6 @@ div.top-toc #TableOfContents > ul:before {
   }
 
   div.right-toc #TableOfContents {
-    position: fixed;
     max-height: 85vh;
     overflow-y: auto;
   }
@@ -1012,4 +1013,19 @@ section.toc .section-item {
 }
 kbd {
   background-color: rgb(255, 32, 110) !important;
+}
+.feedback {
+  margin-top: 2em;
+  font-weight: 600;
+}
+.feedback-btn {
+  font-size: 2em;
+  margin-right: 5px;
+}
+.contribute {
+  display: flex;
+  flex-direction: column;
+}
+.contribute a{
+  font-size: 0.8em;
 }
