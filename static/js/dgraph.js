@@ -442,7 +442,7 @@ function getPathAfterVersionName(location, versionName) {
 function setAlgolia(latestVersion) {
   var branch = 'master'
   var version = getCurrentVersion(location.pathname)
-  if ((version != '') && (vesrion != 'main')) {
+  if ((version != '') && (version!='main')) {
      branch = "release/"+version
   }
 
