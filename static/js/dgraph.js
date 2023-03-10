@@ -311,7 +311,7 @@ function getPathAfterVersionName(location, versionName) {
     var nextActiveTopic = document.querySelector("#" + id);
     // console.log(prevActiveTopic);
     nextActiveTopic.classList.toggle("active");
-   
+
     if (nextActiveTopic !== prevActiveTopic) {
       prevActiveTopic.classList.toggle("active");
     } else {
@@ -442,7 +442,7 @@ function getPathAfterVersionName(location, versionName) {
 function setAlgolia(latestVersion) {
   var branch = 'master'
   var version = getCurrentVersion(location.pathname)
-  if (version != '') {
+  if ((version != '') && (vesrion != 'main')) {
      branch = "release/"+version
   }
 
