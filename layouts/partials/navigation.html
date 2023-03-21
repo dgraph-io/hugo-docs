@@ -1,8 +1,8 @@
     <div class="navigation-buttons">
-      {{if .NextInSection}}
-        <div><a class="nav-prev-btn" href="{{.NextInSection.Permalink}}">← {{.NextInSection.Title}} </a></div>
+      {{if .Params.nav.previous}}
+          <div><a class="nav-prev-btn" href="{{.Params.nav.previous.link}}">←{{ .Params.nav.previous.title}} </a></div>
       {{end}}
-      {{if .PrevInSection}}
-        <div><a class="nav-next-btn" href="{{.PrevInSection.Permalink}}">{{.PrevInSection.Title}} →</a></div>
+      {{if .Params.nav.next}}
+        <div><a class="nav-next-btn" href="{{.Params.nav.next.link}}">{{ .Params.nav.next.title }} →</a></div>
       {{end}}
     </div>
