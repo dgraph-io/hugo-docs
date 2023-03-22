@@ -9,10 +9,10 @@
       </div>
     </div>
     <ul class="menu">
-      <li {{ if eq .Site.Params.site "dgraph-docs" }}class="active"{{ end }}>
-        <a href="/docs">Product Documentation</a>
+      <li {{ if ne .Type "learn" }}class="active"{{ end }}>
+        <a href="/docs">Docs</a>
       </li>
-      <li {{ if eq .Site.Params.site "dgraph-docs" }}class="active"{{ end }}>
+      <li {{ if eq .Type "learn" }}class="active"{{ end }}>
         <a href="/docs/learn">Tutorials</a>
       </li>
     </ul>
