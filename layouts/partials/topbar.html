@@ -12,9 +12,14 @@
       <li {{ if ne .Type "learn" }}class="active"{{ end }}>
         <a href="/docs">Docs</a>
       </li>
+      
       <li {{ if eq .Type "learn" }}class="active"{{ end }}>
-        <a href="/docs/learn">Tutorials</a>
+        {{ with .Site.GetPage "learn.md" }}
+        <a href="{{.Permalink}}">Tutorials</a>
+        {{ end }}
       </li>
+        
+      
     </ul>
   </div>
   <div class="header-right">
