@@ -1008,7 +1008,10 @@ section.toc .section-item {
   text-align: center;
 }
 .medium figcaption h4 {
-  margin-top: 0px;
+  margin-top: 6px;
+  font-weight: 200;
+  font-style: italic;
+  font-size: 0.8em;
 }
 kbd {
   background-color: rgb(255, 32, 110) !important;

@@ -9,9 +9,19 @@
       </div>
     </div>
     <ul class="menu">
-      <li {{ if eq .Site.Params.site "dgraph-docs" }}class="active"{{ end }}>
-        <a href="https://dgraph.io/docs">Dgraph</a>
+      <li {{ if ne .Type "learn" }}class="active"{{ end }}>
+        {{ with .Site.GetPage "_index.md" }}
+        <a href="{{.Permalink}}">Docs</a>
+        {{ end }}
       </li>
+      
+      <li {{ if eq .Type "learn" }}class="active"{{ end }}>
+        {{ with .Site.GetPage "learn.md" }}
+        <a href="{{.Permalink}}">Tutorials</a>
+        {{ end }}
+      </li>
+        
+      
     </ul>
   </div>
   <div class="header-right">
