@@ -10,7 +10,9 @@
     </div>
     <ul class="menu">
       <li {{ if ne .Type "learn" }}class="active"{{ end }}>
-        <a href="/docs">Docs</a>
+        {{ with .Site.GetPage "_index.md" }}
+        <a href="{{.Permalink}}">Docs</a>
+        {{ end }}
       </li>
       
       <li {{ if eq .Type "learn" }}class="active"{{ end }}>
