@@ -1031,3 +1031,6 @@ kbd {
 .contribute a{
   font-size: 0.8em;
 }
+.tablenoheaders th {
+  display: none
+}
