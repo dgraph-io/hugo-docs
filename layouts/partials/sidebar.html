@@ -31,8 +31,19 @@
     </select>
     {{ end }}
   </div>
-
-  <ul class="topics">
+<!--
+  <select id="dropdown" class="dropdown">
+    <option selected="true" disabled="disabled">Select a topic</option>
+  </select>
+  -->
+  <div id="dropdown-btn" onclick="toggleDropdown()" class="dropdown-btn">
+    <div id="dropdown-btn-text"></div>
+    <svg id="dropdown-btn-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
+      <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  
+  <ul id="topics" class="topics sidebar-opened">
     {{ $currentPage := . }}
     
     {{ if eq $currentPage.Type "learn" }}
@@ -43,19 +54,31 @@
               {{ .Pre }}
               {{ .Name }}
             </a>
-            <div class="arrow-down"></div>
+            <div class="arrow-down">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
             <ul class="sub-topics">
               {{ range .Children }}
                 <li id="{{ .Name | urlize }}"  class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "learn" .) ($currentPage.HasMenuCurrent "learn" .) }} active{{end}}">
                   {{ if .HasChildren }}
                     <a href="{{ .URL }}">{{ .Name }}</a>
-                    <div class="arrow-down"></div>
+                    <div class="arrow-down">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                        <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     <ul class="sub-topics">
                       {{ range .Children }}
                         <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "learn" .) ($currentPage.HasMenuCurrent "learn" .) }} active{{end}}">
                           {{ if .HasChildren }}
                             <a id="{{ .Name | urlize }}" href="{{ .URL }}">{{ .Name }}</a>
-                            <div class="arrow-down"></div>
+                            <div class="arrow-down">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                             <ul class="sub-topics">
                               {{ range .Children }}
                                 <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "learn" .) ($currentPage.HasMenuCurrent "learn" .) }} active{{end}}">
@@ -94,19 +117,31 @@
               {{ .Pre }}
               {{ .Name }}
             </a>
-            <div class="arrow-down"></div>
+            <div class="arrow-down">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+            </div>
             <ul class="sub-topics">
               {{ range .Children }}
                 <li id="{{ .Name | urlize }}"  class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                   {{ if .HasChildren }}
                     <a href="{{ .URL }}">{{ .Name }}</a>
-                    <div class="arrow-down"></div>
+                    <div class="arrow-down">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                        <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                     <ul class="sub-topics">
                       {{ range .Children }}
                         <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
                           {{ if .HasChildren }}
                             <a id="{{ .Name | urlize }}" href="{{ .URL }}">{{ .Name }}</a>
-                            <div class="arrow-down"></div>
+                            <div class="arrow-down">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                                <path d="M1 5L4.99997 1.00003L9 5" stroke="#100C19" stroke-width="1.5" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                             <ul class="sub-topics">
                               {{ range .Children }}
                                 <li class="topic sub-topic{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
@@ -138,7 +173,7 @@
       {{ end }}
     {{ end }}
   </ul>
-
+  <!--
   <ul class="sidebar-menu">
     <li>
       <a href="https://dgraph.io/" target="_blank">Home</a>
@@ -151,4 +186,5 @@
       <a href="https://github.com/dgraph-io/dgraph" target="_blank">GitHub</a>
     </li>
   </ul>
+  -->
 </aside>

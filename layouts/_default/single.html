@@ -15,33 +15,23 @@
       <div class="alert alert-warning">
         <i class="fa fa-warning"></i> You are looking at the docs for an older version of Dgraph ({{ $currentVersion }}). The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
       </div>
-     {{ end }}
+    {{ end }}
   {{ end }}
   <div class="content">
 
+    <article id="{{ .Slug }}">
+      {{ partial "ask-question.html" . }}
 
+      <h1 class="post-title">{{ .Title }}</h1>
 
-<div class="top-toc">
-  {{ .TableOfContents }}
-</div>
+      <div>{{ .Content }}</div>
 
-<article id="{{ .Slug }}">
-  {{ partial "ask-question.html" . }}
+      {{ if eq .Site.Params.site "dgraph-docs" }}
+      {{ partial "navigation.html" . }}
+      {{ end }}
+    </article>
 
-  <h1 class="post-title">{{ .Title }}</h1>
-
-  <div>{{ .Content }}</div>
-
-  {{ if eq .Site.Params.site "dgraph-docs" }}
-	{{ partial "navigation.html" . }}
-  {{ end }}
-
-</article>
-
-{{ if not .Sections }}
-{{ partial "toc.html" . }}
-{{ end }}
-
+    {{ partial "toc.html" . }}
   </div>
 </main>
 
