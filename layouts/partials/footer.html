@@ -217,22 +217,29 @@ $(document).ready(function() {
 </script>
 
 <!-- Version control redirect -->
+
 <script>
   var selectElement = document.querySelector('.version-selector');
-
+  
   if (selectElement) {
     selectElement.addEventListener('change', function() {
       var selectedValue = this.value;
       var baseUrl = 'https://dgraph.io/docs/';
-
+  
       if (selectedValue !== "") {
         baseUrl += selectedValue;
       }
-
+  
       window.location.href = baseUrl;
     });
+
+    var version = window.location.pathname.split('/')[2];
+  
+    if (version) {
+      selectElement.value = version;
+    }
   }
-</script> 
+  </script>
 
 
   <script async src="//unpkg.com/@dgraph-io/community"></script>

@@ -2681,6 +2681,10 @@ body:not(.dark-blog) .single-footer .legal-notices-wrap:hover .legal-notices {
   -webkit-transform: rotate(-180deg);
 }
 
+.tab-content>.tab-pane {
+  display: block !important;
+}
+
 @media all and (max-width: 1024px) {
   .topics {
     margin: 45px 0;
