@@ -451,6 +451,7 @@ pre.collapsed .showmore:hover {
   left: 0;
   background-color: #f4f4f4;
   border-radius: 4px;
+  z-index: 2;
 }
 .submenu-open {
   display: block;
@@ -1386,6 +1387,7 @@ section.toc .section-item {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 24px;
+  margin-bottom: 60px;
 }
 
 @media all and (max-width: 1024px) {
@@ -1417,6 +1419,11 @@ section.toc .section-item {
   outline: 1px solid #646169;
   border-radius: 16px;
   width: 100%;
+}
+
+.landing .item .icon {
+  width: 23px;
+  max-width: 23px;
 }
 
 .landing .item a,
@@ -1762,7 +1769,6 @@ kbd {
 
 .community-heading {
   max-width: 840px;
-  padding-top: 50px;
   padding-bottom: 65px;
 }
 

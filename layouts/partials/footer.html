@@ -214,9 +214,26 @@ $(document).ready(function() {
     
     checkScreenWidth();
 });
-
-
 </script>
+
+<!-- Version control redirect -->
+<script>
+  var selectElement = document.querySelector('.version-selector');
+
+  if (selectElement) {
+    selectElement.addEventListener('change', function() {
+      var selectedValue = this.value;
+      var baseUrl = 'https://dgraph.io/docs/';
+
+      if (selectedValue !== "") {
+        baseUrl += selectedValue;
+      }
+
+      window.location.href = baseUrl;
+    });
+  }
+</script> 
+
 
   <script async src="//unpkg.com/@dgraph-io/community"></script>
   <script src='https://cdn.ranksci.com/dgraph-411505.min.js' type='text/javascript'></script>
