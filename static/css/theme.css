@@ -2481,6 +2481,17 @@ body:not(.dark-blog) .single-footer .legal-notices-wrap:hover .legal-notices {
   color: #ef265a;
 }
 
+.version-selector {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #100c19;
+  padding: 14px;
+  border: 1px solid #f4f4f4;
+  border-radius: 8px;
+}
+
 @media all and (min-width:1024px) {
   .single-footer {
     max-width: calc(100% - 340px);
@@ -2494,6 +2505,11 @@ body:not(.dark-blog) .single-footer .legal-notices-wrap:hover .legal-notices {
 }
 
 @media all and (min-width:768px) {
+  .menu-header {
+    flex-direction: column;
+    align-items: start;
+  }
+
   .single-footer .newsletter-signup {
     margin-bottom: 50px;
   }
@@ -2739,7 +2755,6 @@ body:not(.dark-blog) .single-footer .legal-notices-wrap:hover .legal-notices {
   }
 }
 
-#sidebar .menu-header,
 .community-cta-wrapper,
 .dgraph-header-search {
   display: none;
