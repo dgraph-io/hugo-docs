@@ -219,28 +219,38 @@ $(document).ready(function() {
 <!-- Version control redirect -->
 
 <script>
-  var selectElement = document.querySelector('.version-selector');
-  
-  if (selectElement) {
-    selectElement.addEventListener('change', function() {
-      var selectedValue = this.value;
-      var baseUrl = 'https://dgraph.io/docs/';
-  
-      if (selectedValue !== "") {
-        baseUrl += selectedValue;
-      }
-  
-      window.location.href = baseUrl;
-    });
+var selectElement = document.querySelector('.version-selector');
 
-    var version = window.location.pathname.split('/')[2];
-  
-    if (version) {
-      selectElement.value = version;
-    } else {
-      selectElement.value = "";
+if (selectElement) {
+  selectElement.addEventListener('change', function() {
+    var selectedValue = this.value;
+    var baseUrl = 'https://dgraph.io/docs/';
+
+    if (selectedValue !== "") {
+      baseUrl += selectedValue;
+    }
+
+    window.location.href = baseUrl;
+  });
+
+  var version = window.location.pathname.split('/')[2];
+
+  var options = selectElement.options;
+  var hasVersion = false;
+
+  for (var i = 0; i < options.length; i++) {
+    if (options[i].value == version) {
+      hasVersion = true;
+      break;
     }
   }
+
+  if (hasVersion) {
+    selectElement.value = version;
+  } else {
+    selectElement.value = "";
+  }
+}
 </script>
 
 
