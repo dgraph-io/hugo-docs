@@ -20,8 +20,8 @@
       }
     </style>
 
-    <!-- Google Tag Manager -->
-    <script>
+    <!-- Google Tag Manager - 08/2023: removed as we are now using Segment -->
+    <!--script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -32,7 +32,7 @@
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-58V4RXS");
-    </script>
+    </script-->
     <!-- End Google Tag Manager -->
 
     <script>
@@ -193,8 +193,8 @@
       }
     </script>
     {{ end }}
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58V4RXS" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+    <!-- Google Tag Manager (noscript)  08/2023: removed as we are now using Segment-->
+    <!--noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58V4RXS" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript-->
     <!-- End Google Tag Manager (noscript) -->
     {{ if .IsHome }}
     <header>{{ partial "topbar.html" . }}</header>
