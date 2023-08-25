@@ -232,16 +232,26 @@ $(document).ready(function() {
   
       window.location.href = baseUrl;
     });
-
+  
     var version = window.location.pathname.split('/')[2];
   
-    if (version) {
+    var options = selectElement.options;
+    var hasVersion = false;
+  
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].value == version) {
+        hasVersion = true;
+        break;
+      }
+    }
+  
+    if (hasVersion) {
       selectElement.value = version;
     } else {
       selectElement.value = "";
     }
   }
-</script>
+  </script>
 
 
   <script async src="//unpkg.com/@dgraph-io/community"></script>
