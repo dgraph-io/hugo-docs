@@ -47,7 +47,24 @@ body a {
   color: #ef265a;
   text-decoration: underline;
 }
-
+.dgraph-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #6342cb;
+  font-size: 18px;
+  font-weight: 700;
+  height: 48px;
+  
+  font-family: Dmsans, sans-serif;
+  img { 
+    width: 24px;
+  }
+  a, a:visited, a:hover, a:active {
+    color: white;
+  }
+}
 .notices {
   border-radius: 3px;
   margin: 10px 0;
@@ -409,7 +426,6 @@ pre.collapsed .showmore:hover {
   width: 100%;
   background: #fff;
   margin: auto;
-  padding-top: 16px;
   padding-bottom: 16px;
   z-index: 10;
 }
@@ -437,6 +453,7 @@ pre.collapsed .showmore:hover {
   width: 100%;
   max-width: 1280px;
   margin: auto;
+  padding-top: 16px;
 }
 .nav_dropdown-toggle {
   grid-column-gap: 8px;
@@ -538,6 +555,9 @@ pre.collapsed .showmore:hover {
 }
 @media all and (max-width: 991px) {
   .dgraph-menu {
+    display: none;
+  }
+  .dgraph-banner {
     display: none;
   }
 
@@ -1256,7 +1276,7 @@ footer .logo {
 @media screen and (min-width: 768px) {
   .content-wrapper {
     margin-left: 380px;
-    padding-top: 180px;
+    padding-top: 200px;
   }
   .menu-header .heading {
     margin-bottom: 5px;
@@ -1265,7 +1285,7 @@ footer .logo {
     display: none;
   }
   #sidebar {
-    top: 170px;
+    top: 190px;
     padding-left: 45px;
   }
   #sidebar .sidebar-menu {
