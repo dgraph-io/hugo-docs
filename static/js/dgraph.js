@@ -447,8 +447,8 @@ function setAlgolia(latestVersion) {
   }
 
   algoliasearchNetlify({
-    appId: '2062O2HVZD',
-    apiKey: '9ba06b8093ca2e1559d88a234a7fbc9e',
+    appId: 'GQ3IFA370T',
+    apiKey: '5e50638a14098db7df28e5e5eac5cdc0',
     siteId: 'db712a52-2779-4260-9ede-cc5c61bc2c20',
     branch: branch,
     selector: '#algolia-doc-search',
