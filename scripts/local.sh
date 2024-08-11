@@ -16,7 +16,7 @@ pushd "$(dirname "$0")/../build" > /dev/null
 
 # clean build dir if anything exists besides gitignore file
 rm -rfv docs > /dev/null
-rm -rfv cloud > /dev/null
+# rm -rfv cloud > /dev/null
 rm -rfv ../public > /dev/null
 
 git clone https://github.com/dgraph-io/dgraph-docs.git docs
