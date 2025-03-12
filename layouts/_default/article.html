@@ -3,18 +3,6 @@
 {{ $versions := split $versionString "," }}
 {{ $latestVersion := index $versions 0 }}
 
-{{ if eq .Site.Params.site "dgraph-docs" }}
-  {{ if (eq $currentVersion "main") }}
-    <div class="alert alert-warning">
-      <i class="fa fa-warning"></i> You are looking at the docs for the unreleased <code>main</code> branch of Dgraph. The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
-    </div>
-  {{ else if not (eq $latestVersion $currentVersion) }}
-    <div class="alert alert-warning">
-      <i class="fa fa-warning"></i> You are looking at the docs for an older version of Dgraph ({{ $currentVersion }}). The latest version is <a href="{{ .Site.BaseURL }}/..">{{ $latestVersion }}</a>.
-    </div>
-  {{ end }}
-{{ end }}
-
 <article id="{{ .Slug }}">
   {{ partial "ask-question.html" . }}
 
